@@ -31,9 +31,9 @@ namespace CifParser.Records
     public class TiplocInsert : Tiploc
     {
         /// <summary>
-        /// TIPLOC code
+        /// Capitals - NO LONGER USED
         /// </summary>
-        /// <remarks>NO LONGER USED Length 2, Position 10-11</remarks> 
+        /// <remarks>Length 2, Position 10-11</remarks> 
         [FieldFixedLength(2)]
         public string Capitals { get; set; }
         /// <summary>
@@ -62,9 +62,9 @@ namespace CifParser.Records
         [FieldFixedLength(5)]
         public string Stanox { get; set; }
         /// <summary>
-        /// Post Office code
+        /// Post Office code - NO LONGER USED
         /// </summary>
-        /// <remarks>NO LONGER USED Length 4, Position 50-53</remarks> 
+        /// <remarks>Length 4, Position 50-53</remarks> 
         [FieldFixedLength(4)]
         [FieldTrim(TrimMode.Left)]
         public string PostOfficeCode { get; set; }
@@ -83,9 +83,9 @@ namespace CifParser.Records
         [FieldTrim(TrimMode.Right)]
         public string NlcDescription { get; set; }
         /// <summary>
-        /// Spare
+        /// Spare - NOT USED
         /// </summary>
-        /// <remarks>NO LONGER USED Length 8, Position 73-80</remarks> 
+        /// <remarks>Length 8, Position 73-80</remarks> 
         [FieldFixedLength(8)]
         [FieldTrim(TrimMode.Right)]
         [FieldOptional]
@@ -100,9 +100,9 @@ namespace CifParser.Records
     public class TiplocAmend : Tiploc
     {
         /// <summary>
-        /// TIPLOC code
+        /// Capitals - NO LONGER USED
         /// </summary>
-        /// <remarks>NO LONGER USED Length 2, Position 10-11</remarks> 
+        /// <remarks>Length 2, Position 10-11</remarks> 
         [FieldFixedLength(2)]
         public string Capitals { get; set; }
         /// <summary>
@@ -131,9 +131,9 @@ namespace CifParser.Records
         [FieldFixedLength(5)]
         public string Stanox { get; set; }
         /// <summary>
-        /// Post Office code
+        /// Post Office code - NO LONGER USED
         /// </summary>
-        /// <remarks>NO LONGER USED Length 4, Position 50-53</remarks> 
+        /// <remarks>Length 4, Position 50-53</remarks> 
         [FieldFixedLength(4)]
         [FieldTrim(TrimMode.Left)]
         public string PostOfficeCode { get; set; }
@@ -152,9 +152,9 @@ namespace CifParser.Records
         [FieldTrim(TrimMode.Right)]
         public string NlcDescription { get; set; }
         /// <summary>
-        /// Spare
+        /// Spare - NOT USED
         /// </summary>
-        /// <remarks>NOT USED Length 8, Position 73-80</remarks> 
+        /// <remarks>Length 8, Position 73-80</remarks> 
         [FieldFixedLength(8)]
         [FieldTrim(TrimMode.Right)]
         [FieldOptional]
@@ -168,9 +168,9 @@ namespace CifParser.Records
     public class TiplocDelete : Tiploc
     {
         /// <summary>
-        /// Spare
+        /// Spare - NOT USED
         /// </summary>
-        /// <remarks>NOT USED Length 71, Position 9-80</remarks> 
+        /// <remarks>Length 71, Position 9-80</remarks> 
         [FieldFixedLength(71)]
         [FieldTrim(TrimMode.Right)]
         [FieldOptional]

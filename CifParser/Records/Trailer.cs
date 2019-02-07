@@ -1,7 +1,5 @@
 ﻿using FileHelpers;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CifParser.Records
 {
@@ -18,9 +16,9 @@ namespace CifParser.Records
         [FieldFixedLength(2)]
         public string Type { get; set; }
         /// <summary>
-        /// Spare
+        /// Spare - NOT USED
         /// </summary>
-        /// <remarks>NOT USED Length 78, Position 3-80</remarks> 
+        /// <remarks>Length 78, Position 3-80</remarks> 
         [FieldFixedLength(78)]
         [FieldTrim(TrimMode.Right)]
         [FieldOptional]

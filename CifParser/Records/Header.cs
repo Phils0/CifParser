@@ -1,7 +1,5 @@
 ﻿using FileHelpers;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CifParser.Records
 {
@@ -31,7 +29,7 @@ namespace CifParser.Records
         [FieldFixedLength(20)]
         public string MainframeId { get; set; }
         /// <summary>
-        /// Mainframe Identifier
+        /// When extract was run
         /// </summary>
         /// <remarks>Length 10, Position 23-32
         /// Format: ddMMyyHHmm </remarks> 
@@ -81,9 +79,9 @@ namespace CifParser.Records
         [FieldConverter(ConverterKind.Date, "ddMMyy")]
         public DateTime EndDate { get; set; }
         /// <summary>
-        /// Spare
+        /// Spare - NOT USED
         /// </summary>
-        /// <remarks>NOT USED Length 20, Position 62-81</remarks> 
+        /// <remarks>Length 20, Position 62-81</remarks> 
         [FieldFixedLength(20)]
         [FieldTrim(TrimMode.Right)]
         [FieldOptional]

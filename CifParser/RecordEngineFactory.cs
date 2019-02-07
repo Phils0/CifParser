@@ -17,6 +17,7 @@ namespace CifParser
 
         private readonly static Type[] Types = new[]
         {
+            typeof(Schedule),
             typeof(TiplocInsert),
             typeof(TiplocAmend),
             typeof(TiplocDelete),
@@ -36,6 +37,8 @@ namespace CifParser
 
             switch (recordType)
             {
+                case "BS":
+                    return typeof(Schedule);
                 case "TI":
                     return typeof(TiplocInsert);
                 case "TA":
