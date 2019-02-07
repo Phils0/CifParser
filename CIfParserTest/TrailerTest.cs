@@ -10,7 +10,7 @@ namespace CifParserTest
 {
     public class TrailerTest
     {
-        private string _records =
+        private const string _records =
 @"ZZ                                                                              
 ";
 
@@ -23,12 +23,7 @@ namespace CifParserTest
 
         private Trailer ParseRecord()
         {
-            var input = new StringReader(_records);
-
-            var parser = new Parser();
-
-            var records = parser.Read(input);
-            return records.First() as Trailer;
+            return ParserTest.ParseRecords(_records)[0] as Trailer;
         }
 
         [Fact]

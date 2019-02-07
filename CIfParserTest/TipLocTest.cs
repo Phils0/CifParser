@@ -11,7 +11,7 @@ namespace CifParserTest
     public class TiplocTest
     {
 
-        private string _records = 
+        private const string _records = 
 @"TIPRNC84800932885DEDINBURGH SIGNAL 848      04305   0                           
 TIPRNC88400932884CEDINBURGH SIGNAL 844      04310   0                           
 TAWROX14 00732701NWROXHOVETON & WROXHAM SIG 48032   0                           
@@ -21,25 +21,20 @@ TDLNDRBES
         [Fact]
         public void ReadInsertRecord()
         {
-            ICifRecord[] records = ParseRecords(_records);
+            ICifRecord[] records = ParseRecords();
 
             Assert.IsType<TiplocInsert>(records[0]);
         }
 
-        public static ICifRecord[] ParseRecords(string data)
+        public ICifRecord[] ParseRecords()
         {
-            var input = new StringReader(data);
-
-            var parser = new Parser();
-
-            var records = parser.Read(input).ToArray();
-            return records;
+            return ParserTest.ParseRecords(_records);
         }
 
         [Fact]
         public void ReadAmendRecord()
         {
-            ICifRecord[] records = ParseRecords(_records);
+            ICifRecord[] records = ParseRecords();
 
             Assert.IsType<TiplocAmend>(records[2]);
         }
@@ -47,7 +42,7 @@ TDLNDRBES
         [Fact]
         public void ReadDeleteRecord()
         {
-            ICifRecord[] records = ParseRecords(_records);
+            ICifRecord[] records = ParseRecords();
 
             Assert.IsType<TiplocDelete>(records[3]);
         }

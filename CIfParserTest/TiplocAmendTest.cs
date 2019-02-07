@@ -15,7 +15,7 @@ namespace CifParserTest
             var newRecord = @"TASURBITN00557100NSURBITON                  87171   0SURSURBITON
 ";
 
-            return TiplocTest.ParseRecords(newRecord)[0] as TiplocAmend;
+            return ParserTest.ParseRecords(newRecord)[0] as TiplocAmend;
         }
 
         [Fact]

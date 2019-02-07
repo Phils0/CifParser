@@ -15,7 +15,7 @@ namespace CifParserTest
             var newRecord = @"TDLNDRBES                                                                       
 ";
 
-            return TiplocTest.ParseRecords(newRecord)[0] as TiplocDelete;
+            return ParserTest.ParseRecords(newRecord)[0] as TiplocDelete;
         }
 
         [Fact]

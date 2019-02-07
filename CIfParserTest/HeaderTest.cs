@@ -10,7 +10,7 @@ namespace CifParserTest
 {
     public class HeaderTest
     {
-        private string _records =
+        private const string _records =
 @"HDTPS.UDFROC1.PD1901292901191927DFROC1MDFROC1LUA290119290120                    
 ";
 
@@ -23,12 +23,7 @@ namespace CifParserTest
 
         private Header ParseRecord()
         {
-            var input = new StringReader(_records);
-
-            var parser = new Parser();
-
-            var records = parser.Read(input);
-            return records.First() as Header;
+            return ParserTest.ParseRecords(_records)[0] as Header;
         }
 
         [Fact]
