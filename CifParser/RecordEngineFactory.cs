@@ -13,22 +13,28 @@ namespace CifParser
             return engine;
         }
 
-        private readonly static Type[] Types = new []
+        private static Serilog.ILogger Logger => Serilog.Log.Logger;
+
+        private readonly static Type[] Types = new[]
         {
             typeof(TiplocInsert),
             typeof(TiplocAmend),
             typeof(TiplocDelete),
-            typeof(Header) 
+            typeof(Header),
+            typeof(Trailer)
         };
 
         private static Type Select(MultiRecordEngine engine, string recordLine)
         {
             if (recordLine.Length == 0)
+            {
+                Logger.Warning("Empty line");
                 return null;
+            }
 
             var recordType = recordLine.Substring(0, 2);
 
-            switch(recordType)
+            switch (recordType)
             {
                 case "TI":
                     return typeof(TiplocInsert);
@@ -38,7 +44,10 @@ namespace CifParser
                     return typeof(TiplocDelete);
                 case "HD":
                     return typeof(Header);
+                case "ZZ":
+                    return typeof(Trailer);
                 default:
+                    Logger.Warning("Unknown record type {recordType}: {recordLine}", recordType, recordLine);
                     return null;
             }
         }
