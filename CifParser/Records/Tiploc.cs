@@ -154,7 +154,7 @@ namespace CifParser.Records
         /// <summary>
         /// Spare
         /// </summary>
-        /// <remarks>NO LONGER USED Length 8, Position 73-80</remarks> 
+        /// <remarks>NOT USED Length 8, Position 73-80</remarks> 
         [FieldFixedLength(8)]
         [FieldTrim(TrimMode.Right)]
         [FieldOptional]

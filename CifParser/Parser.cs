@@ -9,11 +9,7 @@ namespace CifParser
     {
         public IEnumerable<ICifRecord> Read(TextReader reader)
         {
-            var engine = new MultiRecordEngine(typeof(TiplocInsert),
-                typeof(TiplocAmend),
-                typeof(TiplocDelete));
-
-            engine.RecordSelector = new RecordTypeSelector(Selector.Select);
+            var engine = RecordEngineFactory.Create();
 
             engine.BeginReadStream(reader);
             foreach (ICifRecord record in engine)
