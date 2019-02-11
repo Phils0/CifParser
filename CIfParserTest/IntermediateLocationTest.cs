@@ -8,9 +8,6 @@ namespace CifParserTest
 {
     public class IntermediateLocationTest
     {
-        // Stop     LIFNPK    0037H0039      003800397        T
-        // Passing  LIALEXNDP           0042 000000003  SL                    1
-
         private const string _stop = @"LITOTNES  1548H1550      154915502        T                                     ";
         private const string _pass = @"LIUPHILLJ           1708 00000000                        H                      ";
 
