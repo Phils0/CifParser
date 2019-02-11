@@ -30,6 +30,7 @@ namespace CifParser
             typeof(TiplocInsert),
             typeof(TiplocAmend),
             typeof(TiplocDelete),
+            typeof(Association),
             typeof(Header),
             typeof(Trailer)
         };
@@ -70,6 +71,8 @@ namespace CifParser
                     return typeof(TiplocAmend);
                 case "TD":
                     return typeof(TiplocDelete);
+                case "AA":
+                    return typeof(Association);
                 case "HD":
                     return typeof(Header);
                 case "ZZ":

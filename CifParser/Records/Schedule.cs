@@ -73,7 +73,7 @@ namespace CifParser.Records
         /// <summary>
         /// Runs To
         /// </summary>
-        /// <remarks>Length 6, Position 56-61
+        /// <remarks>Length 6, Position 16-21
         /// Format: yyMMdd </remarks> 
         [FieldFixedLength(6)]
         [FieldTrim(TrimMode.Right)]
