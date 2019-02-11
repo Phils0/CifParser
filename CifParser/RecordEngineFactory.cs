@@ -15,10 +15,15 @@ namespace CifParser
 
         private static Serilog.ILogger Logger => Serilog.Log.Logger;
 
+        /// <summary>
+        /// List of CIF record types
+        /// </summary>
+        /// <remarks>Needs coresponding case statement in Select method</remarks>
         private readonly static Type[] Types = new[]
         {
             typeof(IntermediateLocation),
             typeof(OriginLocation),
+            typeof(TerminalLocation),
             typeof(Schedule),
             typeof(ScheduleExtraData),
             typeof(TiplocInsert),
@@ -28,6 +33,12 @@ namespace CifParser
             typeof(Trailer)
         };
 
+        /// <summary>
+        /// Record Selector function
+        /// </summary>
+        /// <param name="engine"></param>
+        /// <param name="recordLine"></param>
+        /// <returns></returns>
         private static Type Select(MultiRecordEngine engine, string recordLine)
         {
             if (recordLine.Length == 0)
@@ -44,6 +55,8 @@ namespace CifParser
                     return typeof(IntermediateLocation);
                 case "LO":
                     return typeof(OriginLocation);
+                case "LT":
+                    return typeof(TerminalLocation);
                 case "BS":
                     return typeof(Schedule);
                 case "BX":
