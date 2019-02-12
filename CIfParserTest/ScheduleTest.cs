@@ -1,185 +1,65 @@
-﻿using CifParser.Records;
+﻿using CifParser;
+using CifParser.Records;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace CifParserTest
 {
     public class ScheduleTest
     {
-        private const string _permanent =
-@"BSNC108651812191905171110100 PXX1S531220122180012 DMUV   125      B S T        P
-";
-
-        [Fact]
-        public void ReadScheduleRecord()
+        private static readonly ScheduleDetails ScheduleRecord = new ScheduleDetails()
         {
-            var record = ParseRecord();
-            Assert.NotNull(record);
-        }
-
-        private Schedule ParseRecord(string records = null)
-        {
-            records = records ?? _permanent;
-            return ParserTest.ParseRecords(records)[0] as Schedule;
-        }
-
-        [Fact]
-        public void TypePropertySet()
-        {
-            var record = ParseRecord();
-            Assert.Equal("BS", record.Type);
-        }
-
-        [Fact]
-        public void InsertActionPropertySet()
-        {
-            var record = ParseRecord();
-            Assert.Equal(RecordAction.Insert, record.Action);
-        }
-
-        [Fact]
-        public void DeleteActionPropertySet()
-        {
-            var delete = @"BSDN41191190112                                                                N
-";
-            var record = ParseRecord(delete);
-            Assert.Equal(RecordAction.Delete, record.Action);
-        }
-
-        [Fact]
-        public void ReviseActionPropertySet()
-        {
-            var delete = @"BSRN412321901121901260000010 1OO2D87    121800000 DMUA   075      S            N
-";
-            var record = ParseRecord(delete);
-            Assert.Equal(RecordAction.Amend, record.Action);
-        }
+            TimetableUid = "A12345",
+            StpIndicator = StpIndicator.P,
+            Action = RecordAction.Insert
+        };
 
 
         [Fact]
-        public void TimetableUidPropertySet()
+        public void TimetableUIdIsBaseScheduleValue()
         {
-            var record = ParseRecord();
-            Assert.Equal("C10865", record.TimetableUid);
+            var service = new Schedule(ScheduleRecord);
+            Assert.Equal("A12345", service.TimetableUid);
         }
 
         [Fact]
-        public void RunsFromPropertySet()
+        public void StpIndicatorIsBaseScheduleValue()
         {
-            var record = ParseRecord();
-            Assert.Equal(new DateTime(2018, 12, 19, 0, 0, 0), record.RunsFrom);
+            var service = new Schedule(ScheduleRecord);
+            Assert.Equal(StpIndicator.P, service.StpIndicator);
         }
 
         [Fact]
-        public void RunsToPropertySet()
+        public void ActionIsBaseScheduleValue()
         {
-            var record = ParseRecord();
-            Assert.Equal(new DateTime(2019, 5, 17, 0, 0, 0), record.RunsTo);
+            var service = new Schedule(ScheduleRecord);
+            Assert.Equal(RecordAction.Insert, service.Action);
         }
 
         [Fact]
-        public void DayMaskPropertySet()
+        public void InitiallyIsTerminatedIsFalse()
         {
-            var record = ParseRecord();
-            Assert.Equal("1110100", record.DayMask);
+            var service = new Schedule(ScheduleRecord);
+            Assert.False(service.IsTerminated);
         }
 
         [Fact]
-        public void RunsOnBankHoliday()
+        public void IsTerminatedIsFalsehenHasNoTerminalRecord()
         {
-            var record = ParseRecord();
-            Assert.Equal("", record.BankHolidayRunning);
+            var service = new Schedule(ScheduleRecord);
+            service.Add(new ScheduleExtraData());
+            service.Add(new OriginLocation());
+            service.Add(new IntermediateLocation());
+            Assert.False(service.IsTerminated);
         }
 
         [Fact]
-        public void DoesNotRunOnBankHoliday()
+        public void IsTerminatedIsTrueeWhenHasTerminalRecord()
         {
-            var noBankHoliday =
-@"BSNC108651812191905171110100XPXX1S531220122180012 DMUV   125      B S T        P
-";
-            var record = ParseRecord(noBankHoliday);
-            Assert.Equal("X", record.BankHolidayRunning);
-        }
+            var service = new Schedule(ScheduleRecord);
+            service.Add(new TerminalLocation());
 
-        [Fact]
-        public void DoesNotRunOnScottishBankHoliday()
-        {
-            var noBankHoliday =
-@"BSNC108651812191905171110100GPXX1S531220122180012 DMUV   125      B S T        P
-";
-            var record = ParseRecord(noBankHoliday);
-            Assert.Equal("G", record.BankHolidayRunning);
-        }
-
-        [Fact]
-        public void TrainIdPropertySet()
-        {
-            var record = ParseRecord();
-            Assert.Equal("1S53", record.TrainIdentity);
-        }
-
-        [Theory]
-        [InlineData(" ", ServiceClass.B)]
-        [InlineData("B", ServiceClass.B)]
-        [InlineData("S", ServiceClass.S)]
-        public void SeatClassPropertySet(string value, ServiceClass expectedValue)
-        {
-            var classRecord = $"BSNC108651812191905171110100GPXX1S531220122180012 DMUV   125      {value} S T        P";
-            var record = ParseRecord(classRecord);
-            Assert.Equal(expectedValue, record.SeatClass);
-        }
-
-        [Theory]
-        [InlineData(" ", ServiceClass.None)]
-        [InlineData("B", ServiceClass.B)]
-        [InlineData("S", ServiceClass.S)]
-        [InlineData("F", ServiceClass.F)]
-        public void SleeperClassPropertySet(string value, ServiceClass expectedValue)
-        {
-            var classRecord = $"BSNC108651812191905171110100GPXX1S531220122180012 DMUV   125      B{value}S T        P";
-            var record = ParseRecord(classRecord);
-            Assert.Equal(expectedValue, record.SleeperClass);
-        }
-
-        [Theory]
-        [InlineData(" ", ReservationIndicator.None)]
-        [InlineData("A", ReservationIndicator.A)]
-        [InlineData("R", ReservationIndicator.R)]
-        [InlineData("S", ReservationIndicator.S)]
-        [InlineData("E", ReservationIndicator.E)]
-        public void ReservationIndicatorropertySet(string value, ReservationIndicator expectedValue)
-        {
-            var reservationRecord = $"BSNC108651812191905171110100GPXX1S531220122180012 DMUV   125      B {value} T        P";
-            var record = ParseRecord(reservationRecord);
-            Assert.Equal(expectedValue, record.ReservationIndicator);
-        }
-
-        [Fact]
-        public void CateringPropertySet()
-        {
-            var record = ParseRecord();
-            Assert.Equal("T", record.Catering);
-        }
-
-        [Theory]
-        [InlineData("P", StpIndicator.P)]
-        [InlineData("N", StpIndicator.N)]
-        [InlineData("O", StpIndicator.O)]
-        public void StpIndicatorropertySet(string value, StpIndicator expectedValue)
-        {
-            var classRecord = $"BSNC108651812191905171110100GPXX1S531220122180012 DMUV   125      B R T        {value}";
-            var record = ParseRecord(classRecord);
-            Assert.Equal(expectedValue, record.StpIndicator);
-        }
-
-        [Fact]
-        public void CancelledStpIndicatorropertySet()
-        {
-            var cancelled = "BSNH317491901311902010001100            1                                      C";
-            var record = ParseRecord(cancelled);
-            Assert.Equal(StpIndicator.C, record.StpIndicator);
+            Assert.True(service.IsTerminated);
         }
     }
 }

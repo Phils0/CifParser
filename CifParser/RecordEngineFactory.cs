@@ -24,7 +24,7 @@ namespace CifParser
             typeof(IntermediateLocation),
             typeof(OriginLocation),
             typeof(TerminalLocation),
-            typeof(Schedule),
+            typeof(ScheduleDetails),
             typeof(ScheduleExtraData),
             typeof(ScheduleChange),
             typeof(TiplocInsert),
@@ -60,7 +60,7 @@ namespace CifParser
                 case "LT":
                     return typeof(TerminalLocation);
                 case "BS":
-                    return typeof(Schedule);
+                    return typeof(ScheduleDetails);
                 case "BX":
                     return typeof(ScheduleExtraData);
                 case "CR":
