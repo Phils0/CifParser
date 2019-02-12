@@ -24,9 +24,14 @@ namespace CifParser
 
         public IEnumerable<ICifRecord> Read(TextReader reader)
         {
+            return Consolidate(_parser.Read(reader));
+        }
+
+        private IEnumerable<ICifRecord> Consolidate(IEnumerable<ICifRecord> records)
+        {
             Schedule current = null;
 
-            foreach(var record in _parser.Read(reader))
+            foreach (var record in records)
             {
                 var schedule = record as ScheduleDetails;
                 if (schedule != null)
@@ -34,8 +39,8 @@ namespace CifParser
                     current = new Schedule(schedule);
                     continue;
                 }
-                
-                if(current == null)
+
+                if (current == null)
                 {
                     // Not consolidating a service so just return the record
                     yield return record;
@@ -43,7 +48,7 @@ namespace CifParser
                 else
                 {
                     current.Add(record);
-                    if(current.IsTerminated)
+                    if (current.IsTerminated)
                     {
                         var temp = current;
                         current = null;
@@ -51,6 +56,11 @@ namespace CifParser
                     }
                 }
             }
+        }
+
+        public IEnumerable<ICifRecord> Read(string file)
+        {
+            return Consolidate(_parser.Read(file));
         }
     }
 }

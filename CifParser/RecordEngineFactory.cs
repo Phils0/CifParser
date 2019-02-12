@@ -1,25 +1,37 @@
 ﻿using CifParser.Records;
 using FileHelpers;
+using Serilog;
 using System;
+using System.Collections;
+using System.IO;
 
 namespace CifParser
 {
-    internal static class RecordEngineFactory
+    /// <summary>
+    /// Creates the underlying file reading record engine from FileHelpers
+    /// </summary>
+    internal class RecordEngineFactory
     {
-        internal static MultiRecordEngine Create()
+        private ILogger Logger;
+
+        internal RecordEngineFactory(ILogger logger)
+        {
+            Logger = logger;
+        }
+
+        internal IEnumerable Create(TextReader reader)
         {
             var engine = new MultiRecordEngine(Types);
             engine.RecordSelector = new RecordTypeSelector(Select);
-            return engine;
+            engine.BeginReadStream(reader);
+            return new SingleCallEnumerator(engine);
         }
-
-        private static Serilog.ILogger Logger => Serilog.Log.Logger;
 
         /// <summary>
         /// List of CIF record types
         /// </summary>
         /// <remarks>Needs coresponding case statement in Select method</remarks>
-        private readonly static Type[] Types = new[]
+        private readonly Type[] Types = new[]
         {
             typeof(IntermediateLocation),
             typeof(OriginLocation),
@@ -41,7 +53,7 @@ namespace CifParser
         /// <param name="engine"></param>
         /// <param name="recordLine"></param>
         /// <returns></returns>
-        private static Type Select(MultiRecordEngine engine, string recordLine)
+        private Type Select(MultiRecordEngine engine, string recordLine)
         {
             if (recordLine.Length == 0)
             {
@@ -83,6 +95,25 @@ namespace CifParser
             }
         }
 
+        private class SingleCallEnumerator : IEnumerable
+        {
+            private bool _hasIterated;
 
+            private IEnumerable _enumerable;
+
+            internal SingleCallEnumerator(IEnumerable enumerable)
+            {
+                _enumerable = enumerable;
+            }
+
+            public IEnumerator GetEnumerator()
+            {
+                if (_hasIterated)
+                    throw new InvalidOperationException("Can only iterate once.");
+
+                _hasIterated = true;
+                return _enumerable.GetEnumerator();
+            }
+        }
     }
 }

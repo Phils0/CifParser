@@ -7,6 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CifParser", "CifParser\CifP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CifParserTest", "CIfParserTest\CifParserTest.csproj", "{607B9F63-0C23-4A9B-B1FC-C8C0CCF0DFDE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{55C90657-7E2D-4EC7-8EEF-18EAAC81E8D1}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

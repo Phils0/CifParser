@@ -13,6 +13,8 @@ namespace CifParserTest
     // Not checking for errors in format i.e. wrongly ordered records
     public class ScheduleConsolidatorTest
     {
+        private TextReader _dummy = null;
+
         public static IEnumerable<object[]> NonScheduleRecords
         {
             get
@@ -35,7 +37,7 @@ namespace CifParserTest
 
             var consolidator = new ScheduleConsolidator(parser);
 
-            var returned = consolidator.Read(null).Single();
+            var returned = consolidator.Read(_dummy).Single();
 
             Assert.Equal(record, returned);
         }
@@ -48,7 +50,7 @@ namespace CifParserTest
 
             var consolidator = new ScheduleConsolidator(parser);
 
-            var returned = consolidator.Read(null).Single(); ;
+            var returned = consolidator.Read(_dummy).Single(); ;
 
             Assert.IsType<Schedule>(returned);
         }
@@ -61,7 +63,7 @@ namespace CifParserTest
 
             var consolidator = new ScheduleConsolidator(parser);
 
-            var returned = consolidator.Read(null);
+            var returned = consolidator.Read(_dummy);
 
             Assert.Empty(returned);
         }
@@ -75,7 +77,7 @@ namespace CifParserTest
 
             var consolidator = new ScheduleConsolidator(parser);
 
-            var returned = consolidator.Read(null).Single() as Schedule;
+            var returned = consolidator.Read(_dummy).Single() as Schedule;
 
             Assert.Equal(records.Length, returned.Records.Count);
             Assert.All(returned.Records, r => Assert.Contains(r, records));
@@ -102,7 +104,7 @@ namespace CifParserTest
 
             var consolidator = new ScheduleConsolidator(parser);
 
-            var returned = consolidator.Read(null).Single() as Schedule;
+            var returned = consolidator.Read(_dummy).Single() as Schedule;
 
             Assert.Contains(record, returned.Records);
         }
@@ -116,7 +118,7 @@ namespace CifParserTest
 
             var consolidator = new ScheduleConsolidator(parser);
 
-            var returned = consolidator.Read(null).ToArray();
+            var returned = consolidator.Read(_dummy).ToArray();
 
             Assert.Equal(2, returned.Length);
         }
@@ -149,7 +151,7 @@ namespace CifParserTest
 
             var consolidator = new ScheduleConsolidator(parser);
 
-            var returned = consolidator.Read(null).ToArray();
+            var returned = consolidator.Read(_dummy).ToArray();
 
             Assert.Equal(6, returned.Length);
             Assert.Equal("Service1", ((Schedule) returned[3]).TimetableUid);

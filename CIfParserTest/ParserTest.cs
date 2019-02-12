@@ -73,5 +73,21 @@ ZZ
 
             Assert.Equal(2, records.Length);
         }
+
+        [Fact]
+        public void CannotEnuerateTwice()
+        {
+            var records =
+@"HDTPS.UDFROC1.PD1901292901191927DFROC1MDFROC1LUA290119290120                    
+ZZ                                                                              
+";
+            var input = new StringReader(records);
+            var parser = new Parser();
+
+            var enumerable = parser.Read(input);
+
+            var first = enumerable.ToArray();
+            Assert.Throws<InvalidOperationException>(() =>  enumerable.ToArray());
+        }
     }
 }
