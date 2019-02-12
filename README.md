@@ -15,12 +15,12 @@ var records = parser.Read(file);
 
 You can group a set of schedule records together into a `Schedule`.
 A schedule comprises a list of records in order:
-• A `ScheduleDetails` record (BS)
-• A `ScheduleDetailsExtraData` record (BX)
-• An `OriginLocation` record (LO)
-• Zero or more `IntermediateLlocation` records (LI) in journey sequence
-• Possibly `ScheduleChange` record(s) (CR).  These proceed the location record where the change occurs
-• A `TerminalLocation' record (LT)
+* A `ScheduleDetails` record (BS)
+* A `ScheduleDetailsExtraData` record (BX)
+* An `OriginLocation` record (LO)
+* Zero or more `IntermediateLlocation` records (LI) in journey sequence
+* Possibly `ScheduleChange` record(s) (CR).  These proceed the location record where the change occurs
+* A `TerminalLocation' record (LT)
 
 ```
 var parser = new ScheduleConsolidator(new Parser());;
