@@ -1,5 +1,5 @@
 # CifParser
-A .Net Core Library to parse a CIF formatted UK rail timetable
+A .Net Standard 2.0 Library to parse a CIF formatted UK rail timetable
 
 ## How do I read a CIF file?
 

@@ -54,7 +54,7 @@ namespace CifParser.Records
 
         private bool IsHalfMinute(string source)
         {
-            return source.EndsWith('H');
+            return source.EndsWith("H");
         }
     }
 }
