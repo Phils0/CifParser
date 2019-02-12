@@ -27,6 +27,10 @@ var parser = new ScheduleConsolidator(new Parser());;
 var records = parser.Read(file);
 
 var schedule = records.OfType<Schedule>().First();
+foreach(var scheduleRecord in schedule.Records)
+{
+	...
+}
 ```
 
 where a record is not part of a schdule e.g. `Assocition` it is directly returned.
