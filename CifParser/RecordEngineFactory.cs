@@ -39,8 +39,7 @@ namespace CifParser
             typeof(ScheduleDetails),
             typeof(ScheduleExtraData),
             typeof(ScheduleChange),
-            typeof(TiplocInsert),
-            typeof(TiplocAmend),
+            typeof(TiplocInsertAmend),
             typeof(TiplocDelete),
             typeof(Association),
             typeof(Header),
@@ -78,9 +77,8 @@ namespace CifParser
                 case "CR":
                     return typeof(ScheduleChange);
                 case "TI":
-                    return typeof(TiplocInsert);
                 case "TA":
-                    return typeof(TiplocAmend);
+                    return typeof(TiplocInsertAmend);
                 case "TD":
                     return typeof(TiplocDelete);
                 case "AA":

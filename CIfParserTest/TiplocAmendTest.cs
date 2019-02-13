@@ -10,12 +10,12 @@ namespace CifParserTest
     public class TiplocAmendTest
     {
 
-        private TiplocAmend ParseAmendRecord()
+        private TiplocInsertAmend ParseAmendRecord()
         {
             var newRecord = @"TASURBITN00557100NSURBITON                  87171   0SURSURBITON
 ";
 
-            return ParserTest.ParseRecords(newRecord)[0] as TiplocAmend;
+            return ParserTest.ParseRecords(newRecord)[0] as TiplocInsertAmend;
         }
 
         [Fact]

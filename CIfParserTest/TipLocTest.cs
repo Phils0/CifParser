@@ -23,7 +23,8 @@ TDLNDRBES
         {
             ICifRecord[] records = ParseRecords();
 
-            Assert.IsType<TiplocInsert>(records[0]);
+            var record = records[0] as TiplocInsertAmend;
+            Assert.Equal(RecordAction.Create, record.Action);
         }
 
         public ICifRecord[] ParseRecords()
@@ -36,7 +37,8 @@ TDLNDRBES
         {
             ICifRecord[] records = ParseRecords();
 
-            Assert.IsType<TiplocAmend>(records[2]);
+            var record = records[2] as TiplocInsertAmend;
+            Assert.Equal(RecordAction.Update, record.Action);
         }
 
         [Fact]

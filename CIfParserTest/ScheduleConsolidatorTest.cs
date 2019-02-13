@@ -21,9 +21,8 @@ namespace CifParserTest
             {
                 yield return new object[] { new Header() };
                 yield return new object[] { new Trailer() };
-                yield return new object[] { new TiplocInsert() };
+                yield return new object[] { new TiplocInsertAmend() };
                 yield return new object[] { new TiplocDelete() };
-                yield return new object[] { new TiplocAmend() };
                 yield return new object[] { new Association() };
             }
         }
@@ -129,7 +128,7 @@ namespace CifParserTest
             var records = new ICifRecord[] 
                 {
                     new Header(),
-                    new TiplocInsert(),
+                    new TiplocInsertAmend(),
                     new Association(),
                     new ScheduleDetails() { TimetableUid = "Service1"}, 
                     new ScheduleExtraData(),
