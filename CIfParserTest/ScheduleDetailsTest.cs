@@ -36,7 +36,7 @@ namespace CifParserTest
         public void InsertActionPropertySet()
         {
             var record = ParseRecord();
-            Assert.Equal(RecordAction.Insert, record.Action);
+            Assert.Equal(RecordAction.Create, record.Action);
         }
 
         [Fact]
@@ -54,7 +54,7 @@ namespace CifParserTest
             var delete = @"BSRN412321901121901260000010 1OO2D87    121800000 DMUA   075      S            N
 ";
             var record = ParseRecord(delete);
-            Assert.Equal(RecordAction.Amend, record.Action);
+            Assert.Equal(RecordAction.Update, record.Action);
         }
 
 

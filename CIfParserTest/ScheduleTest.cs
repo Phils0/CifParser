@@ -11,7 +11,7 @@ namespace CifParserTest
         {
             TimetableUid = "A12345",
             StpIndicator = StpIndicator.P,
-            Action = RecordAction.Insert
+            Action = RecordAction.Create
         };
 
 
@@ -33,7 +33,7 @@ namespace CifParserTest
         public void ActionIsBaseScheduleValue()
         {
             var service = new Schedule(ScheduleRecord);
-            Assert.Equal(RecordAction.Insert, service.Action);
+            Assert.Equal(RecordAction.Create, service.Action);
         }
 
         [Fact]

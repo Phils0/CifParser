@@ -2,8 +2,8 @@
 {
     public enum RecordAction
         {
-            Insert,
-            Amend,
+            Create,
+            Update,
             Delete
         }
 }

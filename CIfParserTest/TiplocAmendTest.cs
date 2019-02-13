@@ -22,7 +22,7 @@ namespace CifParserTest
         public void ActionPropertySet()
         {
             var record = ParseAmendRecord();
-            Assert.Equal(RecordAction.Amend, record.Action);
+            Assert.Equal(RecordAction.Update, record.Action);
         }
 
         [Fact]

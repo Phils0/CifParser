@@ -10,11 +10,11 @@ namespace CifParser.Records
             switch(source)
             {
                 case "N":
-                    return RecordAction.Insert;
+                    return RecordAction.Create;
                 case "D":
                     return RecordAction.Delete;
                 case "R":
-                    return RecordAction.Amend;
+                    return RecordAction.Update;
                 default:
                     throw new InvalidOperationException($"Invalid record type {source}");
             }

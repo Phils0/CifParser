@@ -10,9 +10,9 @@ namespace CifParser.Records
             switch(source)
             {
                 case "TI":
-                    return RecordAction.Insert;
+                    return RecordAction.Create;
                 case "TA":
-                    return RecordAction.Amend;
+                    return RecordAction.Update;
                 case "TD":
                     return RecordAction.Delete;
                 default:
