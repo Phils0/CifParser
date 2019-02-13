@@ -164,7 +164,7 @@ namespace CifParser.Records
         /// <summary>
         /// How the train is powered detail
         /// </summary>
-        /// <remarks>Length 3, Position 54-57
+        /// <remarks>Length 4, Position 54-57
         /// For values: https://wiki.openraildata.com/index.php?title=CIF_Codes#Timing_Load </remarks>
         [FieldFixedLength(4)]
         [FieldTrim(TrimMode.Right)]
