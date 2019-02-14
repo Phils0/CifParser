@@ -255,5 +255,10 @@ namespace CifParser.Records
         /// <remarks>Length 1, Position 80-80</remarks> 
         [FieldFixedLength(1)]
         public StpIndicator StpIndicator { get; set; }
+        
+        public override string ToString()
+        {
+            return $"{TimetableUid} STP: {StpIndicator} {Action}";
+        }
     }
 }

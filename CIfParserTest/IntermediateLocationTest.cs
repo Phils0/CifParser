@@ -121,5 +121,16 @@ namespace CifParserTest
             var record = ParseRecord();
             Assert.Equal("T", record.Activities);
         }
+        
+        [Theory]
+        [InlineData(@"LITOTNES  1548H1550      154915502        T                                     ", "TOTNES 15:49:00 Stop")]
+        [InlineData(@"LITOTNES 21548H1550      154915502        T                                     ", "TOTNES-2 15:49:00 Stop")]
+        [InlineData(@"LITOTNES  1548H1550      00000000        T                                     ", "TOTNES 15:48:30 ")]
+        [InlineData(@"LIUPHILLJ           1708 00000000                        H                      ", "UPHILLJ 17:08:00 ")]
+        public void CustomToString(string record, string expected)
+        {
+            var location = ParseRecord(record);
+            Assert.Equal(expected, location.ToString());
+        }
     }
 }

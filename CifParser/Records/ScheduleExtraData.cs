@@ -69,5 +69,10 @@ namespace CifParser.Records
         [FieldTrim(TrimMode.Right)]
         [FieldOptional]
         public string Spare { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Toc} {RetailServiceId}";
+        }
     }
 }

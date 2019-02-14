@@ -10,14 +10,20 @@ namespace CifParserTest
     public class TiplocAmendTest
     {
 
-        private TiplocInsertAmend ParseAmendRecord()
+        private TiplocInsertAmend ParseAmendRecord(string record = @"TASURBITN00557100NSURBITON                  87171   0SURSURBITON")
         {
-            var newRecord = @"TASURBITN00557100NSURBITON                  87171   0SURSURBITON
-";
-
-            return ParserTest.ParseRecords(newRecord)[0] as TiplocInsertAmend;
+            return ParserTest.ParseRecords(record)[0] as TiplocInsertAmend;
         }
 
+        [Theory]
+        [InlineData(@"TASURBITN00557100NSURBITON                  87171   0SURSURBITON", "557100 SUR SURBITN Update")]
+        [InlineData(@"TASURBITN00557100NSURBITON                  87171   0   SURBITON", "557100  SURBITN Update")]
+        public void ToStringReturnsNlcCrsTiploc(string record, string expected)
+        {
+            var location = ParseAmendRecord(record);
+            Assert.Equal(expected, location.ToString());
+        }
+                
         [Fact]
         public void ActionPropertySet()
         {

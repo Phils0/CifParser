@@ -72,5 +72,15 @@ namespace CifParserTest
             var record = ParseRecord();
             Assert.Equal("TF", record.Activities);
         }
+        
+        [Theory]
+        [InlineData(@"LTMNCRPIC 2038 203810 SL TF                                                     ", "MNCRPIC 20:38:00 Stop")]
+        [InlineData(@"LTMNCRPIC22038 203810 SL TF                                                     ", "MNCRPIC-2 20:38:00 Stop")]
+        [InlineData(@"LTMNCRPIC 2038H000010 SL TF                                                     ", "MNCRPIC 20:38:30 ")]
+        public void CustomToString(string record, string expected)
+        {
+            var location = ParseRecord(record);
+            Assert.Equal(expected, location.ToString());
+        }
     }
 }

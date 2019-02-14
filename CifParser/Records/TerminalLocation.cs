@@ -74,5 +74,14 @@ namespace CifParser.Records
         [FieldFixedLength(43)]
         [FieldTrim(TrimMode.Right)]
         public string Spare { get; set; }
+        
+        public override string ToString()
+        {
+            var stop = PublicArrival.HasValue ? "Stop" : "";
+            var time = (PublicArrival ?? WorkingArrival)?.ToString(@"hh\:mm\:ss");
+            return Sequence > 1 ? 
+                $"{Location}-{Sequence} {time} {stop}" :
+                $"{Location} {time} {stop}";
+        }
     }
 }

@@ -13,15 +13,16 @@ namespace CifParser
     {
         public IList<ICifRecord> Records { get; }  = new List<ICifRecord>();
 
-        private ScheduleDetails _schedule;
+        public ScheduleDetails ScheduleDetails { get; }
+        public ScheduleExtraData ScheduleExtraDetails { get; }
 
-        public string TimetableUid => _schedule.TimetableUid;
-        public StpIndicator StpIndicator => _schedule.StpIndicator;
-        public RecordAction Action => _schedule.Action;
+        public string TimetableUid => ScheduleDetails.TimetableUid;
+        public StpIndicator StpIndicator => ScheduleDetails.StpIndicator;
+        public RecordAction Action => ScheduleDetails.Action;
 
         public Schedule(ScheduleDetails schedule)
         {
-            _schedule = schedule;
+            ScheduleDetails = schedule;
             Records.Add(schedule);            
         }
 
@@ -31,5 +32,10 @@ namespace CifParser
         }
 
         public bool IsTerminated => Records.Last() is TerminalLocation;
+
+        public override string ToString()
+        {
+            return $"{TimetableUid} STP: {StpIndicator} {Action}";
+        }
     }
 }

@@ -197,5 +197,12 @@ namespace CifParser.Records
         [FieldFixedLength(5)]
         [FieldTrim(TrimMode.Right)]
         public string Spare { get; set; }
+        
+        public override string ToString()
+        {
+            return Sequence > 1 ? 
+                $"{Location}-{Sequence}" :
+                $"{Location}";
+        }
     }
 }

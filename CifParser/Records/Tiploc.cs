@@ -22,6 +22,11 @@ namespace CifParser.Records
         [FieldFixedLength(7)]
         [FieldTrim(TrimMode.Right)]
         public string Code { get; set; }
+        
+        public override string ToString()
+        {
+            return $"{Code} {Action}";
+        }
     }
 
     /// <summary>
@@ -90,6 +95,11 @@ namespace CifParser.Records
         [FieldTrim(TrimMode.Right)]
         [FieldOptional]
         public string Spare { get; set; }
+        
+        public override string ToString()
+        {
+            return $"{Nalco} {ThreeLetterCode} {base.ToString()}";
+        }
     }
 
     /// <summary>

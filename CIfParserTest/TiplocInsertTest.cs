@@ -8,14 +8,19 @@ using Xunit;
 namespace CifParserTest
 {
     public class TiplocInsertTest
-    {
-
-        private TiplocInsertAmend ParseInsertRecord()
+    {        
+        private TiplocInsertAmend ParseInsertRecord(string record = @"TISURBITN00557100NSURBITON                  87171   0SURSURBITON")
         {
-            var newRecord = @"TISURBITN00557100NSURBITON                  87171   0SURSURBITON
-";
+            return ParserTest.ParseRecords(record)[0] as TiplocInsertAmend;
+        }
 
-            return ParserTest.ParseRecords(newRecord)[0] as TiplocInsertAmend;
+        [Theory]
+        [InlineData(@"TISURBITN00557100NSURBITON                  87171   0SURSURBITON", "557100 SUR SURBITN Create")]
+        [InlineData(@"TISURBITN00557100NSURBITON                  87171   0   SURBITON", "557100  SURBITN Create")]
+        public void ToStringReturnsNlcCrsTiploc(string record, string expected)
+        {
+            var location = ParseInsertRecord(record);
+            Assert.Equal(expected, location.ToString());
         }
 
         [Fact]

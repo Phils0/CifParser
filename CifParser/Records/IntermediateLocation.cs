@@ -113,7 +113,7 @@ namespace CifParser.Records
         /// <summary>
         /// Performance Allowance
         /// </summary>
-        /// <remarks>Length 2, Position 59-60/remarks>                                                     /// <remarks>Length 2, Position 55-56/remarks>
+        /// <remarks>Length 2, Position 59-60/remarks>
         [FieldFixedLength(2)]
         [FieldTrim(TrimMode.Right)]
         public string PerformanceAllowance { get; set; }
@@ -124,5 +124,14 @@ namespace CifParser.Records
         [FieldFixedLength(20)]
         [FieldTrim(TrimMode.Right)]
         public string Spare { get; set; }
+        
+        public override string ToString()
+        {
+            var stop = PublicArrival.HasValue ? "Stop" : "";
+            var time = (PublicArrival ?? WorkingArrival ?? WorkingPass)?.ToString(@"hh\:mm\:ss");
+            return Sequence > 1 ? 
+                $"{Location}-{Sequence} {time} {stop}" :
+                $"{Location} {time} {stop}";
+        }
     }
 }

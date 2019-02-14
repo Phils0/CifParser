@@ -54,7 +54,7 @@ namespace CifParserTest
         public void PublicDeparturePropertySet()
         {
             var record = ParseRecord();
-            Assert.Equal(new TimeSpan(15, 54, 0), record.PublicDeparturee);
+            Assert.Equal(new TimeSpan(15, 54, 0), record.PublicDeparture);
         }
 
         [Fact]
@@ -69,6 +69,16 @@ namespace CifParserTest
         {
             var record = ParseRecord();
             Assert.Equal("TB", record.Activities);
+        }
+        
+        [Theory]
+        [InlineData(@"LONRCH    1554 15542A C      TB                                                 ", "NRCH 15:54:00 Stop")]
+        [InlineData(@"LONRCH   21554 15542A C      TB                                                 ", "NRCH-2 15:54:00 Stop")]
+        [InlineData(@"LONRCH    1554H00002A C      TB                                                 ", "NRCH 15:54:30 ")]
+        public void CustomToString(string record, string expected)
+        {
+            var location = ParseRecord(record);
+            Assert.Equal(expected, location.ToString());
         }
     }
 }

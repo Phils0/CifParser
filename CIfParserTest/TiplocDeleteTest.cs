@@ -31,5 +31,13 @@ namespace CifParserTest
             var record = ParseDeleteRecord();
             Assert.Equal("LNDRBES", record.Code);
         }
+        
+        [Fact]
+        public void ToStringReturnsTiploc()
+        {
+            var location = ParseDeleteRecord();
+            Assert.Equal("LNDRBES Delete", location.ToString());
+        }
+
     }
 }
