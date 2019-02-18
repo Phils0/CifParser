@@ -156,5 +156,19 @@ namespace CifParserTest
             Assert.Equal("Service1", ((Schedule) returned[3]).GetTimetableUid());
             Assert.Equal("Service2", ((Schedule)returned[4]).GetTimetableUid());
         }
+        
+        [Fact]
+        public void ReturnAllRecordsWHenHaveDelete()
+        {
+            var records = new ICifRecord[] { new ScheduleDetails() {Action = RecordAction.Delete}, new Trailer(),  };
+            var parser = Substitute.For<IParser>();
+            parser.Read(Arg.Any<TextReader>()).Returns(records);
+
+            var consolidator = new ScheduleConsolidator(parser);
+
+            var returned = consolidator.Read(_dummy);
+
+            Assert.Equal(records.Length, returned.Count());
+        }
     }
 }

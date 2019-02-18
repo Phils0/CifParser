@@ -33,11 +33,9 @@ namespace CifParser
 
             foreach (var record in records)
             {
-                var schedule = record as ScheduleDetails;
-                if (schedule != null)
+                if (record is ScheduleDetails)
                 {
-                    current = new Schedule(schedule);
-                    continue;
+                    current = new Schedule();
                 }
 
                 if (current == null)
