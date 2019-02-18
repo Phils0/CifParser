@@ -11,19 +11,22 @@ namespace CifParser
     /// <remarks>TimetableUid, STPIndicator and Action form a unique identifier </remarks>
     public class Schedule : ICifRecord
     {
-        public IList<ICifRecord> Records { get; }  = new List<ICifRecord>();
+        public IList<ICifRecord> Records { get; set;  }  = new List<ICifRecord>();
 
-        public ScheduleDetails ScheduleDetails { get; }
-        public ScheduleExtraData ScheduleExtraDetails { get; }
+        public ScheduleDetails GetScheduleDetails() => Records.OfType<ScheduleDetails>().First();
+        public ScheduleExtraData GetScheduleExtraDetails() => Records.OfType<ScheduleExtraData>().FirstOrDefault();
 
-        public string TimetableUid => ScheduleDetails.TimetableUid;
-        public StpIndicator StpIndicator => ScheduleDetails.StpIndicator;
-        public RecordAction Action => ScheduleDetails.Action;
+        public string GetTimetableUid() => GetScheduleDetails().TimetableUid;
+        public StpIndicator GetStpIndicator() => GetScheduleDetails().StpIndicator;
+        public RecordAction GetAction() => GetScheduleDetails().Action;
 
-        public Schedule(ScheduleDetails schedule)
+        public Schedule()
         {
-            ScheduleDetails = schedule;
-            Records.Add(schedule);            
+        }
+        
+        public Schedule(ScheduleDetails getSchedule)
+        {
+            Records.Add(getSchedule);            
         }
 
         public void Add(ICifRecord record)
@@ -35,7 +38,7 @@ namespace CifParser
 
         public override string ToString()
         {
-            return $"{TimetableUid} STP: {StpIndicator} {Action}";
+            return $"{GetTimetableUid()} STP: {GetStpIndicator()} {GetAction()}";
         }
     }
 }
