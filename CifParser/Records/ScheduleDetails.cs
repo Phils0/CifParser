@@ -88,7 +88,7 @@ namespace CifParser.Records
         [FieldTrim(TrimMode.Right)]
         public string DayMask { get; set; }
         /// <summary>
-        /// WHether runs on a bank holiday
+        /// Whether runs on a bank holiday
         /// </summary>
         /// <remarks>Length 1, Position 29-29
         /// empty - runs
