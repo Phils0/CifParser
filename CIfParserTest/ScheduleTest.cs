@@ -22,55 +22,64 @@ namespace CifParserTest
             Action = RecordAction.Delete
         };
 
+        private Schedule TestSchedule
+        {
+            get
+            {
+                var schedule = new Schedule();
+                schedule.Add(ScheduleRecord);
+                return schedule;
+            }
+        }
+        
         [Fact]
         public void IdIsBaseScheduleValues()
         {
-            var schedule = new Schedule();
-            schedule.Add(ScheduleRecord);
-
-            var id = schedule.GetId();
+            var id = TestSchedule.GetId();
             Assert.Equal("A12345", id.TimetableUid);
             Assert.Equal(StpIndicator.P, id.StpIndicator);
             Assert.Equal(RecordAction.Create, id.Action);
         }
 
         [Fact]
+        public void ToStringOutputsId()
+        {
+            Assert.Equal("A12345:P-Create", TestSchedule.ToString());
+        }
+        
+        [Fact]
         public void InitiallyIsTerminatedIsFalse()
         {
-            var service = new Schedule();
-            service.Add(ScheduleRecord);
-            Assert.False(service.IsTerminated);
+            Assert.False(TestSchedule.IsTerminated);
         }
 
         [Fact]
         public void IsTerminatedIsFalseWhenHasNoTerminalRecord()
         {
-            var service = new Schedule();
-            service.Add(ScheduleRecord);
-            service.Add(new ScheduleExtraData());
-            service.Add(new OriginLocation());
-            service.Add(new IntermediateLocation());
-            Assert.False(service.IsTerminated);
+            var schedule = TestSchedule;
+            schedule.Add(new ScheduleExtraData());
+            schedule.Add(new OriginLocation());
+            schedule.Add(new IntermediateLocation());
+            Assert.False(schedule.IsTerminated);
         }
 
         [Fact]
         public void IsTerminatedIsTrueWhenHasTerminalRecord()
         {
-            var service = new Schedule();
-            service.Add(ScheduleRecord);
-            service.Add(new TerminalLocation());
+            var schedule = TestSchedule;
+            schedule.Add(new TerminalLocation());
 
-            Assert.True(service.IsTerminated);
+            Assert.True(schedule.IsTerminated);
         }
         
         
         [Fact]
         public void IsTerminatedIsTrueWhenIsADeleteRecord()
         {
-            var service = new Schedule();
-            service.Add(DeleteRecord);
+            var schedule = new Schedule();
+            schedule.Add(DeleteRecord);
 
-            Assert.True(service.IsTerminated);
+            Assert.True(schedule.IsTerminated);
         }
     }
 }

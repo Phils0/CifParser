@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Serilog;
 using Xunit;
 
 namespace CifParserTest
@@ -13,7 +14,7 @@ namespace CifParserTest
     // Not checking for errors in format i.e. wrongly ordered records
     public class ScheduleConsolidatorTest
     {
-        private TextReader _dummy = null;
+        private readonly TextReader _dummy = null;
 
         public static IEnumerable<object[]> NonScheduleRecords
         {
@@ -34,7 +35,7 @@ namespace CifParserTest
             var parser = Substitute.For<IParser>();
             parser.Read(Arg.Any<TextReader>()).Returns(new[] { record });
 
-            var consolidator = new ScheduleConsolidator(parser);
+            var consolidator = new ScheduleConsolidator(parser, Substitute.For<ILogger>());
 
             var returned = consolidator.Read(_dummy).Single();
 
@@ -47,7 +48,7 @@ namespace CifParserTest
             var parser = Substitute.For<IParser>();
             parser.Read(Arg.Any<TextReader>()).Returns(new ICifRecord[] { new ScheduleDetails(), new TerminalLocation() });
 
-            var consolidator = new ScheduleConsolidator(parser);
+            var consolidator = new ScheduleConsolidator(parser, Substitute.For<ILogger>());
 
             var returned = consolidator.Read(_dummy).Single(); ;
 
@@ -60,7 +61,7 @@ namespace CifParserTest
             var parser = Substitute.For<IParser>();
             parser.Read(Arg.Any<TextReader>()).Returns(new[] { new ScheduleDetails() });
 
-            var consolidator = new ScheduleConsolidator(parser);
+            var consolidator = new ScheduleConsolidator(parser, Substitute.For<ILogger>());
 
             var returned = consolidator.Read(_dummy);
 
@@ -74,7 +75,7 @@ namespace CifParserTest
             var parser = Substitute.For<IParser>();
             parser.Read(Arg.Any<TextReader>()).Returns(records);
 
-            var consolidator = new ScheduleConsolidator(parser);
+            var consolidator = new ScheduleConsolidator(parser, Substitute.For<ILogger>());
 
             var returned = consolidator.Read(_dummy).Single() as Schedule;
 
@@ -101,7 +102,7 @@ namespace CifParserTest
             var parser = Substitute.For<IParser>();
             parser.Read(Arg.Any<TextReader>()).Returns(records);
 
-            var consolidator = new ScheduleConsolidator(parser);
+            var consolidator = new ScheduleConsolidator(parser, Substitute.For<ILogger>());
 
             var returned = consolidator.Read(_dummy).Single() as Schedule;
 
@@ -115,7 +116,7 @@ namespace CifParserTest
             var parser = Substitute.For<IParser>();
             parser.Read(Arg.Any<TextReader>()).Returns(records);
 
-            var consolidator = new ScheduleConsolidator(parser);
+            var consolidator = new ScheduleConsolidator(parser, Substitute.For<ILogger>());
 
             var returned = consolidator.Read(_dummy).ToArray();
 
@@ -148,7 +149,7 @@ namespace CifParserTest
             var parser = Substitute.For<IParser>();
             parser.Read(Arg.Any<TextReader>()).Returns(records);
 
-            var consolidator = new ScheduleConsolidator(parser);
+            var consolidator = new ScheduleConsolidator(parser, Substitute.For<ILogger>());
 
             var returned = consolidator.Read(_dummy).ToArray();
 
@@ -164,11 +165,34 @@ namespace CifParserTest
             var parser = Substitute.For<IParser>();
             parser.Read(Arg.Any<TextReader>()).Returns(records);
 
-            var consolidator = new ScheduleConsolidator(parser);
+            var consolidator = new ScheduleConsolidator(parser, Substitute.For<ILogger>());
 
             var returned = consolidator.Read(_dummy);
 
             Assert.Equal(records.Length, returned.Count());
+        }
+        
+        [Fact]
+        public void LogErrorIfNotTerminatedASchedule()
+        {
+            var records = new ICifRecord[] 
+            {
+                new ScheduleDetails() { TimetableUid = "Service1"}, 
+                new ScheduleExtraData(),
+                new OriginLocation(),
+                new IntermediateLocation(),
+                new ScheduleDetails(){ TimetableUid = "Service2", Action = RecordAction.Delete},
+            };
+            
+            var parser = Substitute.For<IParser>();
+            parser.Read(Arg.Any<TextReader>()).Returns(records);
+            var logger = Substitute.For<ILogger>();
+
+            var consolidator = new ScheduleConsolidator(parser, logger);
+
+            var returned = consolidator.Read(_dummy).ToArray();
+
+            logger.ReceivedWithAnyArgs().Error<ICifRecord>(Arg.Any<string>(), Arg.Any<ICifRecord>());
         }
     }
 }

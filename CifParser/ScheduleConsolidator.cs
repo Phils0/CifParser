@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using CifParser.Records;
+using Serilog;
 
 namespace CifParser
 {
@@ -12,13 +13,15 @@ namespace CifParser
     public class ScheduleConsolidator : IParser
     {
         private IParser _parser;
+        private ILogger _logger;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="parser">Internal parser that really parses the text stream</param>
-        public ScheduleConsolidator(IParser parser)
+        public ScheduleConsolidator(IParser parser, ILogger logger)
         {
+            _logger = logger;
             _parser = parser;
         }
 
@@ -35,6 +38,8 @@ namespace CifParser
             {
                 if (record is ScheduleDetails)
                 {
+                    if(current != null)
+                        _logger.Error("Schedule not terminated {record}", record);
                     current = new Schedule();
                 }
 
