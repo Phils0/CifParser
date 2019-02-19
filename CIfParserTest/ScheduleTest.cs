@@ -23,27 +23,15 @@ namespace CifParserTest
         };
 
         [Fact]
-        public void TimetableUIdIsBaseScheduleValue()
+        public void IdIsBaseScheduleValues()
         {
-            var service = new Schedule();
-            service.Add(ScheduleRecord);
-            Assert.Equal("A12345", service.GetTimetableUid());
-        }
+            var schedule = new Schedule();
+            schedule.Add(ScheduleRecord);
 
-        [Fact]
-        public void StpIndicatorIsBaseScheduleValue()
-        {
-            var service = new Schedule();
-            service.Add(ScheduleRecord);
-            Assert.Equal(StpIndicator.P, service.GetStpIndicator());
-        }
-
-        [Fact]
-        public void ActionIsBaseScheduleValue()
-        {
-            var service = new Schedule();
-            service.Add(ScheduleRecord);
-            Assert.Equal(RecordAction.Create, service.GetAction());
+            var id = schedule.GetId();
+            Assert.Equal("A12345", id.TimetableUid);
+            Assert.Equal(StpIndicator.P, id.StpIndicator);
+            Assert.Equal(RecordAction.Create, id.Action);
         }
 
         [Fact]

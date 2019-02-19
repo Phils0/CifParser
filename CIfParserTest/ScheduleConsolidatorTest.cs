@@ -153,8 +153,8 @@ namespace CifParserTest
             var returned = consolidator.Read(_dummy).ToArray();
 
             Assert.Equal(6, returned.Length);
-            Assert.Equal("Service1", ((Schedule) returned[3]).GetTimetableUid());
-            Assert.Equal("Service2", ((Schedule)returned[4]).GetTimetableUid());
+            Assert.Equal("Service1", ((Schedule) returned[3]).GetId().TimetableUid);
+            Assert.Equal("Service2", ((Schedule)returned[4]).GetId().TimetableUid);
         }
         
         [Fact]

@@ -1,6 +1,6 @@
 ﻿using CifParser.Records;
-using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace CifParser
@@ -16,14 +16,16 @@ namespace CifParser
         public ScheduleDetails GetScheduleDetails() => Records.OfType<ScheduleDetails>().First();
         public ScheduleExtraData GetScheduleExtraDetails() => Records.OfType<ScheduleExtraData>().FirstOrDefault();
 
-        public string GetTimetableUid() => GetScheduleDetails().TimetableUid;
-        public StpIndicator GetStpIndicator() => GetScheduleDetails().StpIndicator;
-        public RecordAction GetAction() => GetScheduleDetails().Action;
 
-        public Schedule()
+        public ScheduleId GetId()
         {
+            var details = GetScheduleDetails();
+            return new ScheduleId(
+                details.TimetableUid,
+                details.StpIndicator,
+                details.Action);
         }
-        
+                
         public void Add(ICifRecord record)
         {
             Records.Add(record);
@@ -33,7 +35,7 @@ namespace CifParser
                     IsTerminated = true;
                     break;
                 case ScheduleDetails schedule:
-                    IsTerminated = schedule.Action.Equals(RecordAction.Delete);
+                    IsTerminated = schedule.Action.Equals(RecordAction.Delete);    // Delete has no child records so immediately terminate
                     break;         
             }
         }
@@ -42,7 +44,7 @@ namespace CifParser
 
         public override string ToString()
         {
-            return $"{GetTimetableUid()} STP: {GetStpIndicator()} {GetAction()}";
+            return GetId().ToString();
         }
     }
 }
