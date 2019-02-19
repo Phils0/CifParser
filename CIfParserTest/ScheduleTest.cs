@@ -11,6 +11,7 @@ namespace CifParserTest
         private static readonly ScheduleDetails ScheduleRecord = new ScheduleDetails()
         {
             TimetableUid = "A12345",
+            RunsFrom = new DateTime(2019, 1, 2),
             StpIndicator = StpIndicator.P,
             Action = RecordAction.Create
         };
@@ -18,6 +19,7 @@ namespace CifParserTest
         private static readonly ScheduleDetails DeleteRecord = new ScheduleDetails()
         {
             TimetableUid = "A12345",
+            RunsFrom = new DateTime(2019, 1, 2),
             StpIndicator = StpIndicator.P,
             Action = RecordAction.Delete
         };
@@ -44,7 +46,7 @@ namespace CifParserTest
         [Fact]
         public void ToStringOutputsId()
         {
-            Assert.Equal("A12345:P-Create", TestSchedule.ToString());
+            Assert.Equal("A12345-20190102:P-Create", TestSchedule.ToString());
         }
         
         [Fact]

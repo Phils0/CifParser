@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CifParser;
 using CifParser.Records;
@@ -7,29 +8,30 @@ namespace CifParserTest
 {
     public class ScheduleIdTest
     {
-        private readonly ScheduleId _test = new ScheduleId("A12345", StpIndicator.P, RecordAction.Create);
+        private readonly ScheduleId _test = new ScheduleId("A12345", new DateTime(2019, 1, 2), StpIndicator.P, RecordAction.Create);
 
         [Fact]
         public void ToStringOutputsProperties()
         {
-            Assert.Equal("A12345:P-Create", _test.ToString());
+            Assert.Equal("A12345-20190102:P-Create", _test.ToString());
         }
         
         public static IEnumerable<object[]> NotEqualSchedules
         {
             get
             {
-                yield return new object[] { new ScheduleId("A12345", StpIndicator.P, RecordAction.Delete) };
-                yield return new object[] { new ScheduleId("A12345", StpIndicator.O, RecordAction.Create) };
-                yield return new object[] { new ScheduleId("Z98765", StpIndicator.P, RecordAction.Create) };
-                yield return new object[] { new ScheduleId("", StpIndicator.P, RecordAction.Delete) };
+                yield return new object[] { new ScheduleId("A12345", new DateTime(2019, 1, 2), StpIndicator.P, RecordAction.Delete) };
+                yield return new object[] { new ScheduleId("A12345", new DateTime(2019, 1, 2), StpIndicator.O, RecordAction.Create) };
+                yield return new object[] { new ScheduleId("Z98765", new DateTime(2019, 1, 2), StpIndicator.P, RecordAction.Create) };
+                yield return new object[] { new ScheduleId("A12345", new DateTime(2019, 1, 3), StpIndicator.P, RecordAction.Create) };
+                yield return new object[] { new ScheduleId("", new DateTime(2019, 1, 2), StpIndicator.P, RecordAction.Delete) };
             }
         }
         
         [Fact]
         public void IsEqual()
         {     
-            var id = new ScheduleId("A12345", StpIndicator.P, RecordAction.Create);
+            var id = new ScheduleId("A12345", new DateTime(2019, 1, 2), StpIndicator.P, RecordAction.Create);
             Assert.True(_test.Equals(id));
         }
         
@@ -55,7 +57,7 @@ namespace CifParserTest
         [Fact]
         public void HasSameHashcode()
         {     
-            var id = new ScheduleId("A12345", StpIndicator.P, RecordAction.Create);
+            var id = new ScheduleId("A12345", new DateTime(2019, 1, 2), StpIndicator.P, RecordAction.Create);
             Assert.Equal(_test.GetHashCode(), id.GetHashCode());
         }
                 

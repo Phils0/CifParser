@@ -22,6 +22,7 @@ namespace CifParser
             var details = GetScheduleDetails();
             return new ScheduleId(
                 details.TimetableUid,
+                details.RunsFrom,
                 details.StpIndicator,
                 details.Action);
         }
