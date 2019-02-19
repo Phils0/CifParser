@@ -3,6 +3,8 @@ using CifParser.Records;
 using System;
 using System.IO;
 using System.Linq;
+using NSubstitute;
+using Serilog;
 using Xunit;
 
 namespace CifParserTest
@@ -13,7 +15,7 @@ namespace CifParserTest
         {
             var input = new StringReader(data);
 
-            var parser = new Parser();
+            var parser = new Parser(Substitute.For<ILogger>());
 
             var records = parser.Read(input).ToArray();
             return records;
@@ -82,7 +84,7 @@ ZZ
 ZZ                                                                              
 ";
             var input = new StringReader(records);
-            var parser = new Parser();
+            var parser = new Parser(Substitute.For<ILogger>());
 
             var enumerable = parser.Read(input);
 

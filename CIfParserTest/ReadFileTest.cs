@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NSubstitute;
 using Serilog;
 using Xunit;
 
@@ -16,7 +17,7 @@ namespace CifParserTest
         [Fact]
         public void ParseFile()
         {
-            var parser = new Parser();
+            var parser = new Parser(Substitute.For<ILogger>());
 
             var records = parser.Read(DataFile).ToArray();
 
@@ -27,7 +28,8 @@ namespace CifParserTest
         [Fact]
         public void ParseAndConsolidateFile()
         {
-            var parser = new ScheduleConsolidator(new Parser(), Log.Logger);
+            var logger = Substitute.For<ILogger>();
+            var parser = new ScheduleConsolidator(new Parser(logger), logger);
 
             var records = parser.Read(DataFile).ToArray();
 
@@ -39,7 +41,8 @@ namespace CifParserTest
         [Fact]
         public void ConsolidateSchedule()
         {
-            var parser = new ScheduleConsolidator(new Parser(), Log.Logger);
+            var logger = Substitute.For<ILogger>();
+            var parser = new ScheduleConsolidator(new Parser(logger), logger);
 
             var schedule = parser.Read(DataFile).OfType<Schedule>().First();
 

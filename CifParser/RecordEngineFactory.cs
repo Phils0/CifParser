@@ -95,7 +95,7 @@ namespace CifParser
 
         private class SingleCallEnumerator : IEnumerable
         {
-            private bool _hasIterated;
+            private bool _runOnce;
 
             private IEnumerable _enumerable;
 
@@ -106,10 +106,10 @@ namespace CifParser
 
             public IEnumerator GetEnumerator()
             {
-                if (_hasIterated)
+                if (_runOnce)
                     throw new InvalidOperationException("Can only iterate once.");
 
-                _hasIterated = true;
+                _runOnce = true;
                 return _enumerable.GetEnumerator();
             }
         }

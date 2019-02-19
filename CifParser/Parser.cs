@@ -1,7 +1,6 @@
 ﻿using CifParser.Records;
 using Serilog;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,10 +12,16 @@ namespace CifParser
     /// </summary>
     public class Parser : IParser
     {
-        private static ILogger Logger = Serilog.Log.Logger;
+        private readonly RecordEngineFactory _factory;
 
-        private RecordEngineFactory _factory =  new RecordEngineFactory(Logger);
-
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="logger">Serilog Logger</param>
+        public Parser(ILogger logger)
+        {
+            _factory = new RecordEngineFactory(logger);
+        }
         public IEnumerable<ICifRecord> Read(TextReader reader)
         {
             var enumerable = _factory.Create(reader);
