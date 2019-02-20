@@ -105,7 +105,7 @@ namespace CifParserTest
         public void PublicDeparturePropertySet()
         {
             var record = ParseRecord();
-            Assert.Equal(new TimeSpan(15, 50, 0), record.PublicDeparturee);
+            Assert.Equal(new TimeSpan(15, 50, 0), record.PublicDeparture);
         }
 
         [Fact]

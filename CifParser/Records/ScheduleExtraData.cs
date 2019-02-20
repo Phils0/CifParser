@@ -28,6 +28,7 @@ namespace CifParser.Records
         /// <remarks>Length 5, Position 7-11
         /// Only populated for services using the channel tunnel</remarks>
         [FieldFixedLength(5)]
+        [FieldTrim(TrimMode.Right)]
         public string UIC { get; set; }
         /// <summary>
         /// Service Provider - 2 letter ATOC Code
@@ -35,6 +36,7 @@ namespace CifParser.Records
         /// <remarks>Length 2, Position 12-13
         /// Values: https://wiki.openraildata.com/index.php?title=TOC_Codes </remarks>
         [FieldFixedLength(2)]
+        [FieldTrim(TrimMode.Right)]
         public string Toc { get; set; }
         /// <summary>
         /// Applicable Timetable Code - performance monitoring
@@ -42,6 +44,7 @@ namespace CifParser.Records
         /// <remarks>Length 1, Position 14-14
         /// Values: Y and N </remarks>
         [FieldFixedLength(1)]
+        [FieldTrim(TrimMode.Right)]
         public string ApplicableTimetableCode { get; set; }
         /// <summary>
         /// Retail Service Id - used by NRS

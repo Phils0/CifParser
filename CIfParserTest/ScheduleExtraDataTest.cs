@@ -35,6 +35,12 @@ namespace CifParserTest
             Assert.Equal("BX", record.Type);
         }
 
+        [Fact]
+        public void UicPropertySet()
+        {
+            var record = ParseRecord();
+            Assert.Equal("", record.UIC);
+        }
 
         [Fact]
         public void TocPropertySet()

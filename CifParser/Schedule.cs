@@ -36,7 +36,8 @@ namespace CifParser
                     IsTerminated = true;
                     break;
                 case ScheduleDetails schedule:
-                    IsTerminated = schedule.Action.Equals(RecordAction.Delete);    // Delete has no child records so immediately terminate
+                    // Delete and Cancel have no child records so immediately terminate
+                    IsTerminated = schedule.Action.Equals(RecordAction.Delete) || schedule.StpIndicator.Equals(StpIndicator.C);
                     break;         
             }
         }

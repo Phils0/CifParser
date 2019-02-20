@@ -67,7 +67,7 @@ namespace CifParser.Records
         /// <remarks>Length 4, Position 30-33/remarks>
         [FieldFixedLength(4)]
         [FieldConverter(typeof(PublicTimeConverter))]
-        public TimeSpan? PublicDeparturee { get; set; }
+        public TimeSpan? PublicDeparture { get; set; }
         /// <summary>
         /// Platform
         /// </summary>

@@ -16,14 +16,6 @@ namespace CifParserTest
             Action = RecordAction.Create
         };
 
-        private static readonly ScheduleDetails DeleteRecord = new ScheduleDetails()
-        {
-            TimetableUid = "A12345",
-            RunsFrom = new DateTime(2019, 1, 2),
-            StpIndicator = StpIndicator.P,
-            Action = RecordAction.Delete
-        };
-
         private Schedule TestSchedule
         {
             get
@@ -78,8 +70,31 @@ namespace CifParserTest
         [Fact]
         public void IsTerminatedIsTrueWhenIsADeleteRecord()
         {
+            var delete = new ScheduleDetails()
+            {
+                TimetableUid = "A12345",
+                RunsFrom = new DateTime(2019, 1, 2),
+                StpIndicator = StpIndicator.P,
+                Action = RecordAction.Delete
+            };
             var schedule = new Schedule();
-            schedule.Add(DeleteRecord);
+            schedule.Add(delete);
+
+            Assert.True(schedule.IsTerminated);
+        }
+        
+        [Fact]
+        public void IsTerminatedIsTrueWhenIsACancelRecord()
+        {
+            var cancel = new ScheduleDetails()
+            {
+                TimetableUid = "A12345",
+                RunsFrom = new DateTime(2019, 1, 2),
+                StpIndicator = StpIndicator.C,
+                Action = RecordAction.Create
+            };
+            var schedule = new Schedule();
+            schedule.Add(cancel);
 
             Assert.True(schedule.IsTerminated);
         }
