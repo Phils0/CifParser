@@ -28,7 +28,7 @@ namespace CifParser.Records
         /// </summary>
         /// <remarks>Length 6, Position 4-9</remarks>
         [FieldFixedLength(6)]
-        public string BaseUid { get; set; }
+        public string MainUid { get; set; }
         /// <summary>
         /// Assocociated Train UID - the split\join
         /// </summary>
@@ -97,7 +97,7 @@ namespace CifParser.Records
         [FieldFixedLength(1)]
         [FieldTrim(TrimMode.Right)]
         [FieldNullValue(1)]
-        public int BaseSequence { get; set; }
+        public int MainSequence { get; set; }
         /// <summary>
         /// Association Location Sequence 
         /// </summary>
@@ -139,7 +139,7 @@ namespace CifParser.Records
 
         public override string ToString()
         {
-            return $"{BaseUid}-{AssociatedUid} @ {Location} STP: {StpIndicator} {Action}";
+            return $"{MainUid}-{AssociatedUid} @ {Location} STP: {StpIndicator} {Action}";
         }
     }
 }

@@ -62,7 +62,7 @@ namespace CifParserTest
         public void BaseUidPropertySet()
         {
             var record = ParseRecord();
-            Assert.Equal("P19165", record.BaseUid);
+            Assert.Equal("P19165", record.MainUid);
         }
 
         [Fact]
@@ -118,7 +118,7 @@ namespace CifParserTest
         public void BaseSequencePropertySet()
         {
             var record = ParseRecord();
-            Assert.Equal(2, record.BaseSequence);
+            Assert.Equal(2, record.MainSequence);
         }
 
         [Fact]
