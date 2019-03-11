@@ -11,7 +11,7 @@ namespace CifParser
     /// <summary>
     /// Parses the file, creating one record for each line of the file
     /// </summary>
-    public class Parser : IParser
+    internal class Parser : IParser
     {
         private readonly MultiRecordEngine _engine;
 

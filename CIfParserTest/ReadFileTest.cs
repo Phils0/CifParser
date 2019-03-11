@@ -18,7 +18,7 @@ namespace CifParserTest
         public void ParseFile()
         {
             var factory = new CifParserFactory(Substitute.For<ILogger>());
-            var parser = factory.Create();
+            var parser = factory.CreateParser();
 
             var records = parser.Read(DataFile).ToArray();
 
@@ -30,8 +30,8 @@ namespace CifParserTest
         public void ParseAndConsolidateFile()
         {
             var logger = Substitute.For<ILogger>();
-            var factory = new CifParserFactory(Substitute.For<ILogger>());
-            var parser = new ScheduleConsolidator(factory.Create(), logger);
+            var factory = new ConsolidatorFactory(Substitute.For<ILogger>());
+            var parser = factory.CreateParser();
 
             var records = parser.Read(DataFile).ToArray();
 
@@ -39,13 +39,12 @@ namespace CifParserTest
             Assert.IsType<Trailer>(records[records.Length - 1]);
         }
 
-
         [Fact]
         public void ConsolidateSchedule()
         {
             var logger = Substitute.For<ILogger>();
-            var factory = new CifParserFactory(Substitute.For<ILogger>());
-            var parser = new ScheduleConsolidator(factory.Create(), logger);
+            var factory = new ConsolidatorFactory(Substitute.For<ILogger>());
+            var parser = factory.CreateParser();
 
             var schedule = parser.Read(DataFile).OfType<Schedule>().First();
 

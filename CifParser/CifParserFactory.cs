@@ -7,19 +7,24 @@ using System.IO;
 
 namespace CifParser
 {
+    public interface IParserFactory
+    {
+        IParser CreateParser();
+    }
+
     /// <summary>
     /// Creates the underlying file reading record engine from FileHelpers
     /// </summary>
-    internal class CifParserFactory
+    public class CifParserFactory : IParserFactory
     {
-        private ILogger Logger;
+        private ILogger _logger;
 
         internal CifParserFactory(ILogger logger)
         {
-            Logger = logger;
+            _logger = logger;
         }
 
-        internal IParser Create()
+        public IParser CreateParser()
         {
             var engine = new MultiRecordEngine(Types);
             engine.RecordSelector = new RecordTypeSelector(Select);
@@ -55,7 +60,7 @@ namespace CifParser
         {
             if (recordLine.Length == 0)
             {
-                Logger.Warning("Empty line");
+                _logger.Warning("Empty line");
                 return null;
             }
 
@@ -87,9 +92,30 @@ namespace CifParser
                 case "ZZ":
                     return typeof(Trailer);
                 default:
-                    Logger.Warning("Unknown record type {recordType}: {recordLine}", recordType, recordLine);
+                    _logger.Warning("Unknown record type {recordType}: {recordLine}", recordType, recordLine);
                     return null;
             }
+        }
+    }
+
+    public class ConsolidatorFactory : IParserFactory
+    {
+        private IParserFactory _factory;
+        private ILogger _logger;
+
+        public ConsolidatorFactory(ILogger logger) : this(new CifParserFactory(logger), logger)
+        {
+        }
+              
+        public ConsolidatorFactory(IParserFactory factory, ILogger logger)
+        {
+            _factory = factory;
+            _logger = logger;
+        }
+        
+        public IParser CreateParser()
+        {
+            return new ScheduleConsolidator(_factory.CreateParser(), _logger);
         }
     }
 }

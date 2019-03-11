@@ -10,7 +10,7 @@ namespace CifParser
     /// Groups a set of schedule records into a Schedule
     /// </summary>
     /// <remarks>Handles happy path only, assumes records are going to turn up in the right order</remarks>
-    public class ScheduleConsolidator : IParser
+    internal class ScheduleConsolidator : IParser
     {
         private IParser _parser;
         private ILogger _logger;

@@ -1,12 +1,13 @@
 # CifParser
-A .Net Standard 2.0 Library to parse a CIF formatted UK rail timetable
+A .Net Standard 2.0 Library to parse a CIF formatted UK rail timetable.  Can read both the Network Rail Open Data format and the RDG Format.
 
 ## How do I read a CIF file?
 
 Instantiate a Parser and Read to be returned an enumeration of CIF records.  Records are returned in the order they appear in the file.
 
 ```
-var parser = new Parser();
+var factory = new CifParserFactory(logger);
+var parser = factory.CreateParser();
 var records = parser.Read(file);
 ```
 
@@ -22,9 +23,11 @@ A schedule comprises a list of records in order:
 * A `TerminalLocation` record (LT)
 
 ```
-var parser = new ScheduleConsolidator(new Parser());;
+var factory = new ConsolidatorFactory(logger);
+var parser = factory.CreateParser();
 var records = parser.Read(file);
 
+// To read an indivdual schedule
 var schedule = records.OfType<Schedule>().First();
 foreach(var scheduleRecord in schedule.Records)
 {
@@ -35,6 +38,16 @@ foreach(var scheduleRecord in schedule.Records)
 where a record is not part of a schdule e.g. `Association` it is immediately returned.
 
 ## Implementation Details, why return `IEnumerable<ICifRecord>`?
+
+## RDG (TTIS) Zip Archives.
+
+RDG (TTIS) zip archives contain a cif file (.mca) plus additional data files.  The CIF parser will happily process the CIF file.  It will set the RetailServiceId that is additionally provided in the RDG format.  The additional files are a work in progress, currently only the master station file (.msn) is handled.
+
+```
+var factory = new TtisParserFactory(Substitute.For<ILogger>());
+var parser = factory.CreateStationParser();
+var records = parser.Read(file);
+```
 
 It reads the CIF file record by record, yielding to the client once it has constructed a record.  This means it does not need to hold the whole set of records in memory at any time.
 
