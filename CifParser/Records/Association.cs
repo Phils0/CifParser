@@ -8,7 +8,7 @@ namespace CifParser.Records
     /// Association Record: AA
     /// </summary>
     [FixedLengthRecord(FixedMode.AllowLessChars)]
-    public class Association : ICifRecord
+    public class Association : IRecord
     {
         /// <summary>
         ///Record type 

@@ -11,7 +11,7 @@ namespace CifParserTest
 {
     public class ParserTest
     {
-        public static ICifRecord[] ParseRecords(string data)
+        public static IRecord[] ParseRecords(string data)
         {
             var input = new StringReader(data);
 
@@ -30,7 +30,7 @@ namespace CifParserTest
 XXINVALID                     
 ZZ                                                                              
 ";
-        ICifRecord[] records = ParseRecords(invalidRecord);
+        IRecord[] records = ParseRecords(invalidRecord);
 
          Assert.Equal(2, records.Length);
         }
@@ -43,7 +43,7 @@ ZZ
                      
 ZZ                                                                              
 ";
-            ICifRecord[] records = ParseRecords(emptyLine);
+            IRecord[] records = ParseRecords(emptyLine);
 
             Assert.Equal(2, records.Length);
         }
@@ -57,7 +57,7 @@ ZZ
 ZZ                                                                              
 
 ";
-            ICifRecord[] records = ParseRecords(emptyLine);
+            IRecord[] records = ParseRecords(emptyLine);
 
             Assert.Equal(2, records.Length);
         }
@@ -72,7 +72,7 @@ ZZ
                                   
 ZZ                                                                              
 ";
-            ICifRecord[] records = ParseRecords(whiteSpaceLine);
+            IRecord[] records = ParseRecords(whiteSpaceLine);
 
             Assert.Equal(2, records.Length);
         }

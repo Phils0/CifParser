@@ -7,7 +7,7 @@ namespace CifParser.Records
     /// Trailer Record: ZZ
     /// </summary>
     [FixedLengthRecord(FixedMode.AllowLessChars)]
-    public class Trailer : ICifRecord
+    public class Trailer : IRecord
     {
         /// <summary>
         ///Record type 

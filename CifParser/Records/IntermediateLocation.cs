@@ -9,7 +9,7 @@ namespace CifParser.Records
     /// Intermediate Location Record: LI
     /// </summary>
     [FixedLengthRecord(FixedMode.AllowLessChars)]
-    public class IntermediateLocation : ICifRecord
+    public class IntermediateLocation : IRecord
     {
         /// <summary>
         ///Record type 

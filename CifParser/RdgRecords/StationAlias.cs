@@ -3,7 +3,7 @@ using FileHelpers;
 namespace CifParser.RdgRecords
 {
     [FixedLengthRecord]
-    public class StationAlias
+    public class StationAlias  : IRecord
     {
         /// <summary>
         /// Record type 

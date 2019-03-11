@@ -30,7 +30,7 @@ namespace CifParserTest
 
         [Theory]
         [MemberData(nameof(NonScheduleRecords))]
-        public void ImmediatelyReturnNonServiceRecords(ICifRecord record)
+        public void ImmediatelyReturnNonServiceRecords(IRecord record)
         {
             var parser = Substitute.For<IParser>();
             parser.Read(Arg.Any<TextReader>()).Returns(new[] { record });
@@ -46,7 +46,7 @@ namespace CifParserTest
         public void ReturnServiceWhenTerminated()
         {
             var parser = Substitute.For<IParser>();
-            parser.Read(Arg.Any<TextReader>()).Returns(new ICifRecord[] { new ScheduleDetails(), new TerminalLocation() });
+            parser.Read(Arg.Any<TextReader>()).Returns(new IRecord[] { new ScheduleDetails(), new TerminalLocation() });
 
             var consolidator = new ScheduleConsolidator(parser, Substitute.For<ILogger>());
 
@@ -71,7 +71,7 @@ namespace CifParserTest
         [Fact]
         public void ReturnAllRecords()
         {
-            var records = new ICifRecord[] { new ScheduleDetails(), new IntermediateLocation(), new TerminalLocation() };
+            var records = new IRecord[] { new ScheduleDetails(), new IntermediateLocation(), new TerminalLocation() };
             var parser = Substitute.For<IParser>();
             parser.Read(Arg.Any<TextReader>()).Returns(records);
 
@@ -96,9 +96,9 @@ namespace CifParserTest
 
         [Theory]
         [MemberData(nameof(ScheduleRecords))]
-        public void ReturnScheduleRecordsInService(ICifRecord record)
+        public void ReturnScheduleRecordsInService(IRecord record)
         {
-            var records = new ICifRecord[] { new ScheduleDetails(), record, new TerminalLocation() };
+            var records = new IRecord[] { new ScheduleDetails(), record, new TerminalLocation() };
             var parser = Substitute.For<IParser>();
             parser.Read(Arg.Any<TextReader>()).Returns(records);
 
@@ -112,7 +112,7 @@ namespace CifParserTest
         [Fact]
         public void MultipleServicesReturned()
         {
-            var records = new ICifRecord[] { new ScheduleDetails(), new TerminalLocation(), new ScheduleDetails(), new TerminalLocation() };
+            var records = new IRecord[] { new ScheduleDetails(), new TerminalLocation(), new ScheduleDetails(), new TerminalLocation() };
             var parser = Substitute.For<IParser>();
             parser.Read(Arg.Any<TextReader>()).Returns(records);
 
@@ -126,7 +126,7 @@ namespace CifParserTest
         [Fact]
         public void HandleRecordsInOrderInCif()
         {
-            var records = new ICifRecord[] 
+            var records = new IRecord[] 
                 {
                     new Header(),
                     new TiplocInsertAmend(),
@@ -161,7 +161,7 @@ namespace CifParserTest
         [Fact]
         public void ReturnAllRecordsWHenHaveDelete()
         {
-            var records = new ICifRecord[] { new ScheduleDetails() {Action = RecordAction.Delete}, new Trailer(),  };
+            var records = new IRecord[] { new ScheduleDetails() {Action = RecordAction.Delete}, new Trailer(),  };
             var parser = Substitute.For<IParser>();
             parser.Read(Arg.Any<TextReader>()).Returns(records);
 
@@ -175,7 +175,7 @@ namespace CifParserTest
         [Fact]
         public void LogErrorIfNotTerminatedASchedule()
         {
-            var records = new ICifRecord[] 
+            var records = new IRecord[] 
             {
                 new ScheduleDetails() { TimetableUid = "Service1"}, 
                 new ScheduleExtraData(),
@@ -192,7 +192,7 @@ namespace CifParserTest
 
             var returned = consolidator.Read(_dummy).ToArray();
 
-            logger.ReceivedWithAnyArgs().Error<ICifRecord>(Arg.Any<string>(), Arg.Any<ICifRecord>());
+            logger.ReceivedWithAnyArgs().Error<IRecord>(Arg.Any<string>(), Arg.Any<IRecord>());
         }
     }
 }

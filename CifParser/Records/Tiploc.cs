@@ -6,7 +6,7 @@ namespace CifParser.Records
     /// TIPLOC Record: T[IAD]
     /// I: Insert, A: Amend, D: Delete 
     /// </summary>
-    public class Tiploc : ICifRecord
+    public class Tiploc : IRecord
     {
         /// <summary>
         /// CRUD record type 

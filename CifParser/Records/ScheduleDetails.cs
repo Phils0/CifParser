@@ -41,7 +41,7 @@ namespace CifParser.Records
     /// Basic Schedule Record: BS
     /// </summary>
     [FixedLengthRecord(FixedMode.AllowLessChars)]
-    public class ScheduleDetails : ICifRecord
+    public class ScheduleDetails : IRecord
     {
         /// <summary>
         ///Record type 

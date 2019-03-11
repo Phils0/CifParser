@@ -7,7 +7,7 @@ namespace CifParser.Records
     /// Basic Schedule Extra Data Record: BX
     /// </summary>
     [FixedLengthRecord(FixedMode.AllowLessChars)]
-    public class ScheduleExtraData : ICifRecord
+    public class ScheduleExtraData : IRecord
     {
         /// <summary>
         ///Record type 

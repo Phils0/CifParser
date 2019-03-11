@@ -13,7 +13,7 @@ namespace CifParser.Records
     /// Header Record: HD
     /// </summary>
     [FixedLengthRecord(FixedMode.AllowLessChars)]
-    public class Header : ICifRecord
+    public class Header : IRecord
     {
         /// <summary>
         ///Record type 

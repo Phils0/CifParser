@@ -8,7 +8,7 @@ namespace CifParser.Records
     /// <summary>
     /// Terminating Location Record: LT
     [FixedLengthRecord(FixedMode.AllowLessChars)]
-    public class TerminalLocation : ICifRecord
+    public class TerminalLocation : IRecord
     {
         /// <summary>
         ///Record type 

@@ -8,7 +8,7 @@ namespace CifParser.Records
     /// </summary>
     /// <remarks>Something changes with the servbice enroute</remarks>
     [FixedLengthRecord(FixedMode.AllowLessChars)]
-    public class ScheduleChange : ICifRecord
+    public class ScheduleChange : IRecord
     {
         /// <summary>
         ///Record type 

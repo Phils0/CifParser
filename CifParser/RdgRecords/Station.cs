@@ -17,7 +17,7 @@ namespace CifParser.RdgRecords
     /// </summary>
     [FixedLengthRecord]
     [IgnoreFirst]
-    public class Station
+    public class Station : IRecord
     {
         /// <summary>
         /// Record type 

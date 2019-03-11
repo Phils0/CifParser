@@ -24,14 +24,14 @@ namespace CifParser
             _engine = engine;
         }
                 
-        public IEnumerable<ICifRecord> Read(TextReader reader)
+        public IEnumerable<IRecord> Read(TextReader reader)
         {
             _engine.BeginReadStream(reader);
             var objects = new SingleCallEnumerator(_engine);
-            return objects.Cast<ICifRecord>();
+            return objects.Cast<IRecord>();
         }
 
-        public IEnumerable<ICifRecord> Read(string file)
+        public IEnumerable<IRecord> Read(string file)
         {
             if (!File.Exists(file))
                 throw new ArgumentException($"File does not exist: {file}");

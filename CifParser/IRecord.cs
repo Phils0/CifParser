@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CifParser.Records
+namespace CifParser
 {
     /// <summary>
     /// Marker Interface
     /// </summary>
-    public interface ICifRecord
+    public interface IRecord
     {
     }
 }

@@ -9,7 +9,7 @@ namespace CifParser.Records
     /// Origin Location Record: LO
     /// </summary>
     [FixedLengthRecord(FixedMode.AllowLessChars)]
-    public class OriginLocation : ICifRecord
+    public class OriginLocation : IRecord
     {
         /// <summary>
         ///Record type 

@@ -21,13 +21,13 @@ TDLNDRBES
         [Fact]
         public void ReadInsertRecord()
         {
-            ICifRecord[] records = ParseRecords();
+            IRecord[] records = ParseRecords();
 
             var record = records[0] as TiplocInsertAmend;
             Assert.Equal(RecordAction.Create, record.Action);
         }
 
-        public ICifRecord[] ParseRecords()
+        public IRecord[] ParseRecords()
         {
             return ParserTest.ParseRecords(_records);
         }
@@ -35,7 +35,7 @@ TDLNDRBES
         [Fact]
         public void ReadAmendRecord()
         {
-            ICifRecord[] records = ParseRecords();
+            IRecord[] records = ParseRecords();
 
             var record = records[2] as TiplocInsertAmend;
             Assert.Equal(RecordAction.Update, record.Action);
@@ -44,7 +44,7 @@ TDLNDRBES
         [Fact]
         public void ReadDeleteRecord()
         {
-            ICifRecord[] records = ParseRecords();
+            IRecord[] records = ParseRecords();
 
             Assert.IsType<TiplocDelete>(records[3]);
         }

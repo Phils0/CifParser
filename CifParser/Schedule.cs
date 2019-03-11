@@ -9,9 +9,9 @@ namespace CifParser
     /// Structure to hold all of a schedule records
     /// </summary>
     /// <remarks>TimetableUid, STPIndicator and Action form a unique identifier </remarks>
-    public class Schedule : ICifRecord
+    public class Schedule : IRecord
     {
-        public IList<ICifRecord> Records { get; set; } = new List<ICifRecord>();
+        public IList<IRecord> Records { get; set; } = new List<IRecord>();
 
         public ScheduleDetails GetScheduleDetails() => Records.OfType<ScheduleDetails>().First();
         public ScheduleExtraData GetScheduleExtraDetails() => Records.OfType<ScheduleExtraData>().FirstOrDefault();
@@ -27,7 +27,7 @@ namespace CifParser
                 details.Action);
         }
                 
-        public void Add(ICifRecord record)
+        public void Add(IRecord record)
         {
             Records.Add(record);
             switch (record)

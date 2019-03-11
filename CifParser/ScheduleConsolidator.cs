@@ -25,12 +25,12 @@ namespace CifParser
             _parser = parser;
         }
 
-        public IEnumerable<ICifRecord> Read(TextReader reader)
+        public IEnumerable<IRecord> Read(TextReader reader)
         {
             return Consolidate(_parser.Read(reader));
         }
 
-        private IEnumerable<ICifRecord> Consolidate(IEnumerable<ICifRecord> records)
+        private IEnumerable<IRecord> Consolidate(IEnumerable<IRecord> records)
         {
             Schedule current = null;
 
@@ -61,7 +61,7 @@ namespace CifParser
             }
         }
 
-        public IEnumerable<ICifRecord> Read(string file)
+        public IEnumerable<IRecord> Read(string file)
         {
             return Consolidate(_parser.Read(file));
         }
