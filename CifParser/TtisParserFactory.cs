@@ -13,11 +13,11 @@ namespace CifParser
     /// <summary>
     /// Creates the underlying file reading record engine from FileHelpers
     /// </summary>
-    internal class TtisRecordEngineFactory
+    internal class TtisParserFactory
     {
         private ILogger Logger;
 
-        internal TtisRecordEngineFactory(ILogger logger)
+        internal TtisParserFactory(ILogger logger)
         {
             Logger = logger;
         }

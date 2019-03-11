@@ -15,7 +15,8 @@ namespace CifParserTest
         {
             var input = new StringReader(data);
 
-            var parser = new Parser(Substitute.For<ILogger>());
+            var factory = new CifParserFactory(Substitute.For<ILogger>());
+            var parser = factory.Create();
 
             var records = parser.Read(input).ToArray();
             return records;
@@ -84,7 +85,8 @@ ZZ
 ZZ                                                                              
 ";
             var input = new StringReader(records);
-            var parser = new Parser(Substitute.For<ILogger>());
+            var factory = new CifParserFactory(Substitute.For<ILogger>());
+            var parser = factory.Create();
 
             var enumerable = parser.Read(input);
 

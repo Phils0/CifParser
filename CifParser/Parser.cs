@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using FileHelpers;
 
 namespace CifParser
 {
@@ -12,20 +13,22 @@ namespace CifParser
     /// </summary>
     public class Parser : IParser
     {
-        private readonly RecordEngineFactory _factory;
+        private readonly MultiRecordEngine _engine;
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="logger">Serilog Logger</param>
-        public Parser(ILogger logger)
+        /// <param name="engine">File reader engine</param>
+        internal Parser(MultiRecordEngine engine)
         {
-            _factory = new RecordEngineFactory(logger);
+            _engine = engine;
         }
+                
         public IEnumerable<ICifRecord> Read(TextReader reader)
         {
-            var enumerable = _factory.Create(reader);
-            return enumerable.Cast<ICifRecord>();
+            _engine.BeginReadStream(reader);
+            var objects = new SingleCallEnumerator(_engine);
+            return objects.Cast<ICifRecord>();
         }
 
         public IEnumerable<ICifRecord> Read(string file)

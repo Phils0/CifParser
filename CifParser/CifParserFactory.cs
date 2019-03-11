@@ -10,21 +10,20 @@ namespace CifParser
     /// <summary>
     /// Creates the underlying file reading record engine from FileHelpers
     /// </summary>
-    internal class RecordEngineFactory
+    internal class CifParserFactory
     {
         private ILogger Logger;
 
-        internal RecordEngineFactory(ILogger logger)
+        internal CifParserFactory(ILogger logger)
         {
             Logger = logger;
         }
 
-        internal IEnumerable Create(TextReader reader)
+        internal IParser Create()
         {
             var engine = new MultiRecordEngine(Types);
             engine.RecordSelector = new RecordTypeSelector(Select);
-            engine.BeginReadStream(reader);
-            return new SingleCallEnumerator(engine);
+            return new Parser(engine);
         }
 
         /// <summary>

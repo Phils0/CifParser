@@ -18,7 +18,7 @@ namespace CifParserTest
         [Fact]
         public void ParseFile()
         {
-            var factory = new TtisRecordEngineFactory(Substitute.For<ILogger>());
+            var factory = new TtisParserFactory(Substitute.For<ILogger>());
             var parser = factory.CreateStationParser();
 
             var records = parser.Read(DataFile).ToArray();
