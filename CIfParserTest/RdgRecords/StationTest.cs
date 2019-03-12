@@ -31,7 +31,7 @@ namespace CifParserTest.RdgRecords
 
             var records = parser.Read(input).ToArray();
            
-            return records[0];
+            return records[0] as Station;
         }
 
         [Fact]

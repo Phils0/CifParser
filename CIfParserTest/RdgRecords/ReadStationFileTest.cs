@@ -21,7 +21,7 @@ namespace CifParserTest
             var factory = new TtisParserFactory(Substitute.For<ILogger>());
             var parser = factory.CreateStationParser();
 
-            var records = parser.Read(DataFile).ToArray();
+            var records = parser.Read(DataFile).Cast<Station>().ToArray();
 
             Assert.NotEmpty(records);
 

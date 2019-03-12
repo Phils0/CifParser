@@ -22,7 +22,7 @@ namespace CifParser
             Logger = logger;
         }
 
-        public StationParser CreateStationParser(int ignoreLines = 1)
+        public IParser CreateStationParser(int ignoreLines = 1)
         {
             var engine = new MultiRecordEngine(StationTypes);
             engine.Options.IgnoreFirstLines = ignoreLines;

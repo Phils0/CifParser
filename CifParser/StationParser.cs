@@ -12,7 +12,7 @@ namespace CifParser
     /// <summary>
     /// Parses the file, creating one record for each line of the file
     /// </summary>
-    public class StationParser
+    public class StationParser : IParser
     {
         private readonly MultiRecordEngine _engine;
 
@@ -25,14 +25,14 @@ namespace CifParser
             _engine = engine;
         }
         
-        public IEnumerable<Station> Read(TextReader reader)
+        public IEnumerable<IRecord> Read(TextReader reader)
         {
             _engine.BeginReadStream(reader);
             var objects = new SingleCallEnumerator(_engine);
             return objects.Cast<Station>();
         }
         
-        public IEnumerable<Station> Read(string file)
+        public IEnumerable<IRecord> Read(string file)
         {
             if (!File.Exists(file))
                 throw new ArgumentException($"File does not exist: {file}");
