@@ -13,16 +13,16 @@ namespace CifParser
     /// <summary>
     /// Creates the underlying file reading record engine from FileHelpers
     /// </summary>
-    internal class TtisParserFactory
+    public class TtisParserFactory
     {
         private ILogger Logger;
 
-        internal TtisParserFactory(ILogger logger)
+        public TtisParserFactory(ILogger logger)
         {
             Logger = logger;
         }
 
-        internal StationParser CreateStationParser(int ignoreLines = 1)
+        public StationParser CreateStationParser(int ignoreLines = 1)
         {
             var engine = new MultiRecordEngine(StationTypes);
             engine.Options.IgnoreFirstLines = ignoreLines;

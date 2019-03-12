@@ -19,7 +19,7 @@ namespace CifParser
     {
         private ILogger _logger;
 
-        internal CifParserFactory(ILogger logger)
+        public CifParserFactory(ILogger logger)
         {
             _logger = logger;
         }
