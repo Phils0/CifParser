@@ -52,3 +52,10 @@ var records = parser.Read(file);
 It reads the CIF file record by record, yielding to the client once it has constructed a record.  This means it does not need to hold the whole set of records in memory at any time.
 
 The implementation uses the [FileHelpers](https://www.filehelpers.net/) package to do most of the heavy lifting to acheive this.
+
+# CifExtractor
+A .Net Standard 2.0 Library to extract a CIF file from an archive.  
+* `NrodZipExtractor` extracts the cif file from the Network Rail Open Data gz archive.
+* `RdgZipExtractor` extracts the cif file from the RDG zip archive.  It can additionally extract the other files in the archive.
+
+The Cif file is extracted directly into a `TextReader` that can be used when calling the CifParser
