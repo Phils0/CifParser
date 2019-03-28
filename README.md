@@ -37,17 +37,19 @@ foreach(var scheduleRecord in schedule.Records)
 
 where a record is not part of a schdule e.g. `Association` it is immediately returned.
 
-## Implementation Details, why return `IEnumerable<ICifRecord>`?
-
 ## RDG (TTIS) Zip Archives.
 
-RDG (TTIS) zip archives contain a cif file (.mca) plus additional data files.  The CIF parser will happily process the CIF file.  It will set the RetailServiceId that is additionally provided in the RDG format.  The additional files are a work in progress, currently only the master station file (.msn) is handled.
+RDG (TTIS) zip archives contain a cif file (.mca) plus additional data files.  The CIF parser will happily process the CIF file.  It will set the RetailServiceId in the BX record that is additionally provided by the RDG format.  
+
+The additional files are a work in progress, currently only the master station file (.msn) is handled.
 
 ```
-var factory = new TtisParserFactory(Substitute.For<ILogger>());
+var factory = new TtisParserFactory(logger);
 var parser = factory.CreateStationParser();
 var records = parser.Read(file);
 ```
+
+## Implementation Details, why return `IEnumerable<ICifRecord>`?
 
 It reads the CIF file record by record, yielding to the client once it has constructed a record.  This means it does not need to hold the whole set of records in memory at any time.
 
