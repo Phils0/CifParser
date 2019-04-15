@@ -31,10 +31,10 @@ namespace CifParser.Records
     /// </summary>
     public enum StpIndicator
     {
-        P,  // Permanent schedule
-        C,  // STP Cancellation of Permanent schedule
-        N,  // New STP schedule (not an overlay)
-        O,  // STP overlay of Permanent schedule
+        P = 0,  // Permanent schedule
+        O = 1,  // STP overlay of Permanent schedule
+        N = 2,  // New STP schedule (not an overlay)
+        C = 3,  // STP Cancellation of Permanent schedule
     }
 
     /// <summary>

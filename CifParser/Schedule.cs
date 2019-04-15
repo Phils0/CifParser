@@ -15,8 +15,6 @@ namespace CifParser
 
         public ScheduleDetails GetScheduleDetails() => Records.OfType<ScheduleDetails>().First();
         public ScheduleExtraData GetScheduleExtraDetails() => Records.OfType<ScheduleExtraData>().FirstOrDefault();
-
-
         public ScheduleId GetId()
         {
             var details = GetScheduleDetails();
