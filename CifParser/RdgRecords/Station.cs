@@ -8,7 +8,7 @@ namespace CifParser.RdgRecords
         Minor = 1,
         Normal = 2,
         Main = 3,
-        SubsidiaryLocation = 9      
+        SubsidiaryLocation = 9
     }
     
     /// <summary>
@@ -16,7 +16,7 @@ namespace CifParser.RdgRecords
     /// A record
     /// </summary>
     [FixedLengthRecord]
-    [IgnoreFirst]
+    [IgnoreFirst(6)]
     public class Station : IRecord
     {
         /// <summary>

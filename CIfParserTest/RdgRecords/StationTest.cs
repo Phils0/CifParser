@@ -26,7 +26,7 @@ namespace CifParserTest.RdgRecords
         {
             var input = new StringReader(record ?? _station);
 
-            var factory = new TtisParserFactory(Substitute.For<ILogger>());
+            var factory = new StationParserFactory(Substitute.For<ILogger>());
             var parser = factory.CreateStationParser(0);
 
             var records = parser.Read(input).ToArray();

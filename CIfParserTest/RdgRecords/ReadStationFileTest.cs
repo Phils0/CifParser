@@ -13,15 +13,30 @@ namespace CifParserTest
 {
     public class ReadStationFileTest
     {
-        private const string DataFile = @".\Data\ttisf193.msn";
+        private const string TtisStationFile = @".\Data\ttisf193.msn";
+        private const string DtdStationFile = @".\Data\RJTTF293.msn";
 
         [Fact]
-        public void ParseFile()
+        public void ParseTtisFile()
         {
-            var factory = new TtisParserFactory(Substitute.For<ILogger>());
-            var parser = factory.CreateStationParser();
+            var factory = new StationParserFactory(Substitute.For<ILogger>());
+            var parser = factory.CreateStationParser(StationParserFactory.TtisIgnoreLines);
 
-            var records = parser.Read(DataFile).Cast<Station>().ToArray();
+            var records = parser.Read(TtisStationFile).Cast<Station>().ToArray();
+
+            Assert.NotEmpty(records);
+
+            var waterloo = records.First(s => s.Tiploc == "WATRLMN");
+            Assert.Equal(InterchangeStatus.Main, waterloo.InterchangeStatus);
+        }
+        
+        [Fact]
+        public void ParseDtdFile()
+        {
+            var factory = new StationParserFactory(Substitute.For<ILogger>());
+            var parser = factory.CreateStationParser(StationParserFactory.DtdIgnoreLines);
+
+            var records = parser.Read(DtdStationFile).Cast<Station>().ToArray();
 
             Assert.NotEmpty(records);
 
