@@ -1,12 +1,8 @@
 using CifParser;
 using CifParser.Records;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using Xunit;
 
-namespace CifParserTest
+namespace CifParserTest.Records
 {
     public class TiplocTest
     {

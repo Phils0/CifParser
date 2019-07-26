@@ -1,10 +1,8 @@
-﻿using CifParser.Records;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
+using CifParser.Records;
 using Xunit;
 
-namespace CifParserTest
+namespace CifParserTest.Records
 {
     public class ScheduleDetailsTest
     {
