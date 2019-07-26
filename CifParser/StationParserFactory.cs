@@ -13,7 +13,7 @@ namespace CifParser
     /// <summary>
     /// Creates the underlying file reading record engine from FileHelpers
     /// </summary>
-    public class StationParserFactory
+    public class StationParserFactory : IParserFactory
     {
         public const int TtisIgnoreLines = 1;
         public const int DtdIgnoreLines = 6;
@@ -25,7 +25,22 @@ namespace CifParser
             Logger = logger;
         }
 
-        public IParser CreateStationParser(int ignoreLines)
+        /// <summary>
+        /// Creates a Parser
+        /// </summary>
+        /// <returns>Parser to parse the Master Station File</returns>
+        /// <remarks>Defaults to assume its a DTD extract</remarks>
+        public IParser CreateParser()
+        {
+            return CreateParser(DtdIgnoreLines);
+        }
+        
+        /// <summary>
+        /// Creates a Parser
+        /// </summary>
+        /// <param name="ignoreLines">Number of lines at the start of the file to ignore, DTD is 6, TTIS is 1</param>
+        /// <returns>Parser to parse the Master Station File</returns>
+        public IParser CreateParser(int ignoreLines)
         {
             var engine = new MultiRecordEngine(StationTypes);
             engine.Options.IgnoreFirstLines = ignoreLines;

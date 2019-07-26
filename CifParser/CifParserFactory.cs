@@ -7,11 +7,6 @@ using System.IO;
 
 namespace CifParser
 {
-    public interface IParserFactory
-    {
-        IParser CreateParser();
-    }
-
     /// <summary>
     /// Creates the underlying file reading record engine from FileHelpers
     /// </summary>
@@ -31,6 +26,14 @@ namespace CifParser
             return new Parser(engine);
         }
 
+        public IParser CreateParser(int ignoreLines)
+        {
+            var engine = new MultiRecordEngine(Types);
+            engine.Options.IgnoreFirstLines = ignoreLines;
+            engine.RecordSelector = new RecordTypeSelector(Select);
+            return new Parser(engine);
+        }
+        
         /// <summary>
         /// List of CIF record types
         /// </summary>
@@ -116,6 +119,11 @@ namespace CifParser
         public IParser CreateParser()
         {
             return new ScheduleConsolidator(_factory.CreateParser(), _logger);
+        }
+        
+        public IParser CreateParser(int ignoreLines)
+        {
+            return new ScheduleConsolidator(_factory.CreateParser(ignoreLines), _logger);
         }
     }
 }
