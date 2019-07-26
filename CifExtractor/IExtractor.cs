@@ -4,6 +4,15 @@ namespace CifExtractor
 {
     public interface IExtractor
     {
-        TextReader ExtractCif(string file);
+        /// <summary>
+        /// Archive
+        /// </summary>
+        IArchive Archive { get; }
+        
+        /// <summary>
+        /// Extracts the CIF file
+        /// </summary>
+        /// <returns></returns>
+        TextReader ExtractCif();
     }
 }

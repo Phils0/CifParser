@@ -12,14 +12,17 @@ namespace CifExtractor
         
         private readonly ILogger _logger;
 
-        public RdgZipExtractor(ILogger logger)
+        public IArchive Archive { get; }
+        
+        public RdgZipExtractor(IArchive archive, ILogger logger)
         {
+            Archive = archive;
             _logger = logger;
         }
         
-        public TextReader ExtractCif(string file)
+        public TextReader ExtractCif()
         {           
-            return ExtractFile(file, CifExtension);
+            return ExtractFile(CifExtension);
         }
 
         /// <summary>
@@ -28,9 +31,9 @@ namespace CifExtractor
         /// <param name="file">RDG timtable zip archive - ttisnnn.zip </param>
         /// <param name="extension">The file inside the archive to extract</param>
         /// <returns>A reader to read the file</returns>
-        public TextReader ExtractFile(string file, string extension)
+        public TextReader ExtractFile(string extension)
         {
-            var archive = ZipFile.OpenRead(file);
+            var archive = ZipFile.OpenRead(Archive.FullName);
 
             foreach (ZipArchiveEntry entry in archive.Entries)
             {

@@ -1,3 +1,4 @@
+using System.IO;
 using CifExtractor;
 using NSubstitute;
 using Serilog;
@@ -12,9 +13,10 @@ namespace CifExtractorTest
         [Fact]
         public void CanReadCifFile()
         {
-            var extractor = new NrodZipExtractor();
+            var archive = new Archive(cifGzipFile, Substitute.For<ILogger>());
+            var extractor = new NrodZipExtractor(archive);
 
-            using (var reader = extractor.ExtractCif(cifGzipFile))
+            using (var reader = extractor.ExtractCif())
             {
                 var first = reader.ReadLine();
                 Assert.NotEmpty(first);
@@ -29,9 +31,10 @@ namespace CifExtractorTest
         [Fact]
         public void CanReadCifFile()
         {
-            var extractor = new RdgZipExtractor(Substitute.For<ILogger>());
+            var archive = new Archive(rdgZipFile, Substitute.For<ILogger>());
+            var extractor = new RdgZipExtractor(archive,  Substitute.For<ILogger>());
 
-            using (var reader = extractor.ExtractCif(rdgZipFile))
+            using (var reader = extractor.ExtractCif())
             {
                 var first = reader.ReadLine();
                 Assert.NotEmpty(first);
@@ -41,9 +44,10 @@ namespace CifExtractorTest
         [Fact]
         public void CanReadStationFile()
         {
-            var extractor = new RdgZipExtractor(Substitute.For<ILogger>());
+            var archive = new Archive(new FileInfo(rdgZipFile), Substitute.For<ILogger>());
+            var extractor = new RdgZipExtractor(archive,  Substitute.For<ILogger>());
 
-            using (var reader = extractor.ExtractFile(rdgZipFile, RdgZipExtractor.StationExtension))
+            using (var reader = extractor.ExtractFile(RdgZipExtractor.StationExtension))
             {
                 var first = reader.ReadLine();
                 Assert.NotNull(first);

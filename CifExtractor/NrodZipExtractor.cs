@@ -3,11 +3,18 @@ using System.IO.Compression;
 
 namespace CifExtractor
 {
-    public class NrodZipExtractor : IExtractor
+    internal class NrodZipExtractor : IExtractor
     {
-        public TextReader ExtractCif(string file)
+        public IArchive Archive { get; }
+        
+        internal NrodZipExtractor(IArchive archive)
+        {
+            Archive = archive;
+        }
+        
+        public TextReader ExtractCif()
         {           
-            var fileStream = File.OpenRead(file);
+            var fileStream = File.OpenRead(Archive.FullName);
             var decompressionStream = new GZipStream(fileStream, CompressionMode.Decompress);
             return new StreamReader(decompressionStream);
         }
