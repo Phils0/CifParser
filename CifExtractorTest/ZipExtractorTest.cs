@@ -8,7 +8,7 @@ namespace CifExtractorTest
 {
     public class NrodZipExtractorTest
     {
-        public const string cifGzipFile = @".\Data\toc-update-tue.CIF.gz";
+        private static readonly string cifGzipFile =  Path.Combine(".", "Data", "toc-update-tue.CIF.gz");
                
         [Fact]
         public void CanReadCifFile()
@@ -26,7 +26,7 @@ namespace CifExtractorTest
     
     public class RdgZipExtractorTest
     {
-        public const string rdgZipFile = @".\Data\ttis144.zip";
+        private static readonly string rdgZipFile = Path.Combine(".", "Data", "ttis144.zip");
                
         [Fact]
         public void CanReadCifFile()

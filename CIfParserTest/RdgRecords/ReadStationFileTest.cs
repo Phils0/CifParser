@@ -2,6 +2,7 @@
 using CifParser.Records;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using CifParser.RdgRecords;
@@ -13,8 +14,8 @@ namespace CifParserTest
 {
     public class ReadStationFileTest
     {
-        private const string TtisStationFile = @".\Data\ttisf193.msn";
-        private const string DtdStationFile = @".\Data\RJTTF293.msn";
+        private static readonly string TtisStationFile = Path.Combine(".", "Data", "ttisf193.msn");
+        private static readonly string DtdStationFile = Path.Combine(".", "Data", "RJTTF293.msn");
 
         [Fact]
         public void ParseTtisFile()

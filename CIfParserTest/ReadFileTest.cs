@@ -2,6 +2,7 @@
 using CifParser.Records;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using NSubstitute;
@@ -12,7 +13,7 @@ namespace CifParserTest
 {
     public class ReadFileTest
     {
-        private const string DataFile = @".\Data\toc-update-mon.CIF";
+        private static readonly string DataFile = Path.Combine(".", "Data", "toc-update-mon.CIF");
 
         [Fact]
         public void ParseFile()
