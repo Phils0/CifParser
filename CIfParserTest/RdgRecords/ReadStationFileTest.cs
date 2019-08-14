@@ -15,7 +15,7 @@ namespace CifParserTest
     public class ReadStationFileTest
     {
         private static readonly string TtisStationFile = Path.Combine(".", "Data", "ttisf193.msn");
-        private static readonly string DtdStationFile = Path.Combine(".", "Data", "RJTTF293.msn");
+        private static readonly string DtdStationFile = Path.Combine(".", "Data", "RJTTF293.MSN");
 
         [Fact]
         public void ParseTtisFile()
