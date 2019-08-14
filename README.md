@@ -1,6 +1,8 @@
 # CifParser
 A .Net Standard 2.0 Library to parse a CIF formatted UK rail timetable.  Can read both the Network Rail Open Data format and the RDG Format.
 
+[![Build Status](https://dev.azure.com/phils0oss/CifParser/_apis/build/status/Phils0.CifParser?branchName=master)](https://dev.azure.com/phils0oss/CifParser/_build/latest?definitionId=1&branchName=master)
+
 ## How do I read a CIF file?
 
 Instantiate a Parser and Read to be returned an enumeration of CIF records.  Records are returned in the order they appear in the file.
