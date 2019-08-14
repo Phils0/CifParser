@@ -7,8 +7,15 @@
 trigger:
 - master
 
+strategy:
+  matrix:
+    linux:
+      imageName: 'ubuntu-latest'
+    windows:
+      imageName: 'windows-latest'
+
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: $(imageName)
 
 variables:
   buildConfiguration: 'Release'
