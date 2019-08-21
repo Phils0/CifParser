@@ -20,7 +20,7 @@ jobs:
       updateAssemblyInfo: true
   - script: dotnet restore
     displayName: Nuget restore
-  - script: dotnet build /p:Version='$(GitVersion.NuGetVersion)'
+  - script: dotnet build /p:Version='$(GitVersion.AssemblySemVer)'
     displayName: Build
   - script: dotnet test --no-build
     displayName: Unit Test
