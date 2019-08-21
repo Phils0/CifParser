@@ -9,6 +9,7 @@
     <RepositoryUrl>https://github.com/Phils0/CifParser/</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>ukrail cif</PackageTags>
+    <PackageVersion>0.0.0</PackageVersion>
     <Title>UK Rail Timetable CIF parser</Title>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
