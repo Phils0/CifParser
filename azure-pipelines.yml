@@ -1,28 +1,53 @@
-# ASP.NET Core
-
-# Build and test ASP.NET Core projects targeting .NET Core.
-# Add steps that run tests, create a NuGet package, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+# Build and test CifParser on both Windows and Linux
+# If they succeed push to Nuget
 
 trigger:
 - master
 
-strategy:
-  matrix:
-    linux:
-      imageName: 'ubuntu-latest'
-    windows:
-      imageName: 'windows-latest'
-
-pool:
-  vmImage: $(imageName)
-
 variables:
   buildConfiguration: 'Release'
 
-steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'test'
+jobs:
+- job: WindowsBuildAndTest
+  displayName: 'Windows build and test'
+  pool:
+    vmImage: 'windows-latest'
+  steps:
+  - task: gittools.gitversion.gitversion-task.GitVersion@5
+    displayName: GitVersion
+    inputs:
+      configFilePath: 'GitVersion.yml'
+      updateAssemblyInfo: true
+  - script: dotnet restore
+    displayName: Nuget restore
+  - script: dotnet build /p:Version='$(GitVersion.NuGetVersion)'
+    displayName: Build
+  - script: dotnet test --no-build
+    displayName: Unit Test
+  - script: dotnet pack --no-build -o '$(build.artifactStagingDirectory)'
+    displayName: Create Nuget package
+- job: LinuxBuildAndTest
+  displayName: 'Linux build and test'
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+  - script: dotnet restore
+    displayName: Nuget restore
+  - script: dotnet build
+    displayName: Build
+  - script: dotnet test
+    displayName: Unit Test
+- job: Publish
+  displayName: 'Publish Nuget Package'
+  pool:
+    vmImage: 'windows-latest'
+  dependsOn: 
+  - WindowsBuildAndTest
+  - LinuxBuildAndTest
+  steps:
+  - task: NuGetCommand@2
+    inputs:
+      command: push
+      packagesToPush: '$(build.artifactStagingDirectory)/**/CifParser*.nupkg'
+      nuGetFeedType: external
+      publishFeedCredentials: NuGet

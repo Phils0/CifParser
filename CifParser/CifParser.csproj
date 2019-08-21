@@ -2,6 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Phil Sharp</Authors>
+    <Description>UK Rail CIF format parser</Description>
+    <PackageProjectUrl>https://github.com/Phils0/CifParser/</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/Phils0/CifParser/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/Phils0/CifParser/</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>ukrail cif</PackageTags>
+    <PackageVersion>0.1.0</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
