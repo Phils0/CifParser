@@ -3,13 +3,16 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Phil Sharp</Authors>
-    <Description>UK Rail CIF format parser</Description>
+    <Description>Processes a UK rail timetable file in the CIF format.  Works with both RDG and Netowrk Rail versions of the file.</Description>
     <PackageProjectUrl>https://github.com/Phils0/CifParser/</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/Phils0/CifParser/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/Phils0/CifParser/</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>ukrail cif</PackageTags>
-    <PackageVersion>0.1.0</PackageVersion>
+    <PackageVersion>0.0.0</PackageVersion>
+    <Title>UK Rail Timetable CIF parser</Title>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
