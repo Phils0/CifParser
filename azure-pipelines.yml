@@ -17,21 +17,17 @@ jobs:
     displayName: GitVersion
     inputs:
       configFilePath: 'GitVersion.yml'
-  - script: dotnet restore
-    displayName: Nuget restore
   - script: dotnet build /p:Version=$(GitVersion.AssemblySemVer)
     displayName: Build
   - script: dotnet test --no-build
     displayName: Unit Test
-  - script: dotnet pack --no-build -o '$(build.artifactStagingDirectory)' p:PackageVersion=$(GitVersion.NuGetVersion)
+  - script: dotnet pack CifParser/CifParser.csproj --no-build -o '$(build.artifactStagingDirectory)' p:PackageVersion=$(GitVersion.NuGetVersion)
     displayName: Create Nuget package
 - job: LinuxBuildAndTest
   displayName: 'Linux build and test'
   pool:
     vmImage: 'ubuntu-latest'
   steps:
-  - script: dotnet restore
-    displayName: Nuget restore
   - script: dotnet build
     displayName: Build
   - script: dotnet test
