@@ -21,7 +21,7 @@ jobs:
     displayName: Build
   - script: dotnet test --no-build
     displayName: Unit Test
-  - script: dotnet pack CifParser/CifParser.csproj --no-build -o $(build.artifactStagingDirectory) p:PackageVersion=$(GitVersion.NuGetVersion)
+  - script: dotnet pack CifParser/CifParser.csproj --no-build -o $(build.artifactStagingDirectory) -p:PackageVersion=$(GitVersion.NuGetVersion)
     displayName: Create Nuget package
 - job: LinuxBuildAndTest
   displayName: 'Linux build and test'
