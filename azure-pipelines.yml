@@ -44,7 +44,11 @@ jobs:
   steps:
   - download: current
     artifact: CifParserPackage
-  - task: DotNetCoreCLI@2
+  - task: NuGetToolInstaller@0
+    inputs:
+      versionSpec: '>=4.9.0' 
+      checkLatest: true
+  - task: NuGetCommand@2
     inputs:
       command: push
       packagesToPush: $(Pipeline.Workspace)/**/CifParser*.nupkg
