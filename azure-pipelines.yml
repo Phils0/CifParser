@@ -47,6 +47,12 @@ jobs:
   - task: NuGetCommand@2
     inputs:
       command: push
-      packagesToPush: $(Pipeline.Workspace)/CifParser*.nupkg
+      packagesToPush: $(Pipeline.Workspace)/**/CifParser*.nupkg
+      nuGetFeedType: external
+      publishFeedCredentials: NuGet
+  - task: NuGetCommand@2
+    inputs:
+      command: push
+      packagesToPush: $(Pipeline.Workspace)/**/CifParser*.snupkg
       nuGetFeedType: external
       publishFeedCredentials: NuGet
