@@ -23,6 +23,8 @@ jobs:
     displayName: Unit Test
   - script: dotnet pack CifParser/CifParser.csproj --no-build -o $(build.artifactStagingDirectory) -p:PackageVersion=$(GitVersion.NuGetVersion)
     displayName: Create Nuget package
+  - publish: $(build.artifactStagingDirectory)
+    artifact: CifParserPackage
 - job: LinuxBuildAndTest
   displayName: 'Linux build and test'
   pool:
@@ -40,9 +42,11 @@ jobs:
   - WindowsBuildAndTest
   - LinuxBuildAndTest
   steps:
+  - download: current
+    artifact: CifParserPackage
   - task: NuGetCommand@2
     inputs:
       command: push
-      packagesToPush: $(build.artifactStagingDirectory)/**/CifParser*.nupkg
+      packagesToPush: $(Pipeline.Workspace)/CifParser*.nupkg
       nuGetFeedType: external
       publishFeedCredentials: NuGet
