@@ -15,8 +15,8 @@ namespace CifParser
     /// </summary>
     public class StationParserFactory : IParserFactory
     {
-        public const int TtisIgnoreLines = 1;
-        public const int DtdIgnoreLines = 6;
+        public const int Ttis = 1;
+        public const int Dtd = 6;
         
         private ILogger Logger;
 
@@ -32,7 +32,7 @@ namespace CifParser
         /// <remarks>Defaults to assume its a DTD extract</remarks>
         public IParser CreateParser()
         {
-            return CreateParser(DtdIgnoreLines);
+            return CreateParser(Dtd);
         }
         
         /// <summary>

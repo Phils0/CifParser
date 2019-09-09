@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using Serilog;
 
-namespace CifExtractor
+namespace CifParser.Archives
 {
     public interface IArchive
     {

@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace CifExtractor
+namespace CifParser.Archives
 {
     public interface IExtractor
     {

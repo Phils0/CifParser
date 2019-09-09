@@ -3,7 +3,7 @@ using System.IO;
 using System.IO.Compression;
 using Serilog;
 
-namespace CifExtractor
+namespace CifParser.Archives
 {
     public class RdgZipExtractor : IExtractor, IArchiveFileExtractor
     {

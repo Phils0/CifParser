@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace CifExtractor
+namespace CifParser.Archives
 {
     /// <summary>
     /// Returns files contained in an archive

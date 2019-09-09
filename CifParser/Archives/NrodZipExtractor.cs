@@ -1,7 +1,7 @@
 using System.IO;
 using System.IO.Compression;
 
-namespace CifExtractor
+namespace CifParser.Archives
 {
     internal class NrodZipExtractor : IExtractor
     {

@@ -1,10 +1,10 @@
 using System.IO;
-using CifExtractor;
+using CifParser.Archives;
 using NSubstitute;
 using Serilog;
 using Xunit;
 
-namespace CifExtractorTest
+namespace CifParserTest.Archives
 {
     public class NrodZipExtractorTest
     {

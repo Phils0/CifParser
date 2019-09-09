@@ -21,7 +21,7 @@ namespace CifParserTest
         public void ParseTtisFile()
         {
             var factory = new StationParserFactory(Substitute.For<ILogger>());
-            var parser = factory.CreateParser(StationParserFactory.TtisIgnoreLines);
+            var parser = factory.CreateParser(StationParserFactory.Ttis);
 
             var records = parser.Read(TtisStationFile).Cast<Station>().ToArray();
 
@@ -35,7 +35,7 @@ namespace CifParserTest
         public void ParseDtdFile()
         {
             var factory = new StationParserFactory(Substitute.For<ILogger>());
-            var parser = factory.CreateParser(StationParserFactory.DtdIgnoreLines);
+            var parser = factory.CreateParser(StationParserFactory.Dtd);
 
             var records = parser.Read(DtdStationFile).Cast<Station>().ToArray();
 
