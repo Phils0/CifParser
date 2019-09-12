@@ -14,13 +14,23 @@ namespace CifParserTest.Archives
         public void CanReadCifFile()
         {
             var archive = new Archive(cifGzipFile, Substitute.For<ILogger>());
-            var extractor = new NrodZipExtractor(archive);
+            var extractor = new NrodZipExtractor(archive, Substitute.For<ILogger>());
 
             using (var reader = extractor.ExtractCif())
             {
                 var first = reader.ReadLine();
                 Assert.NotEmpty(first);
             }
+        }
+        
+        [Fact]
+        public void CanParseCifFile()
+        {
+            var archive = new Archive(cifGzipFile, Substitute.For<ILogger>());
+            var extractor = new NrodZipExtractor(archive, Substitute.For<ILogger>());
+
+            var records = extractor.ParseCif();
+            Assert.NotEmpty(records);
         }
     }
     
@@ -39,6 +49,16 @@ namespace CifParserTest.Archives
                 var first = reader.ReadLine();
                 Assert.NotEmpty(first);
             }
+        }
+        
+        [Fact]
+        public void CanParseCifFile()
+        {
+            var archive = new Archive(rdgZipFile, Substitute.For<ILogger>());
+            var extractor = new RdgZipExtractor(archive, Substitute.For<ILogger>());
+
+            var records = extractor.ParseCif();
+            Assert.NotEmpty(records);
         }
        
         [Fact]

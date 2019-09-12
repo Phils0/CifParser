@@ -64,7 +64,7 @@ namespace CifParser.Archives
         public bool IsDtdZip => FullName.Contains("RJTTF");    // Initially just simple file name check
         public IExtractor CreateExtractor()
         {
-            return IsRdgZip ? (IExtractor) new RdgZipExtractor(this,  _logger) : new NrodZipExtractor(this);
+            return IsRdgZip ? (IExtractor) new RdgZipExtractor(this,  _logger) : new NrodZipExtractor(this, _logger);
         }
 
         public IArchiveFileExtractor CreateFileExtractor()

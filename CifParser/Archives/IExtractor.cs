@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 
 namespace CifParser.Archives
@@ -14,5 +15,7 @@ namespace CifParser.Archives
         /// </summary>
         /// <returns></returns>
         TextReader ExtractCif();
+        
+        IEnumerable<IRecord> ParseCif();
     }
 }

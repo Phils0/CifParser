@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using Serilog;
@@ -23,6 +24,13 @@ namespace CifParser.Archives
         public TextReader ExtractCif()
         {           
             return ExtractFile(CifExtension);
+        }
+
+        public IEnumerable<IRecord> ParseCif()
+        {
+            var factory = new ConsolidatorFactory(_logger);
+            var parser = factory.CreateParser();
+            return parser.Read(ExtractCif());
         }
 
         /// <summary>
