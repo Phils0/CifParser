@@ -60,10 +60,5 @@ namespace CifParser
                 }
             }
         }
-
-        public IEnumerable<IRecord> Read(string file)
-        {
-            return Consolidate(_parser.Read(file));
-        }
     }
 }

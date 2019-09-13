@@ -5,21 +5,21 @@ using Serilog;
 
 namespace CifParser.Archives
 {
-    internal class NrodZipExtractor : IExtractor
+    internal class NrodZipCifExtractor : ICifExtractor, ICifParser
     {
         public IArchive Archive { get; }
 
         private readonly ILogger _logger;
         private readonly IParserFactory _cifParserFactory;
 
-        internal NrodZipExtractor(IArchive archive, ILogger logger, IParserFactory cifParserFactory = null)
+        internal NrodZipCifExtractor(IArchive archive, ILogger logger, IParserFactory cifParserFactory = null)
         {
             Archive = archive;
             _logger = logger;
             _cifParserFactory = cifParserFactory ?? new ConsolidatorFactory(_logger);
         }
         
-        public TextReader ExtractCif()
+        public TextReader Extract()
         {           
             var fileStream = File.OpenRead(Archive.FullName);
             var decompressionStream = new GZipStream(fileStream, CompressionMode.Decompress);
@@ -30,10 +30,10 @@ namespace CifParser.Archives
         /// Standard implementation 
         /// </summary>
         /// <returns>Consolidated schedules</returns>
-        public IEnumerable<IRecord> ParseCif()
+        public IEnumerable<IRecord> Read()
         {
             var parser = _cifParserFactory.CreateParser();
-            return parser.Read(ExtractCif());
+            return parser.Read(Extract());
         }
     }
 }

@@ -3,7 +3,7 @@ using System.IO;
 
 namespace CifParser.Archives
 {
-    public interface IExtractor
+    public interface ICifExtractor
     {
         /// <summary>
         /// Archive
@@ -14,12 +14,6 @@ namespace CifParser.Archives
         /// Extracts the CIF file
         /// </summary>
         /// <returns></returns>
-        TextReader ExtractCif();
-        
-        /// <summary>
-        /// Extracts and parses a CIF file
-        /// </summary>
-        /// <returns></returns>
-        IEnumerable<IRecord> ParseCif();
+        TextReader Extract();
     }
 }

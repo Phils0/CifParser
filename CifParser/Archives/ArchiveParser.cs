@@ -4,7 +4,7 @@ using Serilog;
 
 namespace CifParser.Archives
 {
-    public class ArchiveParser : IArchiveParser
+    public class ArchiveParser : IArchiveParser, ICifParser
     {
         private readonly ILogger _logger;
         public IArchive Archive { get; }
@@ -17,10 +17,15 @@ namespace CifParser.Archives
 
         public IEnumerable<IRecord> ParseCif()
         {
-            var extractor = Archive.CreateExtractor();
-            return extractor.ParseCif();
+            var extractor = Archive.CreateCifParser();
+            return extractor.Read();
         }
 
+        IEnumerable<IRecord> ICifParser.Read()
+        {
+            return ParseCif();
+        }
+        
         public IEnumerable<IRecord> ParseFile(string extension)
         {
             var extractor = Archive.CreateFileExtractor();
@@ -29,7 +34,7 @@ namespace CifParser.Archives
 
             IParser CreateParser()
             {
-                if (!RdgZipExtractor.StationExtension.Equals(extension, StringComparison.InvariantCultureIgnoreCase))
+                if (!RdgZipCifExtractor.StationExtension.Equals(extension, StringComparison.InvariantCultureIgnoreCase))
                     throw new ArgumentException($"File type {extension} not supported");
 
                 var stationParserFactory = new StationParserFactory(_logger);

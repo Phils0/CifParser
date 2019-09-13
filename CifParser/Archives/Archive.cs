@@ -31,7 +31,7 @@ namespace CifParser.Archives
         /// Creates a extractor to get the CIF file from the archive
         /// </summary>
         /// <returns></returns>
-        IExtractor CreateExtractor();
+        ICifExtractor CreateExtractor();
         
         /// <summary>
         /// Creates a extractor to get the CIF file from the archive
@@ -40,7 +40,13 @@ namespace CifParser.Archives
         IArchiveFileExtractor CreateFileExtractor();
         
         /// <summary>
-        /// Creates a extractor to get the CIF file from the archive
+        /// Creates a parser to process the CIF file from the archive
+        /// </summary>
+        /// <returns></returns>
+        ICifParser CreateCifParser();
+        
+        /// <summary>
+        /// Creates a parser to process the non-CIF file from the archive
         /// </summary>
         /// <returns></returns>
         IArchiveParser CreateParser();
@@ -68,9 +74,14 @@ namespace CifParser.Archives
         public bool IsTtisZip => FullName.Contains("ttis");    // Initially just simple file name check
         
         public bool IsDtdZip => FullName.Contains("RJTTF");    // Initially just simple file name check
-        public IExtractor CreateExtractor()
+        public ICifExtractor CreateExtractor()
         {
-            return IsRdgZip ? (IExtractor) new RdgZipExtractor(this,  _logger) : new NrodZipExtractor(this, _logger);
+            return IsRdgZip ? (ICifExtractor) new RdgZipCifExtractor(this,  _logger) : new NrodZipCifExtractor(this, _logger);
+        }
+
+        public ICifParser CreateCifParser()
+        {
+            return (ICifParser) CreateExtractor();
         }
 
         public IArchiveFileExtractor CreateFileExtractor()
@@ -78,7 +89,7 @@ namespace CifParser.Archives
             if(!IsRdgZip)
                 throw new InvalidOperationException($"{File.Name} is a Network Rail archive. It does not support IArchiveFileExtractor");
 
-            return new RdgZipExtractor(this, _logger);
+            return new RdgZipCifExtractor(this, _logger);
         }
 
         public IArchiveParser CreateParser()

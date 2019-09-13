@@ -15,13 +15,15 @@ namespace CifParserTest
     {
         private static readonly string DataFile = Path.Combine(".", "Data", "toc-update-mon.CIF");
 
+        private TextReader Reader => File.OpenText(DataFile);
+        
         [Fact]
         public void ParseFile()
         {
             var factory = new CifParserFactory(Substitute.For<ILogger>());
             var parser = factory.CreateParser();
 
-            var records = parser.Read(DataFile).ToArray();
+            var records = parser.Read(Reader).ToArray();
 
             Assert.IsType<Header>(records[0]);
             Assert.IsType<Trailer>(records[records.Length - 1]);
@@ -34,7 +36,7 @@ namespace CifParserTest
             var factory = new ConsolidatorFactory(Substitute.For<ILogger>());
             var parser = factory.CreateParser();
 
-            var records = parser.Read(DataFile).ToArray();
+            var records = parser.Read(Reader).ToArray();
 
             Assert.IsType<Header>(records[0]);
             Assert.IsType<Trailer>(records[records.Length - 1]);
@@ -47,7 +49,7 @@ namespace CifParserTest
             var factory = new ConsolidatorFactory(Substitute.For<ILogger>());
             var parser = factory.CreateParser();
 
-            var schedule = parser.Read(DataFile).OfType<Schedule>().First();
+            var schedule = parser.Read(Reader).OfType<Schedule>().First();
 
             Assert.NotEmpty(schedule.Records);
         }

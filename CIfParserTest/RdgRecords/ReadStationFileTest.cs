@@ -23,7 +23,7 @@ namespace CifParserTest
             var factory = new StationParserFactory(Substitute.For<ILogger>());
             var parser = factory.CreateParser(StationParserFactory.Ttis);
 
-            var records = parser.Read(TtisStationFile).Cast<Station>().ToArray();
+            var records = parser.Read(File.OpenText(TtisStationFile)).Cast<Station>().ToArray();
 
             Assert.NotEmpty(records);
 
@@ -37,7 +37,7 @@ namespace CifParserTest
             var factory = new StationParserFactory(Substitute.For<ILogger>());
             var parser = factory.CreateParser(StationParserFactory.Dtd);
 
-            var records = parser.Read(DtdStationFile).Cast<Station>().ToArray();
+            var records = parser.Read(File.OpenText(DtdStationFile)).Cast<Station>().ToArray();
 
             Assert.NotEmpty(records);
 
