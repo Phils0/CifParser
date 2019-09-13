@@ -10,11 +10,13 @@ namespace CifParser.Archives
         public IArchive Archive { get; }
 
         private readonly ILogger _logger;
-        
-        internal NrodZipExtractor(IArchive archive, ILogger logger)
+        private readonly IParserFactory _cifParserFactory;
+
+        internal NrodZipExtractor(IArchive archive, ILogger logger, IParserFactory cifParserFactory = null)
         {
             Archive = archive;
             _logger = logger;
+            _cifParserFactory = cifParserFactory ?? new ConsolidatorFactory(_logger);
         }
         
         public TextReader ExtractCif()
@@ -30,8 +32,7 @@ namespace CifParser.Archives
         /// <returns>Consolidated schedules</returns>
         public IEnumerable<IRecord> ParseCif()
         {
-            var factory = new ConsolidatorFactory(_logger);
-            var parser = factory.CreateParser();
+            var parser = _cifParserFactory.CreateParser();
             return parser.Read(ExtractCif());
         }
     }

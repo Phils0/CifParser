@@ -12,13 +12,15 @@ namespace CifParser.Archives
         public const string StationExtension = ".MSN";
         
         private readonly ILogger _logger;
+        private readonly IParserFactory _cifParserFactory;
 
         public IArchive Archive { get; }
         
-        public RdgZipExtractor(IArchive archive, ILogger logger)
+        public RdgZipExtractor(IArchive archive, ILogger logger, IParserFactory cifParserFactory = null)
         {
             Archive = archive;
             _logger = logger;
+            _cifParserFactory = cifParserFactory ?? new ConsolidatorFactory(_logger);
         }
         
         public TextReader ExtractCif()
@@ -28,8 +30,7 @@ namespace CifParser.Archives
 
         public IEnumerable<IRecord> ParseCif()
         {
-            var factory = new ConsolidatorFactory(_logger);
-            var parser = factory.CreateParser();
+            var parser = _cifParserFactory.CreateParser();
             return parser.Read(ExtractCif());
         }
 

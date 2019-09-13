@@ -38,6 +38,12 @@ namespace CifParser.Archives
         /// </summary>
         /// <returns></returns>
         IArchiveFileExtractor CreateFileExtractor();
+        
+        /// <summary>
+        /// Creates a extractor to get the CIF file from the archive
+        /// </summary>
+        /// <returns></returns>
+        IArchiveParser CreateParser();
     }
     
     public class Archive : IArchive
@@ -73,6 +79,11 @@ namespace CifParser.Archives
                 throw new InvalidOperationException($"{File.Name} is a Network Rail archive. It does not support IArchiveFileExtractor");
 
             return new RdgZipExtractor(this, _logger);
+        }
+
+        public IArchiveParser CreateParser()
+        {
+            return new ArchiveParser(this, _logger);
         }
 
         public string FullName => File.FullName;

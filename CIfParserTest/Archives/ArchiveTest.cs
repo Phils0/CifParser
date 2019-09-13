@@ -28,6 +28,16 @@ namespace CifParserTest.Archives
             Assert.NotNull(archive.CreateExtractor());
         }
 
+        [Theory]
+        [InlineData("ttis144.zip")]
+        [InlineData("RJTTF293.zip")]
+        [InlineData("toc-update-tue.CIF.gz")]
+        public void CreatesArchiveParser(string file)
+        {
+            var archive = CreateArchive(file);
+            Assert.NotNull(archive.CreateParser());
+        }
+        
         [Fact]
         public void CreatesFileExtractorThrowsExceptionWhenNotRdgArchive()
         {

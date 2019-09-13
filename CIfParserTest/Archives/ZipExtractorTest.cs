@@ -36,13 +36,12 @@ namespace CifParserTest.Archives
     
     public class RdgZipExtractorTest
     {
-        private static readonly string rdgZipFile = Path.Combine(".", "Data", "ttis144.zip");
-               
-        [Fact]
-        public void CanReadCifFile()
+        [Theory]
+        [InlineData("ttis144.zip")]
+        [InlineData("RJTTF293.zip")]
+        public void CanReadCifFile(string file)
         {
-            var archive = new Archive(rdgZipFile, Substitute.For<ILogger>());
-            var extractor = new RdgZipExtractor(archive,  Substitute.For<ILogger>());
+            var extractor = CreateExtractor(file);
 
             using (var reader = extractor.ExtractCif())
             {
@@ -51,21 +50,30 @@ namespace CifParserTest.Archives
             }
         }
         
-        [Fact]
-        public void CanParseCifFile()
+        private RdgZipExtractor CreateExtractor(string file)
         {
-            var archive = new Archive(rdgZipFile, Substitute.For<ILogger>());
-            var extractor = new RdgZipExtractor(archive, Substitute.For<ILogger>());
+            var localFile = Path.Combine(".", "Data", file);
+            var archive = new Archive(new FileInfo(localFile), Substitute.For<ILogger>());
+            return new RdgZipExtractor(archive,  Substitute.For<ILogger>());
+        }
+        
+        [Theory]
+        [InlineData("ttis144.zip")]
+        [InlineData("RJTTF293.zip")]
+        public void CanParseCifFile(string file)
+        {
+            var extractor = CreateExtractor(file);
 
             var records = extractor.ParseCif();
             Assert.NotEmpty(records);
         }
        
-        [Fact]
-        public void CanReadStationFile()
+        [Theory]
+        [InlineData("ttis144.zip")]
+        [InlineData("RJTTF293.zip")]
+        public void CanReadStationFile(string file)
         {
-            var archive = new Archive(new FileInfo(rdgZipFile), Substitute.For<ILogger>());
-            var extractor = new RdgZipExtractor(archive,  Substitute.For<ILogger>());
+            var extractor = CreateExtractor(file);
 
             using (var reader = extractor.ExtractFile(RdgZipExtractor.StationExtension))
             {
