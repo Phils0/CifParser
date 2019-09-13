@@ -1,21 +1,21 @@
 # CifParser
-A .Net Standard 2.0 Library to parse a CIF formatted UK rail timetable.  Can read both the Network Rail Open Data format and the RDG Format.
+A .Net Standard 2.0 Library to parse a CIF formatted UK rail timetable.  Can read both the Network Rail Open Data format and the RDG Format, both DTD and TTIS archives.
 
 [![Build Status](https://dev.azure.com/phils0oss/CifParser/_apis/build/status/Phils0.CifParser?branchName=master)](https://dev.azure.com/phils0oss/CifParser/_build/latest?definitionId=1&branchName=master)
 
-## How do I read a CIF file?
+## How do I read a CIF archive?
 
-Instantiate a Parser and Read to be returned an enumeration of CIF records.  Records are returned in the order they appear in the file.
+Instantiate an Archive, create a Parser and Read to be returned an enumeration of CIF records.  Records are returned in the order they appear in the file.
 
 ```
-var factory = new CifParserFactory(logger);
-var parser = factory.CreateParser();
-var records = parser.Read(file);
+var archive = new Archive(file, logger);
+var parser = archive.CreateCifParser();
+var records = parser.Read();
 ```
 
 ## Grouping Schedule records.
 
-You can group a set of schedule records together into a `Schedule`.
+By default a set of schedule records are grouped together into a `Schedule`.
 A schedule comprises a list of records in order:
 * A `ScheduleDetails` record (BS)
 * A `ScheduleDetailsExtraData` record (BX)
@@ -25,10 +25,6 @@ A schedule comprises a list of records in order:
 * A `TerminalLocation` record (LT)
 
 ```
-var factory = new ConsolidatorFactory(logger);
-var parser = factory.CreateParser();
-var records = parser.Read(file);
-
 // To read an indivdual schedule
 var schedule = records.OfType<Schedule>().First();
 foreach(var scheduleRecord in schedule.Records)
@@ -46,17 +42,9 @@ RDG zip archives contain a cif file (.mca) plus additional data files.  The CIF 
 The additional files are a work in progress, currently only the master station file (.msn) is handled.
 
 ```
-var archive = new Archive(rdgZipFile, logger);
-
-var factory = new StationParserFactory(logger);
-var archiveType = Archive.IsDtdZip
-    ? StationParserFactory.Dtd
-    : StationParserFactory.Ttis;
-var parser = factory.CreateParser(archiveType);
-
-var extractor = archive.CreateFileExtractor();
-var reader = extractor.ExtractFile(RdgZipExtractor.StationExtension);
-var records = parser.Read(reader);
+var archive = new Archive(file, logger);
+var parser = archive.CreateParser();
+var records = parser.ReadFile(RdgZipExtractor.StationExtension);
 ```
 
 ## Implementation Details, why return `IEnumerable<ICifRecord>`?
@@ -64,10 +52,3 @@ var records = parser.Read(reader);
 It reads the CIF file record by record, yielding to the client once it has constructed a record.  This means it does not need to hold the whole set of records in memory at any time.
 
 The implementation uses the [FileHelpers](https://www.filehelpers.net/) package to do most of the heavy lifting to acheive this.
-
-# CifExtractor
-A .Net Standard 2.0 Library to extract a CIF file from an archive.  
-* `NrodZipExtractor` extracts the cif file from the Network Rail Open Data gz archive.
-* `RdgZipExtractor` extracts the cif file from the RDG zip archive.  It can additionally extract the other files in the archive.
-
-The Cif file is extracted directly into a `TextReader` that can be used when calling the CifParser

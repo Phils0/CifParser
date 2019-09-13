@@ -16,13 +16,13 @@ namespace CifParser.Archives
         /// Parses a CIF file from an archive
         /// </summary>
         /// <returns>A set of schedules</returns>
-        IEnumerable<IRecord> ParseCif();
+        IEnumerable<IRecord> ReadCif();
         
         /// <summary>
         /// Parses a non-CIF file from an archive
         /// </summary>
         /// <param name="extension">file extension</param>
         /// <returns>A set of records</returns>
-        IEnumerable<IRecord> ParseFile(string extension);
+        IEnumerable<IRecord> ReadFile(string extension);
     }
 }

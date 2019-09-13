@@ -15,7 +15,7 @@ namespace CifParser.Archives
             Archive = archive;
         }
 
-        public IEnumerable<IRecord> ParseCif()
+        public IEnumerable<IRecord> ReadCif()
         {
             var extractor = Archive.CreateCifParser();
             return extractor.Read();
@@ -23,10 +23,10 @@ namespace CifParser.Archives
 
         IEnumerable<IRecord> ICifParser.Read()
         {
-            return ParseCif();
+            return ReadCif();
         }
         
-        public IEnumerable<IRecord> ParseFile(string extension)
+        public IEnumerable<IRecord> ReadFile(string extension)
         {
             var extractor = Archive.CreateFileExtractor();
             var parser = CreateParser();
