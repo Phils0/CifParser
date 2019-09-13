@@ -11,7 +11,7 @@ namespace CifParserTest.Archives
     {
         [Theory]
         [InlineData("ttis144.zip")]
-        [InlineData("RJTTF293.zip")]
+        [InlineData("RJTTF293.ZIP")]
         [InlineData("toc-update-tue.CIF.gz")]
         public void ParseCifRecords(string file)
         {
@@ -28,7 +28,7 @@ namespace CifParserTest.Archives
         
         [Theory]
         [InlineData("ttis144.zip")]
-        [InlineData("RJTTF293.zip")]
+        [InlineData("RJTTF293.ZIP")]
         public void CreatesArchiveParser(string file)
         {
             var parser = CreateParser(file);

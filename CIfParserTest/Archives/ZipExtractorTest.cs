@@ -38,7 +38,7 @@ namespace CifParserTest.Archives
     {
         [Theory]
         [InlineData("ttis144.zip")]
-        [InlineData("RJTTF293.zip")]
+        [InlineData("RJTTF293.ZIP")]
         public void CanReadCifFile(string file)
         {
             var extractor = CreateExtractor(file);
@@ -59,7 +59,7 @@ namespace CifParserTest.Archives
         
         [Theory]
         [InlineData("ttis144.zip")]
-        [InlineData("RJTTF293.zip")]
+        [InlineData("RJTTF293.ZIP")]
         public void CanParseCifFile(string file)
         {
             var extractor = CreateExtractor(file);
@@ -70,7 +70,7 @@ namespace CifParserTest.Archives
        
         [Theory]
         [InlineData("ttis144.zip")]
-        [InlineData("RJTTF293.zip")]
+        [InlineData("RJTTF293.ZIP")]
         public void CanReadStationFile(string file)
         {
             var extractor = CreateExtractor(file);
