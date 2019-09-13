@@ -5,14 +5,14 @@ using Serilog;
 
 namespace CifParser.Archives
 {
-    internal class NrodZipCifExtractor : ICifExtractor, ICifParser
+    internal class NrodZipExtractor : ICifExtractor, ICifParser
     {
         public IArchive Archive { get; }
 
         private readonly ILogger _logger;
         private readonly IParserFactory _cifParserFactory;
 
-        internal NrodZipCifExtractor(IArchive archive, ILogger logger, IParserFactory cifParserFactory = null)
+        internal NrodZipExtractor(IArchive archive, ILogger logger, IParserFactory cifParserFactory = null)
         {
             Archive = archive;
             _logger = logger;

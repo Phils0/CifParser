@@ -76,7 +76,7 @@ namespace CifParser.Archives
         public bool IsDtdZip => FullName.Contains("RJTTF");    // Initially just simple file name check
         public ICifExtractor CreateExtractor()
         {
-            return IsRdgZip ? (ICifExtractor) new RdgZipCifExtractor(this,  _logger) : new NrodZipCifExtractor(this, _logger);
+            return IsRdgZip ? (ICifExtractor) new RdgZipExtractor(this,  _logger) : new NrodZipExtractor(this, _logger);
         }
 
         public ICifParser CreateCifParser()
@@ -89,7 +89,7 @@ namespace CifParser.Archives
             if(!IsRdgZip)
                 throw new InvalidOperationException($"{File.Name} is a Network Rail archive. It does not support IArchiveFileExtractor");
 
-            return new RdgZipCifExtractor(this, _logger);
+            return new RdgZipExtractor(this, _logger);
         }
 
         public IArchiveParser CreateParser()

@@ -14,7 +14,7 @@ namespace CifParserTest.Archives
         public void CanReadCifFile()
         {
             var archive = new Archive(cifGzipFile, Substitute.For<ILogger>());
-            var extractor = new NrodZipCifExtractor(archive, Substitute.For<ILogger>());
+            var extractor = new NrodZipExtractor(archive, Substitute.For<ILogger>());
 
             using (var reader = extractor.Extract())
             {
@@ -27,7 +27,7 @@ namespace CifParserTest.Archives
         public void CanParseCifFile()
         {
             var archive = new Archive(cifGzipFile, Substitute.For<ILogger>());
-            var extractor = new NrodZipCifExtractor(archive, Substitute.For<ILogger>());
+            var extractor = new NrodZipExtractor(archive, Substitute.For<ILogger>());
 
             var records = extractor.Read();
             Assert.NotEmpty(records);
@@ -50,11 +50,11 @@ namespace CifParserTest.Archives
             }
         }
         
-        private RdgZipCifExtractor CreateExtractor(string file)
+        private RdgZipExtractor CreateExtractor(string file)
         {
             var localFile = Path.Combine(".", "Data", file);
             var archive = new Archive(new FileInfo(localFile), Substitute.For<ILogger>());
-            return new RdgZipCifExtractor(archive,  Substitute.For<ILogger>());
+            return new RdgZipExtractor(archive,  Substitute.For<ILogger>());
         }
         
         [Theory]
@@ -75,7 +75,7 @@ namespace CifParserTest.Archives
         {
             var extractor = CreateExtractor(file);
 
-            using (var reader = extractor.ExtractFile(RdgZipCifExtractor.StationExtension))
+            using (var reader = extractor.ExtractFile(RdgZipExtractor.StationExtension))
             {
                 var first = reader.ReadLine();
                 Assert.NotNull(first);

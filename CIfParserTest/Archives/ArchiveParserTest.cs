@@ -32,14 +32,14 @@ namespace CifParserTest.Archives
         public void CreatesArchiveParser(string file)
         {
             var parser = CreateParser(file);
-            Assert.NotEmpty(parser.ReadFile(RdgZipCifExtractor.StationExtension));
+            Assert.NotEmpty(parser.ReadFile(RdgZipExtractor.StationExtension));
         }
         
         [Fact]
         public void CreatesFileExtractorThrowsExceptionWhenNotRdgArchive()
         {
             var parser = CreateParser("toc-update-tue.CIF.gz");
-            Assert.Throws<InvalidOperationException>(() => parser.ReadFile(RdgZipCifExtractor.StationExtension));
+            Assert.Throws<InvalidOperationException>(() => parser.ReadFile(RdgZipExtractor.StationExtension));
         }
     }
 }

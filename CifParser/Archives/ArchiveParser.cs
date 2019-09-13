@@ -34,7 +34,7 @@ namespace CifParser.Archives
 
             IParser CreateParser()
             {
-                if (!RdgZipCifExtractor.StationExtension.Equals(extension, StringComparison.InvariantCultureIgnoreCase))
+                if (!RdgZipExtractor.StationExtension.Equals(extension, StringComparison.InvariantCultureIgnoreCase))
                     throw new ArgumentException($"File type {extension} not supported");
 
                 var stationParserFactory = new StationParserFactory(_logger);

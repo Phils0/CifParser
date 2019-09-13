@@ -6,7 +6,7 @@ using Serilog;
 
 namespace CifParser.Archives
 {
-    public class RdgZipCifExtractor : ICifExtractor, ICifParser, IArchiveFileExtractor
+    public class RdgZipExtractor : ICifExtractor, ICifParser, IArchiveFileExtractor
     {
         public const string CifExtension = ".MCA";
         public const string StationExtension = ".MSN";
@@ -16,7 +16,7 @@ namespace CifParser.Archives
 
         public IArchive Archive { get; }
         
-        public RdgZipCifExtractor(IArchive archive, ILogger logger, IParserFactory cifParserFactory = null)
+        public RdgZipExtractor(IArchive archive, ILogger logger, IParserFactory cifParserFactory = null)
         {
             Archive = archive;
             _logger = logger;
