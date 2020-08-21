@@ -1,7 +1,6 @@
 ﻿using CifParser;
 using CifParser.Records;
 using System;
-using Castle.Core;
 using Xunit;
 
 namespace CifParserTest

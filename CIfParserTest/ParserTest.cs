@@ -1,5 +1,4 @@
 ﻿using CifParser;
-using CifParser.Records;
 using System;
 using System.IO;
 using System.Linq;

@@ -1,10 +1,8 @@
 ﻿using CifParser;
 using CifParser.Records;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using NSubstitute;
 using Serilog;
 using Xunit;

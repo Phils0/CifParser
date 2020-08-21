@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using CifParser;
 using CifParser.RdgRecords;
-using CifParser.Records;
 using NSubstitute;
 using Serilog;
 using Xunit;
