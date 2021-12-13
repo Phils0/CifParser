@@ -18,9 +18,14 @@ jobs:
         inputs:
           packageType: 'sdk'
           version: '6.0.x'
-      - task: gittools.gitversion.gitversion-task.GitVersion@5
-        displayName: GitVersion
+      - task: gitversion/setup@0
+        displayName: Install GitVersion
         inputs:
+          versionSpec: '5.x'
+      - task: gitversion/execute@0
+        displayName: Determine Version
+        inputs:
+          useConfigFile: true
           configFilePath: 'GitVersion.yml'
       - script: dotnet build /p:Version=$(GitVersion.AssemblySemVer)
         displayName: Build
