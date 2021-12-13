@@ -68,47 +68,80 @@ namespace CifParserTest
             Assert.Empty(returned);
         }
 
+        private static IParser StubParser(IRecord[] records)
+        {
+            var parser = Substitute.For<IParser>();
+            parser.Read(Arg.Any<TextReader>()).Returns(records);
+            return parser;
+        }
+        
+        [Fact]
+        public void SetScheduleDetails()
+        {
+            var records = new IRecord[] {new ScheduleDetails(), new IntermediateLocation(), new TerminalLocation()};
+            var parser = StubParser(records);
+
+            var consolidator = new ScheduleConsolidator(parser, Substitute.For<ILogger>());
+            var returned = consolidator.Read(_dummy).Single() as Schedule;
+
+            Assert.Equal(records[0],returned.ScheduleDetails);
+        }
+        
+        [Fact]
+        public void SetScheduleExtraDetails()
+        {
+            var records = new IRecord[] {new ScheduleDetails(), new ScheduleExtraData(), new IntermediateLocation(), new TerminalLocation()};
+            var parser = StubParser(records);
+
+            var consolidator = new ScheduleConsolidator(parser, Substitute.For<ILogger>());
+            var returned = consolidator.Read(_dummy).Single() as Schedule;
+
+            Assert.Equal(records[1],returned.ScheduleExtraDetails);
+        }
+        
+        [Fact]
+        public void NoExtraDetails()
+        {
+            var records = new IRecord[] {new ScheduleDetails(), new IntermediateLocation(), new TerminalLocation()};
+            var parser = StubParser(records);
+
+            var consolidator = new ScheduleConsolidator(parser, Substitute.For<ILogger>());
+            var returned = consolidator.Read(_dummy).Single() as Schedule;
+
+            Assert.Null(returned.ScheduleExtraDetails);
+        }
+        
+        [Fact]
+        public void ReturnStopsAndChanges()
+        {
+            var records = new IRecord[] {new OriginLocation(), new ScheduleChange(), new IntermediateLocation(), new TerminalLocation()};
+            var cifRecords = (new IRecord[] { new ScheduleDetails(), new ScheduleExtraData() })
+                .Concat(records)
+                .ToArray();
+            var parser = StubParser(cifRecords);
+
+            var consolidator = new ScheduleConsolidator(parser, Substitute.For<ILogger>());
+
+            var returned = consolidator.Read(_dummy).Single() as Schedule;
+            var scheduleRecords = returned.Records.ToArray();
+            
+            Assert.Equal(records, scheduleRecords);
+        }
+        
         [Fact]
         public void ReturnAllRecords()
         {
-            var records = new IRecord[] { new ScheduleDetails(), new IntermediateLocation(), new TerminalLocation() };
-            var parser = Substitute.For<IParser>();
-            parser.Read(Arg.Any<TextReader>()).Returns(records);
+            var records = new IRecord[] {new ScheduleDetails(), new ScheduleExtraData(), new IntermediateLocation(), new TerminalLocation()};
+            var parser = StubParser(records);
 
             var consolidator = new ScheduleConsolidator(parser, Substitute.For<ILogger>());
 
             var returned = consolidator.Read(_dummy).Single() as Schedule;
-
-            Assert.Equal(records.Length, returned.Records.Count);
-            Assert.All(returned.Records, r => Assert.Contains(r, records));
+            var allRecords = returned.All.ToArray();
+            
+            Assert.Equal(records, allRecords);
         }
-
-        public static IEnumerable<object[]> ScheduleRecords
-        {
-            get
-            {
-                yield return new object[] { new ScheduleExtraData() };
-                yield return new object[] { new OriginLocation() };
-                yield return new object[] { new IntermediateLocation() };
-                yield return new object[] { new ScheduleChange() };
-            }
-        }
-
-        [Theory]
-        [MemberData(nameof(ScheduleRecords))]
-        public void ReturnScheduleRecordsInService(IRecord record)
-        {
-            var records = new IRecord[] { new ScheduleDetails(), record, new TerminalLocation() };
-            var parser = Substitute.For<IParser>();
-            parser.Read(Arg.Any<TextReader>()).Returns(records);
-
-            var consolidator = new ScheduleConsolidator(parser, Substitute.For<ILogger>());
-
-            var returned = consolidator.Read(_dummy).Single() as Schedule;
-
-            Assert.Contains(record, returned.Records);
-        }
-
+        
         [Fact]
         public void MultipleServicesReturned()
         {
@@ -159,7 +192,7 @@ namespace CifParserTest
         }
         
         [Fact]
-        public void ReturnAllRecordsWHenHaveDelete()
+        public void ReturnAllRecordsWhenHaveDelete()
         {
             var records = new IRecord[] { new ScheduleDetails() {Action = RecordAction.Delete}, new Trailer(),  };
             var parser = Substitute.For<IParser>();

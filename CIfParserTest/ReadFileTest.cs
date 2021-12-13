@@ -49,7 +49,7 @@ namespace CifParserTest
 
             var schedule = parser.Read(Reader).OfType<Schedule>().First();
 
-            Assert.NotEmpty(schedule.Records);
+            Assert.NotEmpty(schedule.All);
         }
     }
 }
