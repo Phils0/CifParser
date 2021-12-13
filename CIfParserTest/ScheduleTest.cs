@@ -97,5 +97,22 @@ namespace CifParserTest
 
             Assert.True(schedule.IsTerminated);
         }
+        
+        [Fact]
+        public void HasExtraData()
+        {
+            var schedule = TestSchedule;
+            schedule.Add(new ScheduleDetails());
+            schedule.Add(new ScheduleExtraData());
+            Assert.True(schedule.HasExtraDetails);
+        }
+        
+        [Fact]
+        public void DoesNotHaveExtraData()
+        {
+            var schedule = TestSchedule;
+            schedule.Add(new ScheduleDetails());
+            Assert.False(schedule.HasExtraDetails);
+        }
     }
 }

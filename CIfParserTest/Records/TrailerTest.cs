@@ -18,7 +18,7 @@ namespace CifParserTest.Records
 
         private Trailer ParseRecord()
         {
-            return ParserTest.ParseRecords(_records)[0] as Trailer;
+            return (Trailer) ParserTest.ParseRecords(_records)[0];
         }
 
         [Fact]

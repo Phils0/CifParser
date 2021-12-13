@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using CifParser;
 using CifParser.RdgRecords;
@@ -11,7 +10,7 @@ namespace CifParserTest.RdgRecords
 {
     public class StationTest
     {
-        private const string _station =
+        private const string Station =
             @"A    TAMWORTH HL                   9TMWTHHLTAH   TAM14213 63045 5                 ";
 
         [Fact]
@@ -21,16 +20,16 @@ namespace CifParserTest.RdgRecords
             Assert.NotNull(record);
         }
 
-        private Station ParseRecord(string record = null)
+        private Station ParseRecord(string? record = null)
         {
-            var input = new StringReader(record ?? _station);
+            var input = new StringReader(record ?? Station);
 
             var factory = new StationParserFactory(Substitute.For<ILogger>());
             var parser = factory.CreateParser(0);
 
             var records = parser.Read(input).ToArray();
            
-            return records[0] as Station;
+            return (Station) records[0];
         }
 
         [Fact]

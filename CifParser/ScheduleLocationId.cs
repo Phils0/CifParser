@@ -16,7 +16,7 @@ namespace CifParser
             Sequence = locationSequence;
         }
 
-        public bool Equals(ScheduleLocationId other)
+        public bool Equals(ScheduleLocationId? other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;

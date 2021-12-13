@@ -15,9 +15,9 @@ namespace CifParserTest.Records
             Assert.NotNull(record);
         }
 
-        private OriginLocation ParseRecord(string record = null)
+        private OriginLocation ParseRecord(string? record = null)
         {
-            return ParserTest.ParseRecords(record ?? _origin)[0] as OriginLocation;
+            return (OriginLocation) ParserTest.ParseRecords(record ?? _origin)[0];
         }
 
         [Fact]

@@ -16,10 +16,10 @@ namespace CifParserTest.Records
             Assert.NotNull(record);
         }
 
-        private ScheduleChange ParseRecord(string records = null)
+        private ScheduleChange ParseRecord(string? records = null)
         {
-            records = records ?? _change;
-            return ParserTest.ParseRecords(records)[0] as ScheduleChange;
+            records ??= _change;
+            return (ScheduleChange) ParserTest.ParseRecords(records)[0];
         }
 
         [Fact]

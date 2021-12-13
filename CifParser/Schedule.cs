@@ -43,6 +43,11 @@ namespace CifParser
             }
         }
         
+        /// <summary>
+        /// Has Extra details
+        /// </summary>
+        public bool HasExtraDetails => ScheduleExtraDetails != null;
+        
         public ScheduleId GetId()
         {
             var details = ScheduleDetails;

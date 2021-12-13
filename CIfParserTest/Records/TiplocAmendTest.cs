@@ -8,7 +8,7 @@ namespace CifParserTest.Records
 
         private TiplocInsertAmend ParseAmendRecord(string record = @"TASURBITN00557100NSURBITON                  87171   0SURSURBITON")
         {
-            return ParserTest.ParseRecords(record)[0] as TiplocInsertAmend;
+            return (TiplocInsertAmend) ParserTest.ParseRecords(record)[0];
         }
 
         [Theory]

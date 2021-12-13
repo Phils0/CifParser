@@ -19,7 +19,7 @@ namespace CifParserTest.Records
 
         private Header ParseRecord()
         {
-            return ParserTest.ParseRecords(_records)[0] as Header;
+            return (Header) ParserTest.ParseRecords(_records)[0];
         }
 
         [Fact]

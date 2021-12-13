@@ -17,10 +17,10 @@ namespace CifParserTest.Records
             Assert.NotNull(record);
         }
 
-        private Association ParseRecord(string records = null)
+        private Association ParseRecord(string? records = null)
         {
-            records = records ?? _permanent;
-            return ParserTest.ParseRecords(records)[0] as Association;
+            records ??= _permanent;
+            return (Association) ParserTest.ParseRecords(records)[0];
         }
 
         [Fact]

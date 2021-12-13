@@ -14,7 +14,7 @@ namespace CifParserTest
     // Not checking for errors in format i.e. wrongly ordered records
     public class ScheduleConsolidatorTest
     {
-        private readonly TextReader _dummy = null;
+        private readonly TextReader _dummy = Substitute.For<TextReader>();
 
         public static IEnumerable<object[]> NonScheduleRecords
         {
@@ -82,7 +82,7 @@ namespace CifParserTest
             var parser = StubParser(records);
 
             var consolidator = new ScheduleConsolidator(parser, Substitute.For<ILogger>());
-            var returned = consolidator.Read(_dummy).Single() as Schedule;
+            var returned = GetSchedule(consolidator);
 
             Assert.Equal(records[0],returned.ScheduleDetails);
         }
@@ -94,7 +94,7 @@ namespace CifParserTest
             var parser = StubParser(records);
 
             var consolidator = new ScheduleConsolidator(parser, Substitute.For<ILogger>());
-            var returned = consolidator.Read(_dummy).Single() as Schedule;
+            var returned = GetSchedule(consolidator);
 
             Assert.Equal(records[1],returned.ScheduleExtraDetails);
         }
@@ -106,7 +106,7 @@ namespace CifParserTest
             var parser = StubParser(records);
 
             var consolidator = new ScheduleConsolidator(parser, Substitute.For<ILogger>());
-            var returned = consolidator.Read(_dummy).Single() as Schedule;
+            var returned = GetSchedule(consolidator);
 
             Assert.Null(returned.ScheduleExtraDetails);
         }
@@ -121,9 +121,7 @@ namespace CifParserTest
             var parser = StubParser(cifRecords);
 
             var consolidator = new ScheduleConsolidator(parser, Substitute.For<ILogger>());
-
-            var returned = consolidator.Read(_dummy).Single() as Schedule;
-            var scheduleRecords = returned.Records.ToArray();
+            var scheduleRecords = GetSchedule(consolidator).Records.ToArray();
             
             Assert.Equal(records, scheduleRecords);
         }
@@ -135,13 +133,16 @@ namespace CifParserTest
             var parser = StubParser(records);
 
             var consolidator = new ScheduleConsolidator(parser, Substitute.For<ILogger>());
-
-            var returned = consolidator.Read(_dummy).Single() as Schedule;
-            var allRecords = returned.All.ToArray();
+            var allRecords = GetSchedule(consolidator).All.ToArray();
             
             Assert.Equal(records, allRecords);
         }
-        
+
+        private Schedule GetSchedule(ScheduleConsolidator consolidator)
+        {
+            return (Schedule) consolidator.Read(_dummy).Single();
+        }
+
         [Fact]
         public void MultipleServicesReturned()
         {

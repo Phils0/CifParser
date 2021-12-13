@@ -17,9 +17,9 @@ namespace CifParserTest.Records
             Assert.NotNull(record);
         }
 
-        private IntermediateLocation ParseRecord(string record = null)
+        private IntermediateLocation ParseRecord(string? record = null)
         {
-            return ParserTest.ParseRecords(record ?? _stop)[0] as IntermediateLocation;
+            return (IntermediateLocation) ParserTest.ParseRecords(record ?? _stop)[0];
         }
 
         [Fact]

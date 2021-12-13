@@ -19,7 +19,7 @@ namespace CifParser
             RunsFrom = runsFrom;
         }
 
-        public bool Equals(ScheduleId other)
+        public bool Equals(ScheduleId? other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;

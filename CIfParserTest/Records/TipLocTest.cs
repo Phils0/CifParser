@@ -19,7 +19,7 @@ TDLNDRBES
         {
             IRecord[] records = ParseRecords();
 
-            var record = records[0] as TiplocInsertAmend;
+            var record = (TiplocInsertAmend) records[0];
             Assert.Equal(RecordAction.Create, record.Action);
         }
 
@@ -33,7 +33,7 @@ TDLNDRBES
         {
             IRecord[] records = ParseRecords();
 
-            var record = records[2] as TiplocInsertAmend;
+            var record = (TiplocInsertAmend) records[2];
             Assert.Equal(RecordAction.Update, record.Action);
         }
 

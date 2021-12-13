@@ -26,7 +26,7 @@ namespace CifParserTest
             var converter = new WorkingTimeConverter();
 
             var time = converter.StringToField(input) as TimeSpan?;
-            Assert.Equal(expected, time.Value);
+            Assert.Equal(expected, time);
         }
 
         [Fact]
