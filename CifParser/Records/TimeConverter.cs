@@ -15,7 +15,7 @@ namespace CifParser.Records
             NullValue = nullValue;
         }
 
-        public override object StringToField(string source)
+        public override object? StringToField(string source)
         {
             if (string.Equals(NullValue, source))
                 return null;

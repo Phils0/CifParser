@@ -15,14 +15,15 @@ namespace CifParser.Records
         /// </summary>
         /// <remarks>Length 2, Position 1-2</remarks>
         [FieldFixedLength(2)]
-        public string Type { get; set; }
+        public string Type { get; set; } = null!;
         /// <summary>
         ///Location - TIPLOC 
         /// </summary>
         /// <remarks>Length 7, Position 3-9</remarks>
         [FieldFixedLength(7)]
         [FieldTrim(TrimMode.Right)]
-        public string Location { get; set; }
+        public string Location { get; set; } = string.Empty;
+
         /// <summary>
         /// Location Sequence 
         /// </summary>
@@ -31,7 +32,7 @@ namespace CifParser.Records
         [FieldFixedLength(1)]
         [FieldTrim(TrimMode.Right)]
         [FieldNullValue(1)]
-        public int Sequence { get; set; }
+        public int Sequence { get; set; } = -1;
         /// <summary>
         /// Working Arrival Time
         /// </summary>
@@ -52,28 +53,28 @@ namespace CifParser.Records
         /// <remarks>Length 3, Position20-22/remarks>
         [FieldFixedLength(3)]
         [FieldTrim(TrimMode.Right)]
-        public string Platform { get; set; }
+        public string Platform { get; set; } = string.Empty;
         /// <summary>
         /// Path
         /// </summary>
         /// <remarks>Length 3, Position 23-25/remarks>
         [FieldFixedLength(3)]
         [FieldTrim(TrimMode.Right)]
-        public string Path { get; set; }
+        public string Path { get; set; } = string.Empty;
         /// <summary>
         /// Activity
         /// </summary>
         /// <remarks>Length 12, Position 26-37/remarks>
         [FieldFixedLength(12)]
         [FieldTrim(TrimMode.Right)]
-        public string Activities { get; set; }
+        public string Activities { get; set; } = string.Empty;
         /// <summary>
         /// Spare - NOT USED
         /// </summary>
         /// <remarks>Length 43, Position38-80</remarks> 
         [FieldFixedLength(43)]
         [FieldTrim(TrimMode.Right)]
-        public string Spare { get; set; }
+        public string Spare { get; set; } = string.Empty;
         
         public override string ToString()
         {

@@ -15,26 +15,27 @@ namespace CifParser.Records
         /// </summary>
         /// <remarks>Length 2, Position 1-2</remarks>
         [FieldFixedLength(2)]
-        public string Type { get; set; }
+        public string Type { get; set; } = null!;
+
         /// <summary>
         /// CRUD record type 
         /// </summary>
         /// <remarks>Length 1, Position 3-3</remarks>
         [FieldFixedLength(1)]
         [FieldConverter(typeof(ScheduleActionConverter))]
-        public RecordAction Action { get; set; }
+        public RecordAction Action { get; set; } = RecordAction.NotSet;
         /// <summary>
         /// Base Train UID - the through train
         /// </summary>
         /// <remarks>Length 6, Position 4-9</remarks>
         [FieldFixedLength(6)]
-        public string MainUid { get; set; }
+        public string MainUid { get; set; } = null!;
         /// <summary>
         /// Assocociated Train UID - the split\join
         /// </summary>
         /// <remarks>Length 6, Position 10-15</remarks>
         [FieldFixedLength(6)]
-        public string AssociatedUid { get; set; }
+        public string AssociatedUid { get; set; } = null!;
         /// <summary>
         /// Runs from
         /// </summary>
@@ -42,7 +43,7 @@ namespace CifParser.Records
         /// Format: yyMMdd </remarks> 
         [FieldFixedLength(6)]
         [FieldConverter(ConverterKind.Date, "yyMMdd")]
-        public DateTime RunsFrom { get; set; }
+        public DateTime RunsFrom { get; set; } = DateTime.MinValue;
         /// <summary>
         /// Runs To
         /// </summary>
@@ -51,7 +52,7 @@ namespace CifParser.Records
         [FieldFixedLength(6)]
         [FieldTrim(TrimMode.Right)]
         [FieldConverter(ConverterKind.Date, "yyMMdd")]
-        public DateTime? RunsTo { get; set; }
+        public DateTime? RunsTo { get; set; } = DateTime.MinValue;
         /// <summary>
         /// Days association occurs5
         /// </summary>
@@ -59,7 +60,7 @@ namespace CifParser.Records
         /// Monday to Sunday</remarks>
         [FieldFixedLength(7)]
         [FieldTrim(TrimMode.Right)]
-        public string DayMask { get; set; }
+        public string DayMask { get; set; } = string.Empty;
         /// <summary>
         /// Association Category
         /// </summary>
@@ -70,7 +71,7 @@ namespace CifParser.Records
         /// NP - Next/Previous.</remarks>
         [FieldFixedLength(2)]
         [FieldTrim(TrimMode.Right)]
-        public string Category { get; set; }
+        public string Category { get; set; } = string.Empty;
         /// <summary>
         /// Association Date Indicator
         /// </summary>
@@ -81,14 +82,14 @@ namespace CifParser.Records
         /// P - Over previous midnight</remarks>
         [FieldFixedLength(1)]
         [FieldTrim(TrimMode.Right)]
-        public string DateIndicator { get; set; }
+        public string DateIndicator { get; set; } = string.Empty;
         /// <summary>
         /// Location - TIPLOC where the association occurs
         /// </summary>
         /// <remarks>Length 7, Position 38-44/remarks>
         [FieldFixedLength(7)]
         [FieldTrim(TrimMode.Right)]
-        public string Location { get; set; }
+        public string Location { get; set; } = string.Empty;
         /// <summary>
         /// Base Location Sequence 
         /// </summary>
@@ -97,7 +98,8 @@ namespace CifParser.Records
         [FieldFixedLength(1)]
         [FieldTrim(TrimMode.Right)]
         [FieldNullValue(1)]
-        public int MainSequence { get; set; }
+        public int MainSequence { get; set; } = -1;
+
         /// <summary>
         /// Association Location Sequence 
         /// </summary>
@@ -106,14 +108,14 @@ namespace CifParser.Records
         [FieldFixedLength(1)]
         [FieldTrim(TrimMode.Right)]
         [FieldNullValue(1)]
-        public int AssociationSequence { get; set; }
+        public int AssociationSequence { get; set; } = -1;
         /// <summary>
         /// Diagram Type - always T
         /// </summary>
         /// <remarks>Length 1, Position 47-47</remarks> 
         [FieldFixedLength(1)]
         [FieldTrim(TrimMode.Right)]
-        public string DiagramType { get; set; }
+        public string DiagramType { get; set; } = string.Empty;
         /// <summary>
         /// Association Type
         /// </summary>
@@ -122,20 +124,21 @@ namespace CifParser.Records
         /// O - Operating use </remarks> 
         [FieldFixedLength(1)]
         [FieldTrim(TrimMode.Right)]
-        public string AssociationType { get; set; }
+        public string AssociationType { get; set; } = string.Empty;
         /// <summary>
         /// Spare - NOT USED
         /// </summary>
         /// <remarks>Length 31, Position 49-79</remarks> 
         [FieldFixedLength(31)]
         [FieldTrim(TrimMode.Right)]
-        public string Spare { get; set; }
+        public string Spare { get; set; } = string.Empty;
+
         /// <summary>
         /// STP (Short Term Plan) Indicator
         /// </summary>
         /// <remarks>Length 1, Position 80-80</remarks> 
         [FieldFixedLength(1)]
-        public StpIndicator StpIndicator { get; set; }
+        public StpIndicator StpIndicator { get; set; } = StpIndicator.NotSet;
 
         public override string ToString()
         {

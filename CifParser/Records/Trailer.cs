@@ -14,7 +14,7 @@ namespace CifParser.Records
         /// </summary>
         /// <remarks>Length 2, Position 1-2</remarks>
         [FieldFixedLength(2)]
-        public string Type { get; set; }
+        public string Type { get; set; } = null!; 
         /// <summary>
         /// Spare - NOT USED
         /// </summary>
@@ -22,6 +22,6 @@ namespace CifParser.Records
         [FieldFixedLength(78)]
         [FieldTrim(TrimMode.Right)]
         [FieldOptional]
-        public string Spare { get; set; }
+        public string Spare { get; set; } = string.Empty;
     }
 }

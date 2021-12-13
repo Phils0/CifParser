@@ -16,7 +16,7 @@ namespace CifParser.Archives
 
         public IArchive Archive { get; }
         
-        public RdgZipExtractor(IArchive archive, ILogger logger, IParserFactory cifParserFactory = null)
+        public RdgZipExtractor(IArchive archive, ILogger logger, IParserFactory? cifParserFactory = null)
         {
             Archive = archive;
             _logger = logger;
@@ -54,7 +54,7 @@ namespace CifParser.Archives
                 }
             }
 
-            return null;
+            throw new FileNotFoundException($"{extension} not found in {Archive.FullName}");
         }
     }
 }

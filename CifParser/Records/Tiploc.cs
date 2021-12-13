@@ -1,4 +1,5 @@
-﻿using FileHelpers;
+﻿using System;
+using FileHelpers;
 
 namespace CifParser.Records
 {
@@ -14,14 +15,14 @@ namespace CifParser.Records
         /// <remarks>Length 2, Position 1-2</remarks>
         [FieldFixedLength(2)]
         [FieldConverter(typeof(TiplocRecordConverter))]
-        public RecordAction Action { get; set; }
+        public RecordAction Action { get; set; } = RecordAction.NotSet;
         /// <summary>
         /// TIPLOC code
         /// </summary>
         /// <remarks>Length 7, Position 3-9</remarks> 
         [FieldFixedLength(7)]
         [FieldTrim(TrimMode.Right)]
-        public string Code { get; set; }
+        public string Code { get; set; } = string.Empty;
         
         public override string ToString()
         {
@@ -40,53 +41,53 @@ namespace CifParser.Records
         /// </summary>
         /// <remarks>Length 2, Position 10-11</remarks> 
         [FieldFixedLength(2)]
-        public string Capitals { get; set; }
+        public string Capitals { get; set; } = string.Empty;
         /// <summary>
         /// National Location code - NLC
         /// </summary>
         /// <remarks>Length 6, Position 12-17</remarks> 
         [FieldFixedLength(6)]
-        public string Nalco { get; set; }
+        public string Nalco { get; set; } = string.Empty;
         /// <summary>
         /// National Location code check character
         /// </summary>
         /// <remarks>Length 1, Position 18-18</remarks> 
         [FieldFixedLength(1)]
-        public string NalcoCheckCharacter { get; set; }
+        public string NalcoCheckCharacter { get; set; } = string.Empty;
         /// <summary>
         /// TIPLOC description
         /// </summary>
         /// <remarks>Length 26, Position 19-44</remarks> 
         [FieldFixedLength(26)]
         [FieldTrim(TrimMode.Right)]
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
         /// <summary>
         /// Station numbers - STANOX Location code
         /// </summary>
         /// <remarks>Length 5, Position 45-49</remarks> 
         [FieldFixedLength(5)]
-        public string Stanox { get; set; }
+        public string Stanox { get; set; } = string.Empty;
         /// <summary>
         /// Post Office code - NO LONGER USED
         /// </summary>
         /// <remarks>Length 4, Position 50-53</remarks> 
         [FieldFixedLength(4)]
         [FieldTrim(TrimMode.Left)]
-        public string PostOfficeCode { get; set; }
+        public string PostOfficeCode { get; set; } = string.Empty;
         /// <summary>
         /// Three Letter Code - CRS
         /// </summary>
         /// <remarks>Length 3, Position 54-56</remarks> 
         [FieldFixedLength(3)]
         [FieldTrim(TrimMode.Right)]
-        public string ThreeLetterCode { get; set; }
+        public string ThreeLetterCode { get; set; } = string.Empty;
         /// <summary>
         /// NLC Description
         /// </summary>
         /// <remarks>Length 16, Position 57-72</remarks> 
         [FieldFixedLength(16)]
         [FieldTrim(TrimMode.Right)]
-        public string NlcDescription { get; set; }
+        public string NlcDescription { get; set; } = string.Empty;
         /// <summary>
         /// Spare - NOT USED
         /// </summary>
@@ -94,7 +95,7 @@ namespace CifParser.Records
         [FieldFixedLength(8)]
         [FieldTrim(TrimMode.Right)]
         [FieldOptional]
-        public string Spare { get; set; }
+        public string Spare { get; set; } = string.Empty;
         
         public override string ToString()
         {
@@ -115,6 +116,6 @@ namespace CifParser.Records
         [FieldFixedLength(71)]
         [FieldTrim(TrimMode.Right)]
         [FieldOptional]
-        public string Spare { get; set; }
+        public string Spare { get; set; } = string.Empty;
     }
 }

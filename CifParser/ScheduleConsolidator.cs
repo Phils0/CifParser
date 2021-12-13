@@ -32,7 +32,7 @@ namespace CifParser
 
         private IEnumerable<IRecord> Consolidate(IEnumerable<IRecord> records)
         {
-            Schedule current = null;
+            Schedule? current = null;
 
             foreach (var record in records)
             {

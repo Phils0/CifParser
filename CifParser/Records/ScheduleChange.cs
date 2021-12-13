@@ -15,14 +15,15 @@ namespace CifParser.Records
         /// </summary>
         /// <remarks>Length 2, Position 1-2</remarks>
         [FieldFixedLength(2)]
-        public string Type { get; set; }
+        public string Type { get; set; } = null!;
         /// <summary>
         ///Location - TIPLOC 
         /// </summary>
         /// <remarks>Length 7, Position 3-9</remarks>
         [FieldFixedLength(7)]
         [FieldTrim(TrimMode.Right)]
-        public string Location { get; set; }
+        public string Location { get; set; } = string.Empty;
+
         /// <summary>
         /// Location Sequence 
         /// </summary>
@@ -31,7 +32,7 @@ namespace CifParser.Records
         [FieldFixedLength(1)]
         [FieldTrim(TrimMode.Right)]
         [FieldNullValue(1)]
-        public int Sequence { get; set; }
+        public int Sequence { get; set; } = -1;
         /// <summary>
         /// Train Category
         /// </summary>
@@ -39,7 +40,7 @@ namespace CifParser.Records
         /// For values: https://wiki.openraildata.com/index.php?title=CIF_Codes#Train_Category </remarks>
         [FieldFixedLength(2)]
         [FieldTrim(TrimMode.Right)]
-        public string Category { get; set; }
+        public string Category { get; set; } = string.Empty;
         /// <summary>
         /// Train Identity
         /// </summary>
@@ -47,7 +48,7 @@ namespace CifParser.Records
         /// Sometimes called the headcode (but not to be confused with headcode in this record)</remarks>
         [FieldFixedLength(4)]
         [FieldTrim(TrimMode.Right)]
-        public string TrainIdentity { get; set; }
+        public string TrainIdentity { get; set; } = string.Empty;
         /// <summary>
         /// NRS HeadCode
         /// </summary>
@@ -55,7 +56,7 @@ namespace CifParser.Records
         /// Not to be confused with the TrainIdentity in this record </remarks>
         [FieldFixedLength(4)]
         [FieldTrim(TrimMode.Right)]
-        public string HeadCode { get; set; }
+        public string HeadCode { get; set; } = string.Empty;
         /// <summary>
         /// Course Indicator - NO LONGER USED
         /// </summary>
@@ -63,14 +64,14 @@ namespace CifParser.Records
         /// Value is always 1</remarks>
         [FieldFixedLength(1)]
         [FieldTrim(TrimMode.Right)]
-        public string CourseIndicator { get; set; }
+        public string CourseIndicator { get; set; } = string.Empty;
         /// <summary>
         /// Train service code, used for revenue attribution
         /// </summary>
         /// <remarks>Length 8, Position 22-29</remarks>
         [FieldFixedLength(8)]
         [FieldTrim(TrimMode.Right)]
-        public string ServiceCode { get; set; }
+        public string ServiceCode { get; set; } = string.Empty;
         /// <summary>
         /// Portion Id, used for joining/splitting services
         /// </summary>
@@ -78,7 +79,7 @@ namespace CifParser.Records
         /// Contain the portion suffix for RSID </remarks>
         [FieldFixedLength(1)]
         [FieldTrim(TrimMode.Right)]
-        public string PortionId { get; set; }
+        public string PortionId { get; set; } = string.Empty;
         /// <summary>
         /// How the train is powered
         /// </summary>
@@ -86,7 +87,7 @@ namespace CifParser.Records
         /// For values: https://wiki.openraildata.com/index.php?title=CIF_Codes#Power_Type </remarks>
         [FieldFixedLength(3)]
         [FieldTrim(TrimMode.Right)]
-        public string PowerType { get; set; }
+        public string PowerType { get; set; } = string.Empty;
         /// <summary>
         /// How the train is powered detail
         /// </summary>
@@ -94,14 +95,14 @@ namespace CifParser.Records
         /// For values: https://wiki.openraildata.com/index.php?title=CIF_Codes#Timing_Load </remarks>
         [FieldFixedLength(4)]
         [FieldTrim(TrimMode.Right)]
-        public string TimingLoadType { get; set; }
+        public string TimingLoadType { get; set; } = string.Empty;
         /// <summary>
         /// Planned speed of service
         /// </summary>
         /// <remarks>Length 3, Position 38-40</remarks>
         [FieldFixedLength(3)]
         [FieldTrim(TrimMode.Right)]
-        public string Speed { get; set; }
+        public string Speed { get; set; } = string.Empty;
         /// <summary>
         /// How the train is powered detail
         /// </summary>
@@ -109,7 +110,7 @@ namespace CifParser.Records
         /// For values: https://wiki.openraildata.com/index.php?title=CIF_Codes#Operating_Characteristics </remarks>
         [FieldFixedLength(6)]
         [FieldTrim(TrimMode.Right)]
-        public string OperatingCharacteristics { get; set; }
+        public string OperatingCharacteristics { get; set; } = string.Empty;
         /// <summary>
         /// Seating classes available on service
         /// </summary>
@@ -119,7 +120,8 @@ namespace CifParser.Records
         [FieldFixedLength(1)]
         [FieldTrim(TrimMode.Right)]
         [FieldNullValue(ServiceClass.B)]
-        public ServiceClass SeatClass { get; set; }
+        public ServiceClass SeatClass { get; set; } = ServiceClass.None;
+
         /// <summary>
         /// Sleeper classes available on service
         /// </summary>
@@ -131,7 +133,8 @@ namespace CifParser.Records
         [FieldFixedLength(1)]
         [FieldTrim(TrimMode.Right)]
         [FieldNullValue(ServiceClass.None)]
-        public ServiceClass SleeperClass { get; set; }
+        public ServiceClass SleeperClass { get; set; } = ServiceClass.None;
+
         /// <summary>
         /// Reservation indicator
         /// </summary>
@@ -139,14 +142,14 @@ namespace CifParser.Records
         /// Values: ARSE </remarks>
         [FieldFixedLength(1)]
         [FieldNullValue(ReservationIndicator.None)]
-        public ReservationIndicator ReservationIndicator { get; set; }
+        public ReservationIndicator ReservationIndicator { get; set; } = ReservationIndicator.None;
         /// <summary>
         /// Connect Indicator - NOT USED
         /// </summary>
         /// <remarks>Length 1, Position 50-50</remarks>
         [FieldFixedLength(1)]
         [FieldTrim(TrimMode.Right)]
-        public string ConnectIndicator { get; set; }
+        public string ConnectIndicator { get; set; } = string.Empty;
         /// <summary>
         /// Available catering
         /// </summary>
@@ -159,7 +162,7 @@ namespace CifParser.Records
         /// T - Trolley service. </remarks>
         [FieldFixedLength(4)]
         [FieldTrim(TrimMode.Right)]
-        public string Catering { get; set; }
+        public string Catering { get; set; } = string.Empty;
         /// <summary>
         /// Service branding
         /// </summary>
@@ -167,14 +170,14 @@ namespace CifParser.Records
         /// E - Eurostar</remarks>
         [FieldFixedLength(4)]
         [FieldTrim(TrimMode.Right)]
-        public string Branding { get; set; }
+        public string Branding { get; set; } = string.Empty;
         /// <summary>
         /// Traction Class
         /// </summary>
         /// <remarks>Length 4, Position 59-62</remarks>
         [FieldFixedLength(4)]
         [FieldTrim(TrimMode.Right)]
-        public string TractionClass { get; set; }
+        public string TractionClass { get; set; } = string.Empty;
         /// <summary>
         /// UIC code
         /// </summary>
@@ -182,21 +185,21 @@ namespace CifParser.Records
         /// Only populated for trains travelling to/from Europe via the Channel Tunnel, otherwise blank.</remarks>
         [FieldFixedLength(5)]
         [FieldTrim(TrimMode.Right)]
-        public string Uic { get; set; }
+        public string Uic { get; set; } = string.Empty;
         /// <summary>
         /// Retail Service ID
         /// </summary>
         /// <remarks>Length 8, Position 68-75.  Id used in NRS</remarks>
         [FieldFixedLength(8)]
         [FieldTrim(TrimMode.Right)]
-        public string RetailServiceId { get; set; }
+        public string RetailServiceId { get; set; } = string.Empty;
         /// <summary>
         /// Spare - NOT USED
         /// </summary>
         /// <remarks>Length 5, Position 76-80</remarks> 
         [FieldFixedLength(5)]
         [FieldTrim(TrimMode.Right)]
-        public string Spare { get; set; }
+        public string Spare { get; set; } = string.Empty;
         
         public override string ToString()
         {

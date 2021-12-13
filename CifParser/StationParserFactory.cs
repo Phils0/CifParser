@@ -64,7 +64,7 @@ namespace CifParser
         /// <param name="engine"></param>
         /// <param name="recordLine"></param>
         /// <returns></returns>
-        private Type SelectStationRecord(MultiRecordEngine engine, string recordLine)
+        private Type? SelectStationRecord(MultiRecordEngine engine, string recordLine)
         {
             if (recordLine.Length == 0)
             {

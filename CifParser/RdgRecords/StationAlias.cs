@@ -1,3 +1,4 @@
+using System;
 using FileHelpers;
 
 namespace CifParser.RdgRecords
@@ -11,7 +12,7 @@ namespace CifParser.RdgRecords
         /// <remarks>Length 1, Position 1-1
         /// L records</remarks>
         [FieldFixedLength(1)]
-        public string RecordType { get; set; }
+        public string RecordType { get; set; } = null!;
         
         /// <summary>
         /// Name
@@ -21,7 +22,7 @@ namespace CifParser.RdgRecords
         /// that are trimmed away</remarks> 
         [FieldFixedLength(34)]
         [FieldTrim(TrimMode.Both)]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         
         /// <summary>
         /// Alias
@@ -31,6 +32,6 @@ namespace CifParser.RdgRecords
         /// that are trimmed away</remarks> 
         [FieldFixedLength(47)]
         [FieldTrim(TrimMode.Both)]
-        public string Alias { get; set; }
+        public string Alias { get; set; } = string.Empty;
     }
 }

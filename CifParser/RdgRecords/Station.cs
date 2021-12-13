@@ -1,9 +1,11 @@
-﻿using FileHelpers;
+﻿using System;
+using FileHelpers;
 
 namespace CifParser.RdgRecords
 {
     public enum InterchangeStatus
     {
+        NotSet = -1,
         NotAnInterchange = 0,
         Minor = 1,
         Normal = 2,
@@ -25,7 +27,7 @@ namespace CifParser.RdgRecords
         /// <remarks>Length 1, Position 1-1
         /// Only interested in A records</remarks>
         [FieldFixedLength(1)]
-        public string RecordType { get; set; }
+        public string RecordType { get; set; } = null!;
         
         /// <summary>
         /// Name
@@ -35,7 +37,7 @@ namespace CifParser.RdgRecords
         /// that are trimmed away</remarks> 
         [FieldFixedLength(34)]
         [FieldTrim(TrimMode.Both)]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         
         /// <summary>
         /// Interchange Status
@@ -46,7 +48,7 @@ namespace CifParser.RdgRecords
         /// 9 a subsidiary TIPLOC at a station which has more than one TIPLOC.
         /// Stations which have more than one TIPLOC always have the same principal 3-Letter Code.</remarks>
         [FieldFixedLength(1)]
-        public InterchangeStatus InterchangeStatus { get; set; }
+        public InterchangeStatus InterchangeStatus { get; set; } = InterchangeStatus.NotSet;
         
         /// <summary>
         /// TIPLOC code
@@ -54,8 +56,7 @@ namespace CifParser.RdgRecords
         /// <remarks>Length 7, Position 37-43</remarks> 
         [FieldFixedLength(7)]
         [FieldTrim(TrimMode.Right)]
-        public string Tiploc { get; set; }
-        
+        public string Tiploc { get; set; } = string.Empty;
 
         /// <summary>
         /// Three Letter Code - CRS
@@ -68,23 +69,23 @@ namespace CifParser.RdgRecords
         /// Should use the ThreeLetterCode as the one in public and then map to all TIPLOCs</remarks> 
         [FieldFixedLength(6)]
         [FieldTrim(TrimMode.Right)]
-        public string SubsidiaryThreeLetterCode { get; set; }
+        public string SubsidiaryThreeLetterCode { get; set; } = string.Empty;
 
         /// <summary>
         /// Three Letter Code - CRS
         /// </summary>
         /// <remarks>Length 3, Position 50-52</remarks> 
         [FieldFixedLength(3)]
-        public string ThreeLetterCode { get; set; }
-        
+        public string ThreeLetterCode { get; set; } = string.Empty;
+
         /// <summary>
         /// Ordnance Survey East
         /// </summary>
         /// <remarks>Length 3, Position 53-57
         /// Format is ‘1nnnn’ where nnnn is the distance in 0.1 km units.</remarks> 
         [FieldFixedLength(5)]
-        public int East { get; set; }
-        
+        public int East { get; set; } = -1;
+
         /// <summary>
         /// Ordnance Survey East
         /// </summary>
@@ -93,15 +94,15 @@ namespace CifParser.RdgRecords
         [FieldFixedLength(1)]
         [FieldConverter(ConverterKind.Boolean, "E", " ")]
         [FieldNullValue(false)]
-        public bool PositionIsEstimated { get; set; }
-        
+        public bool PositionIsEstimated { get; set; } = false;
+
         /// <summary>
         /// Ordnance Survey Northings
         /// </summary>
         /// <remarks>Length 5, Position 59-63
         /// Format is ‘6nnnn’ where nnnn is the distance in 0.1 km units.</remarks> 
         [FieldFixedLength(5)]
-        public int North { get; set; }
+        public int North { get; set; } = -1;
 
         /// <summary>
         /// Minimum Change time
@@ -109,7 +110,7 @@ namespace CifParser.RdgRecords
         /// <remarks>Length 1, Position 64-65
         /// in minutes </remarks>
         [FieldFixedLength(2)]
-        public byte MinimumChangeTime { get; set; }      
+        public byte MinimumChangeTime { get; set; } = 0;      
         
         /// <summary>
         /// Spare - NOT USED
@@ -118,7 +119,7 @@ namespace CifParser.RdgRecords
         [FieldFixedLength(17)]
         [FieldTrim(TrimMode.Right)]
         [FieldOptional]
-        public string Spare { get; set; }
+        public string Spare { get; set; } = string.Empty;
         
         public override string ToString()
         {

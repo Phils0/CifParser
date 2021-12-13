@@ -2,6 +2,7 @@
 {
     public enum RecordAction
         {
+            NotSet = -1,
             Create,
             Update,
             Delete

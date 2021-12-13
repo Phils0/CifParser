@@ -12,7 +12,7 @@ namespace CifParser.Archives
         private readonly ILogger _logger;
         private readonly IParserFactory _cifParserFactory;
 
-        internal NrodZipExtractor(IArchive archive, ILogger logger, IParserFactory cifParserFactory = null)
+        internal NrodZipExtractor(IArchive archive, ILogger logger, IParserFactory? cifParserFactory = null)
         {
             Archive = archive;
             _logger = logger;
