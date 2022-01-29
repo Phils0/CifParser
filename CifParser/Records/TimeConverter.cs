@@ -23,6 +23,26 @@ namespace CifParser.Records
             return ParseTime(source);
         }
 
+        public override string FieldToString(object @from)
+        {
+            
+            if (@from is TimeSpan timeSpan)
+            {
+                
+                var time = timeSpan.ToString("hhmm", Culture);
+                if (timeSpan.Seconds == 30)
+                    time += "H";
+                return time;
+            }
+
+            if (@from == null)
+            {
+                return NullValue;
+            }
+
+            throw new InvalidOperationException($"Invalid record type {@from.GetType()}");
+        }
+
         protected virtual TimeSpan ParseTime(string source)
         {
             return TimeSpan.ParseExact(source, "hhmm", Culture);

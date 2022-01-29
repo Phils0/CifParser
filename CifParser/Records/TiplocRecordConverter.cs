@@ -19,5 +19,27 @@ namespace CifParser.Records
                     throw new InvalidOperationException($"Invalid record type {source}");
             }
         }
+
+        public override string FieldToString(object @from)
+        {
+            if (@from is RecordAction recordAction)
+            {
+                switch (recordAction)
+                {
+                    case RecordAction.NotSet:
+                        throw new InvalidOperationException($"Invalid record type {recordAction}");
+                    case RecordAction.Create:
+                        return "TI";
+                    case RecordAction.Update:
+                        return "TA";
+                    case RecordAction.Delete:
+                        return "TD";
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+
+            throw new InvalidOperationException($"{@from.GetType()} is unsupported");
+        }
     }
 }

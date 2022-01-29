@@ -31,6 +31,7 @@ namespace CifParser.Records
         /// This is to handle where a location appears multiple times in a schedule</remarks>
         [FieldFixedLength(1)]
         [FieldTrim(TrimMode.Right)]
+        [FieldConverter(typeof(SequenceConverter))]
         [FieldNullValue(1)]
         public int Sequence { get; set; } = -1;
         /// <summary>

@@ -31,6 +31,7 @@ namespace CifParser.Records
         /// This is to handle where a location appears multiple times in a schedule</remarks>
         [FieldFixedLength(1)]
         [FieldTrim(TrimMode.Right)]
+        [FieldConverter(typeof(SequenceConverter))]
         [FieldNullValue(1)]
         public int Sequence { get; set; } = -1;
         /// <summary>
@@ -120,6 +121,7 @@ namespace CifParser.Records
         [FieldFixedLength(1)]
         [FieldTrim(TrimMode.Right)]
         [FieldNullValue(ServiceClass.B)]
+        [FieldConverter(typeof(ServiceClassConverter))]
         public ServiceClass SeatClass { get; set; } = ServiceClass.None;
 
         /// <summary>
@@ -133,6 +135,7 @@ namespace CifParser.Records
         [FieldFixedLength(1)]
         [FieldTrim(TrimMode.Right)]
         [FieldNullValue(ServiceClass.None)]
+        [FieldConverter(typeof(ServiceClassConverter))]
         public ServiceClass SleeperClass { get; set; } = ServiceClass.None;
 
         /// <summary>
@@ -142,6 +145,7 @@ namespace CifParser.Records
         /// Values: ARSE </remarks>
         [FieldFixedLength(1)]
         [FieldNullValue(ReservationIndicator.None)]
+        [FieldConverter(typeof(ReservationIndicatorConverter))]
         public ReservationIndicator ReservationIndicator { get; set; } = ReservationIndicator.None;
         /// <summary>
         /// Connect Indicator - NOT USED

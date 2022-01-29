@@ -98,6 +98,7 @@ namespace CifParser.Records
         [FieldFixedLength(1)]
         [FieldTrim(TrimMode.Right)]
         [FieldNullValue(1)]
+        [FieldConverter(typeof(SequenceConverter))]
         public int MainSequence { get; set; } = -1;
 
         /// <summary>
@@ -108,6 +109,7 @@ namespace CifParser.Records
         [FieldFixedLength(1)]
         [FieldTrim(TrimMode.Right)]
         [FieldNullValue(1)]
+        [FieldConverter(typeof(SequenceConverter))]
         public int AssociationSequence { get; set; } = -1;
         /// <summary>
         /// Diagram Type - always T

@@ -195,6 +195,7 @@ namespace CifParser.Records
         [FieldFixedLength(1)]
         [FieldTrim(TrimMode.Right)]
         [FieldNullValue(ServiceClass.B)]
+        [FieldConverter(typeof(ServiceClassConverter))]
         public ServiceClass SeatClass { get; set; } = ServiceClass.None;
 
         /// <summary>
@@ -208,6 +209,7 @@ namespace CifParser.Records
         [FieldFixedLength(1)]
         [FieldTrim(TrimMode.Right)]
         [FieldNullValue(ServiceClass.None)]
+        [FieldConverter(typeof(ServiceClassConverter))]
         public ServiceClass SleeperClass { get; set; } = ServiceClass.None;
         /// <summary>
         /// Reservation indicator
@@ -216,6 +218,7 @@ namespace CifParser.Records
         /// Values: ARSE </remarks>
         [FieldFixedLength(1)]
         [FieldNullValue(ReservationIndicator.None)]
+        [FieldConverter(typeof(ReservationIndicatorConverter))]
         public ReservationIndicator ReservationIndicator { get; set; } = ReservationIndicator.None;
         /// <summary>
         /// Connect Indicator - NOT USED
