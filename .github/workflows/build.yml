@@ -83,13 +83,13 @@ jobs:
             const tag_name = `v${{ steps.gitversion.outputs.AssemblySemVer }}`
             const tag_message = `Release ${tag_name}`
             const commit_sha = context.sha
-            await github.git.createRef({
+            await github.rest.git.createRef({
               owner,
               repo,
               ref: `refs/tags/${tag_name}`,
               sha: commit_sha
             })
-            await github.repos.createRelease({
+            await github.rest.repos.createRelease({
               owner,
               repo,
               tag_name,
